@@ -22,7 +22,6 @@ public class GuideController {
     @Autowired
     private GuideService guideService;
 
-    //    @RolesAllowed("ROLE_USER")
     @RequestMapping("get")
     @GetMapping
     public Response<GuideDTO> getUserDetails(@RequestParam String id) {

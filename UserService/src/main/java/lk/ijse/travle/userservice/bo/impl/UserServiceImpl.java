@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * @Author : Sudeera Madushan
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
         User userEntity = converter.getUserEntity(user);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         User saveUser = userRepo.save(userEntity);
-        saveUser.getAuths().add(new Auth(saveUser,roleRepo.findByType(user.getRole())));
+        saveUser.getAuths().addAll(user.getRole().stream().map(role -> new Auth(saveUser,roleRepo.findByType(role))).collect(Collectors.toList()));
         return new Response<>(HttpStatus.CREATED,"User save successfully",
                 converter.getUserDTO(saveUser));
     }

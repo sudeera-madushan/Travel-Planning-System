@@ -116,7 +116,12 @@
             <version>${jwt.version}</version>
             <scope>runtime</scope>
         </dependency>
-
+        <dependency>
+            <groupId>lk.ijse.travel</groupId>
+            <artifactId>GuideService</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

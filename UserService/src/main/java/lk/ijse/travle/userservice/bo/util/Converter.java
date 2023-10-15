@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 /**
  * @Author : Sudeera Madushan
  * @Date : 10/11/2023
@@ -27,6 +29,8 @@ public class Converter {
         return modelMapper.map(user, User.class);
     }
     public UserDTO getUserDTO(User user){
-        return modelMapper.map(user, UserDTO.class);
+        UserDTO dto = modelMapper.map(user, UserDTO.class);
+        dto.setRole(user.getAuths().stream().map(auth -> auth.getRole().getType()).collect(Collectors.toList()));
+        return dto;
     }
 }

@@ -31,6 +31,7 @@ public class UserServiceApplication {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.addConverter(new Base64ToByteConverter());
         modelMapper.addConverter(new ImageConverter());
+
         return modelMapper;
     }
     @Bean

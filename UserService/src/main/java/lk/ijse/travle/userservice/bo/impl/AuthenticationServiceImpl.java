@@ -41,10 +41,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public String checkAuth(String token) {
-        String s = jwtService.extractUserName(token);
-        System.out.println(s+"SSS");
-//        String username = userRepo.findByUsernameIgnoreCase(s).get().getUsername();
-//        System.out.println(username+"ASAS");
-        return "sudeera";
+        return  jwtService.extractUserName(token);
     }
 }
