@@ -1,9 +1,6 @@
 package lk.ijse.travle.userservice.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lk.ijse.travle.userservice.entity.security.User;
 import lombok.*;
 
@@ -21,11 +18,22 @@ import lombok.*;
 @Table(name = "customer")
 public class Customer extends SuperEntity{
     private int age;
-    private String full_name, gender, email, contact_no,address, nic_or_passport_no;
-    private byte[] nic_or_passport_image_front;
-    private byte[] nic_or_passport_image_back;
-    @Column(columnDefinition = "Text")
+    @Column(name = "full_name")
+    private String fullName;
+    private String gender;
+    private String email;
+    @Column(name = "contact_no")
+    private String contactNo;
+    private String address;
+    @Column(name = "nic_or_passport_no")
+    private String nicOrPassportNo;
+    @Column(name = "nic_or_passport_image_front", columnDefinition = "LONGTEXT")
+    private String nicOrPassportImageFront;
+    @Column(name = "nic_or_passport_image_back", columnDefinition = "LONGTEXT")
+    private String nicOrPassportImageBack;
+    @Column(columnDefinition = "LONGTEXT")
     private String remarks;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 }

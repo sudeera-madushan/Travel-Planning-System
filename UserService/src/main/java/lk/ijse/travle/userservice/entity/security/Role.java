@@ -37,7 +37,7 @@ public class Role extends SuperEntity {
         this.type = type;
     }
 
-    public Role(int id) {
+    public Role(String id) {
         this.id = id;
     }
 }

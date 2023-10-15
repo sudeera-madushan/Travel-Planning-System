@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @Getter
 public abstract class SuperEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    protected String id;
     @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt = LocalDateTime.now();

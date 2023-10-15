@@ -15,10 +15,22 @@ import lombok.*;
 public class CustomerDTO {
     private String id;
     private int age;
-    private String full_name, gender, email, contact_no,address, nic_or_passport_no;
-    private byte[] nic_or_passport_image_front;
-    private byte[] nic_or_passport_image_back;
+    private String fullName, gender, email, contactNo,address, nicOrPassportNo;
+    private byte[] nicOrPassportImageFront;
+    private byte[] nicOrPassportImageBack;
     private String remarks;
-    private UserDTO user;
+    private String userId;
 
+    public CustomerDTO( int age, String fullName, String gender, String email, String contactNo,
+                       String address, String nicOrPassportNo, String remarks, String userId) {
+        this.age = age;
+        this.fullName = fullName;
+        this.gender = gender;
+        this.email = email;
+        this.contactNo = contactNo;
+        this.address = address;
+        this.nicOrPassportNo = nicOrPassportNo;
+        this.remarks = remarks;
+        this.userId = userId;
+    }
 }

@@ -8,6 +8,7 @@ import lk.ijse.travle.userservice.dto.CustomerDTO;
 import lk.ijse.travle.userservice.dto.UserDTO;
 import lk.ijse.travle.userservice.entity.Customer;
 import lk.ijse.travle.userservice.persistence.CustomerRepo;
+import lk.ijse.travle.userservice.persistence.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,15 +25,19 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepo userDetailsRepo;
     @Autowired
+    private UserRepo userRepo;
+    @Autowired
     UserService userService;
     @Autowired
     private Converter converter;
     @Transactional
     @Override
     public Response<CustomerDTO> save(CustomerDTO customer) {
-        UserDTO saveUser = userService.save(customer.getUser());
-        customer.setUser(saveUser);
-        Customer save = userDetailsRepo.save(converter.getCustomerEntity(customer));
+//        UserDTO saveUser = userService.save();
+//        customer.setUser(saveUser);
+        Customer customerEntity = converter.getCustomerEntity(customer);
+        customerEntity.setUser(userRepo.findById(customer.getUserId()).get());
+        Customer save = userDetailsRepo.save(customerEntity);
         return new Response<>(HttpStatus.CREATED,"User Save Successfully",converter.getCustomerDTO(save));
     }
 

@@ -13,8 +13,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    int id;
+    String id;
     String username,password;
     private Type role;
+
+    public UserDTO(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }
 
