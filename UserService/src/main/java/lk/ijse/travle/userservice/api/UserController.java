@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * @Project : Next Travel Pvt. Ltd
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("api/v1/user")
 public class UserController {
     @Autowired
     private UserService userService;

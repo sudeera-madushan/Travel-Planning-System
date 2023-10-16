@@ -31,9 +31,9 @@ public class SecurityConfiguration {
          return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/auth","/user/save","/user","/hotel/save").permitAll()
+                        .requestMatchers("/api/v1/auth","/api/v1/user","/user","/hotel/save").permitAll()
                         .requestMatchers("/customer/delete").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST,"/user/admin").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/api/v1/user/admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET,"/customer/get").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

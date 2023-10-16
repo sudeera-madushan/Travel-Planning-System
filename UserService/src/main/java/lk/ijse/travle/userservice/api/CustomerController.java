@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @Project : Next Travel Pvt. Ltd
  */
 @RestController
-@RequestMapping("customer")
+@RequestMapping("api/v1/customer")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
@@ -26,13 +26,15 @@ public class CustomerController {
     }
     @RequestMapping("save")
     @ResponseBody
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping()
     public Response<CustomerDTO> save(
             @RequestPart CustomerDTO customer,
-            @RequestPart MultipartFile nic_or_passport_image_front,
-            @RequestPart MultipartFile nic_or_passport_image_back
+            @RequestPart byte[] nic_or_passport_image_front,
+            @RequestPart byte[] nic_or_passport_image_back
     ) {
-        return new Response<>(HttpStatus.OK,"",customer);
+        customer.setNicOrPassportImageFront(nic_or_passport_image_front);
+        customer.setNicOrPassportImageBack(nic_or_passport_image_back);
+        return customerService.save(customer);
     }
 
     @DeleteMapping("delete")

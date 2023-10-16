@@ -3,6 +3,7 @@ package lk.ijse.travle.userservice.bo.impl;
 import lk.ijse.travle.userservice.bo.AuthenticationService;
 import lk.ijse.travle.userservice.bo.JwtService;
 import lk.ijse.travle.userservice.dto.Response;
+import lk.ijse.travle.userservice.dto.Token;
 import lk.ijse.travle.userservice.dto.Type;
 import lk.ijse.travle.userservice.dto.UserDTO;
 import lk.ijse.travle.userservice.entity.security.Auth;
@@ -29,14 +30,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepo userRepo;
     private final JwtService jwtService;
     @Override
-    public Response<String> authenticate(UserDTO user) {
+    public Response<Token> authenticate(UserDTO user) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
         User userEntity = userRepo.findByUsernameIgnoreCase(user.getUsername()).orElseThrow(() -> new BadCredentialsException("User Not Found"));
         HashMap<String, Object> map = new HashMap<>();
         for (Auth auth : userEntity.getAuths()) {
             map.put("roles", auth.getRole().getType());
         }
-        return new Response<>(HttpStatus.OK,"Authenticate successfully",jwtService.generateToken(map,userEntity));
+        return new Response<>(HttpStatus.OK,"Authenticate successfully",
+                new Token(
+                        jwtService.generateToken(map,userEntity),
+                        userEntity.getAuths().stream().map(
+                                auth -> auth.getRole().getType()
+                        ).toList()));
     }
 
     @Override

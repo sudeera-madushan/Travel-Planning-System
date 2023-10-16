@@ -2,6 +2,7 @@ package lk.ijse.travle.userservice.bo;
 
 
 import lk.ijse.travle.userservice.dto.Response;
+import lk.ijse.travle.userservice.dto.Token;
 import lk.ijse.travle.userservice.dto.UserDTO;
 import lk.ijse.travle.userservice.entity.security.User;
 
@@ -11,6 +12,6 @@ import lk.ijse.travle.userservice.entity.security.User;
  * project : TravelPlanningSystem
  */
 public interface AuthenticationService {
-    Response<String> authenticate(UserDTO user);
+    Response<Token> authenticate(UserDTO user);
     String checkAuth(String token);
 }

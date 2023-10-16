@@ -27,14 +27,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private UserRepo userRepo;
     @Autowired
-    UserService userService;
+    private UserService userService;
     @Autowired
     private Converter converter;
     @Transactional
     @Override
     public Response<CustomerDTO> save(CustomerDTO customer) {
-//        UserDTO saveUser = userService.save();
-//        customer.setUser(saveUser);
         Customer customerEntity = converter.getCustomerEntity(customer);
         customerEntity.setUser(userRepo.findById(customer.getUserId()).get());
         Customer save = userDetailsRepo.save(customerEntity);

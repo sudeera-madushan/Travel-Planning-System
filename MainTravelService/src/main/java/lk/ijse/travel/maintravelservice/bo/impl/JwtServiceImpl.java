@@ -1,42 +1,33 @@
-package lk.ijse.travle.userservice.bo.impl;
+package lk.ijse.travel.maintravelservice.bo.impl;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lk.ijse.travle.userservice.bo.JwtService;
+import lk.ijse.travel.maintravelservice.bo.JwtService;
+import lk.ijse.travel.maintravelservice.dto.Auth;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.util.Date;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 
 /**
  * @Author : Sudeera Madushan
- * @Date : 10/7/2023
+ * @Date : 10/15/2023
  * @Project : TravelPlanningSystem
  */
 @Service
 public class JwtServiceImpl implements JwtService {
     @Value("${spring.jwt.secrete}")
     private String secrete;
-    private int jwtExpirationInMs;
-    private int refreshExpirationDateInMs;
 
-    @Value("${jwt.expirationDateInMs}")
-    public void setJwtExpirationInMs(int jwtExpirationInMs) {
-        this.jwtExpirationInMs = jwtExpirationInMs;
-    }
 
-    @Value("${jwt.refreshExpirationDateInMs}")
-    public void setRefreshExpirationDateInMs(int refreshExpirationDateInMs) {
-        this.refreshExpirationDateInMs = refreshExpirationDateInMs;
-    }
+
     @Override
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -56,7 +47,7 @@ public class JwtServiceImpl implements JwtService {
                 setClaims(claims).
                 setSubject(userDetails.getUsername()).
                 setIssuedAt(new Date(System.currentTimeMillis())).
-                setExpiration(new Date(System.currentTimeMillis() + (20000))).
+                setExpiration(new Date(System.currentTimeMillis() + (1800000))).
                 signWith(getSigninKey(), SignatureAlgorithm.HS256).
                 compact();
     }
@@ -65,6 +56,30 @@ public class JwtServiceImpl implements JwtService {
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUserName(token);
         return (Objects.equals(username, userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    @Override
+    public boolean isValid(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(secrete) // Use the same secret key as the authentication service
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            // Check if the token is expired (optional)
+            return !claims.getExpiration().before(new Date());
+        } catch (Exception e) {
+            // Token is invalid or expired
+            return false;
+        }
+    }
+
+    @Override
+    public Claims getClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(secrete)
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     private boolean isTokenExpired(String token) {
@@ -83,6 +98,26 @@ public class JwtServiceImpl implements JwtService {
     private Key getSigninKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secrete);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+    @Override
+    public List<GrantedAuthority> getUserDetails(String token) {
+
+        List<GrantedAuthority> authorities=new ArrayList<>();
+        Claims claims = getClaims(token);
+        String subject = (String) claims.get(Claims.SUBJECT);
+        String roles = (String) claims.get("roles");
+
+        roles = roles.replace("[", "").replace("]", "");
+        String[] roleNames = roles.split(",");
+        ArrayList<String> list = new ArrayList<>();
+
+        for (String aRoleName : roleNames) {
+            authorities.add(new Auth(aRoleName));
+        }
+        for (GrantedAuthority authority : authorities) {
+            System.out.println(authority.getAuthority());
+        }
+        return authorities;
     }
 
 }
