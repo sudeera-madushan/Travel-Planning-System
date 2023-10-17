@@ -4,6 +4,8 @@ import lk.ijse.travel.guideservice.entity.Guide;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @Author : Sudeera Madushan
  * @Date : 10/13/2023
