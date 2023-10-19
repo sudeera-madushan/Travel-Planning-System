@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
+//    @CrossOrigin(origins = "http://localhost:63342")
     @ResponseBody
     @PostMapping
     public Response<Token> authenticate(@RequestBody UserDTO user){
