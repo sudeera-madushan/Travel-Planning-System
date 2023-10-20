@@ -15,10 +15,10 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GuideDTO {
-    String name,address,gender,contact;
     String id;
+    String name,address,gender,contact;
     int age,experience;
-    byte[] image,nic_image_front,nic_image_back,guide_id_image_front,guide_id_image_back;
-    BigDecimal man_day_value;
+    byte[] image, nicImageFront, nicImageBack, guideIdImageFront, guideIdImageBack;
+    BigDecimal manDayValue;
     String remarks;
 }

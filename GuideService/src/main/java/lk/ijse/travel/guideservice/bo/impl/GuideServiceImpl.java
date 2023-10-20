@@ -25,9 +25,7 @@ public class GuideServiceImpl implements GuideService {
     @Transactional
     @Override
     public Response<GuideDTO> save(GuideDTO guideDTO) {
-        System.out.println(guideDTO);
         Guide entity = converter.getGuideEntity(guideDTO);
-        System.out.println(entity);
         Guide saveUser = guideRepo.save(entity);
         return new Response<GuideDTO>(HttpStatus.CREATED,"User Save Successfully",converter.getGuideDTO(saveUser));
     }

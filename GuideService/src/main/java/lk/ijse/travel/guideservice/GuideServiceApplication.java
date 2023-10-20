@@ -1,6 +1,8 @@
 package lk.ijse.travel.guideservice;
 
 import lk.ijse.travel.guideservice.bo.impl.CustomUserDetailsService;
+import lk.ijse.travel.guideservice.bo.util.Base64ToByteConverter;
+import lk.ijse.travel.guideservice.bo.util.ImageConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +23,11 @@ public class GuideServiceApplication {
 
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.addConverter(new Base64ToByteConverter());
+        modelMapper.addConverter(new ImageConverter());
+
+        return modelMapper;
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

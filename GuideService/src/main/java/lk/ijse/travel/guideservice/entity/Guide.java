@@ -21,10 +21,19 @@ public class Guide extends SuperEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    String name,address,gender,contact;
-    int age,experience;
-    byte[] image,nic_image_front,nic_image_back,guide_id_image_front,guide_id_image_back;
-    BigDecimal man_day_value;
-    @Column(columnDefinition = "Text")
-    String remarks;
+    private String name,address,gender,contact;
+    private int age,experience;
+    @Column(columnDefinition = "LONGTEXT")
+    private String image;
+    @Column(columnDefinition = "LONGTEXT" ,name = "nic_image_front")
+    private String nicImageFront;
+    @Column(columnDefinition = "LONGTEXT",name = "nic_image_back")
+    private String nicImageBack;
+    @Column(columnDefinition = "LONGTEXT",name = "guide_id_image_front")
+    private String guideIdImageFront;
+    @Column(columnDefinition = "LONGTEXT",name = "guide_id_image_back")
+    private String guideIdImageBack;
+    @Column(name = "man_day_value")
+    private BigDecimal manDayValue;
+    private String remarks;
 }
