@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ComposerSettings">
     <execution />
@@ -11,6 +12,7 @@
         <option value="$PROJECT_DIR$/VehicleService/pom.xml" />
         <option value="$PROJECT_DIR$/HotelService/pom.xml" />
         <option value="$PROJECT_DIR$/MainTravelService/pom.xml" />
+        <option value="$PROJECT_DIR$/Fron-End/pom.xml" />
       </list>
     </option>
   </component>

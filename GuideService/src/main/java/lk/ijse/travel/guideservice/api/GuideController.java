@@ -5,11 +5,14 @@ import lk.ijse.travel.guideservice.dto.GuideDTO;
 import lk.ijse.travel.guideservice.dto.Response;
 import lk.ijse.travel.guideservice.entity.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author : Sudeera Madushan
@@ -57,5 +60,12 @@ public class GuideController {
     ){
         System.out.println(test);
         return null;
+    }
+
+    @RequestMapping("getAll")
+    @ResponseBody
+    @PostMapping
+    public Response<List<GuideDTO>> getAllGuides(){
+        return guideService.getAll();
     }
 }

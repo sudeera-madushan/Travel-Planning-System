@@ -13,4 +13,5 @@ import java.util.List;
  */
 @Repository
 public interface GuideRepo extends MongoRepository<Guide,String> {
+    List<Guide> findAllByName(String name);
 }

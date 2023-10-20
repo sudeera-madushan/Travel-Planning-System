@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/bootstrap-5.3.2-dist/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="stylesheet" href="css/style/Admin.css">
+</head>
+<body>
+<div aria-live="polite" aria-atomic="true" style="position: absolute; right: 0; min-height: 200px ; z-index: 1000">
+  <!-- Position it -->
+  <div style="position: absolute; top: 0; right: 0;">
+
+    <!-- Then put toasts within -->
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="mr-auto" id="notification-header">Bootstrap</strong>
+        <small class="text-muted" id="notification-time">just now</small>
+        <button type="button" class="ml-2 mb-1 close btn box-size-remove" data-dismiss="toast" aria-label="Close" id="btn-notification-close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body" id="notification-desc">
+        See? Just like this.
+      </div>
+    </div>
+  </div>
+</div>
+<section id="body-pd">
+<header class="header" id="header">
+  <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+  <ul class="navbar mt-2">
+    <li><a href="#" id="btn-home" class="fw-bolder">Home</a>
+    <li><a href="#" id="btnGuideList" class="fw-bolder">Guide List</a>
+    <li><a href="#" id="btnNewGuide" class="fw-bolder">New Guide</a>
+    </li>
+  </ul>
+  <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
+</header>
+<div class="l-navbar" id="nav-bar">
+  <nav class="nav" >
+    <div>
+      <a href="#" class="nav_logo">
+        <i class='bx bx-layer nav_logo-icon'></i>
+        <span class="nav_logo-name" id="user-name">Admin</span>
+      </a>
+      <div class="nav_list" id="nav-list">
+        <a href="#" class="nav_link active">
+          <i class='bx bx-grid-alt nav_icon'></i>
+          <span class="nav_name">Dashboard</span>
+        </a>
+    </div>
+    <a href="#" class="nav_link">
+    <i class='bx bx-log-out nav_icon'></i>
+    <span class="nav_name">SignOut</span> </a>
+    </div>
+
+  </nav>
+
+</div>
+</section>
+<!--Login-->
+<div class="container" id="login">
+  <div class="row justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title text-center text-primary ">Login</h5>
+          <form>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control box-size-remove" id="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control box-size-remove" id="password" placeholder="Enter your password">
+            </div>
+            <button type="button" class="btn btn-primary btn-block" id="btn-login">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--Navbar-->
+<!--<nav class="navbar navbar bg-primary fixed-top" id="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand text-light " href="#">Next Travel pvt LTD</a>
+    <button class="navbar-toggler box-size-remove" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+      <div class="offcanvas-header">
+        <button class="btn btn-outline-primary rounded-circle">
+          <i class="bx bx-user"></i>
+        </button>
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+        <button type="button" class="btn-close btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <button type="button" class="btn" style="w"> Guide</button>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex mt-3" role="search">
+          <input class="form-control me-2 box-size-remove" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>-->
+
+
+
+<section class="guide-section">
+  <section class="container" id="new-guide">
+    <div class="row">
+      <div class="col-11">
+        <form>
+<!--          <div class="form-outline mb-2 mt-2">-->
+<!--            <h2 class="card-header text-primary text-center fw-bolder">Add New Guide</h2>-->
+<!--          </div>-->
+          <!-- Text input -->
+          <div class="form-outline mb-2 mt-2">
+            <label class="form-label" for="name">Full name</label>
+            <input type="text" id="name" class="form-control" />
+          </div>
+
+          <!-- Text input -->
+          <div class="form-outline mb-2">
+            <label class="form-label" for="address">Address</label>
+            <input type="text" id="address" class="form-control" />
+          </div>
+          <div class="row mb-2">
+            <div class="col mt-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="male" value="option1" checked>
+                <label class="form-check-label" for="male">Male</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="female" value="option1" checked>
+                <label class="form-check-label" for="female">Female</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="contact">Contact</label>
+                <input type="text" id="contact" class="form-control" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="age">Age</label>
+                <input type="number" id="age" class="form-control" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="experience">Experience</label>
+                <input type="number" id="experience" class="form-control" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="manDayValue">Man Day Value</label>
+                <input type="number" id="manDayValue" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <!-- Checkbox -->
+<!--          <div class="form-check d-flex justify-content-center mb-2">-->
+<!--            <input class="form-check-input me-2" type="checkbox" value="" id="form6Example8" checked />-->
+<!--            <label class="form-check-label" for="form6Example8"> Create an account? </label>-->
+<!--          </div>-->
+          <div class="row mb-2">
+            <div class="col">
+              <div class="file-upload">
+                <label class="form-label file-upload-label" for="guideImage">Guide Image</label>
+                <div class="image-upload-wrap" id="guideImageWrap">
+                  <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="guideImage"/>
+                  <div class="drag-text">
+                    <a href="">drag here</a>
+                  </div>
+                </div>
+                <div class="file-upload-content" id="guideFileUploadContent">
+                  <img class="file-upload-image" src="#" alt="your image" id="guideFileUploadImage"/>
+                  <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideImageTitle">Uploaded Image</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="file-upload">
+                <label class="form-label file-upload-label" for="guideImage">Guide Image</label>
+                <div class="image-upload-wrap" id="guideNfImageWrap">
+                  <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="guideNfImage"/>
+                  <div class="drag-text">
+                    <a href="">drag here</a>
+                  </div>
+                </div>
+                <div class="file-upload-content" id="guideNfFileUploadContent">
+                  <img class="file-upload-image" src="#" alt="your image" id="guideNfFileUploadImage"/>
+                  <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideNfImageTitle">Uploaded Image</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="file-upload">
+                <label class="form-label file-upload-label" for="guideImage">Guide Image</label>
+                <div class="image-upload-wrap" id="guideNbImageWrap">
+                  <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="guideNbImage"/>
+                  <div class="drag-text">
+                    <a href="">drag here</a>
+                  </div>
+                </div>
+                <div class="file-upload-content" id="guideNbFileUploadContent">
+                  <img class="file-upload-image" src="#" alt="your image" id="guideNbFileUploadImage"/>
+                  <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideNbImageTitle">Uploaded Image</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="file-upload">
+                <label class="form-label file-upload-label" for="guideImage">Guide Image</label>
+                <div class="image-upload-wrap" id="guideIfImageWrap">
+                  <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="guideIfImage"/>
+                  <div class="drag-text">
+                    <a href="">drag here</a>
+                  </div>
+                </div>
+                <div class="file-upload-content" id="guideIfFileUploadContent">
+                  <img class="file-upload-image" src="#" alt="your image" id="guideIfFileUploadImage"/>
+                  <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideIfImageTitle">Uploaded Image</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="file-upload">
+                <label class="form-label file-upload-label" for="guideIbImage">Guide ID Image Back</label>
+                <div class="image-upload-wrap" id="guideIbImageWrap">
+                  <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="guideIbImage"/>
+                  <div class="drag-text">
+                    <a href="">drag here</a>
+                  </div>
+                </div>
+                <div class="file-upload-content" id="guideIbFileUploadContent">
+                  <img class="file-upload-image" src="#" alt="your image" id="guideIbFileUploadImage"/>
+                  <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideIbImageTitle">Uploaded Image</span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-outline mb-2">
+            <label class="form-label" for="remarks">Additional information</label>
+            <textarea class="form-control" id="remarks" rows="4"></textarea>
+          </div>
+          <!-- Submit button -->
+          <button type="button" id="btnCreateGuide" class="btn btn-primary btn-block mb-2">Create</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section id="guide-list">
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+      <tr>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Experience</th>
+        <th>Man Day Value</th>
+        <th>Contact</th>
+        <th>NIC</th>
+        <th>Passport</th>
+        <th>Remarks</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody id="guide-table-body">
+      </tbody>
+    </table>
+  </section>
+</section>
+<script src="css/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
+<script src="lib/jquery.js"></script>
+<script type="module" src="controller/GuideController.js"></script>
+<script type="module" src="controller/MainController.js"></script>
+<script  type="module" src="model/Guide.js"></script>
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        if (input.id==='guideImage') {
+          $('#guideImageWrap').hide();
+          $('#guideFileUploadImage').attr('src', e.target.result);
+          $('#guideFileUploadContent').show();
+          $('#guideImageTitle').html(input.files[0].name);
+        }else if(input.id==='guideNfImage') {
+          $('#guideNfImageWrap').hide();
+          $('#guideNfFileUploadImage').attr('src', e.target.result);
+          $('#guideNfFileUploadContent').show();
+          $('#guideNfImageTitle').html(input.files[0].name);
+        }else if(input.id==='guideNbImage') {
+          $('#guideNbImageWrap').hide();
+          $('#guideNbFileUploadImage').attr('src', e.target.result);
+          $('#guideNbFileUploadContent').show();
+          $('#guideNbImageTitle').html(input.files[0].name);
+        }else if(input.id==='guideIfImage') {
+          $('#guideIfImageWrap').hide();
+          $('#guideIfFileUploadImage').attr('src', e.target.result);
+          $('#guideIfFileUploadContent').show();
+          $('#guideIfImageTitle').html(input.files[0].name);
+        }else if(input.id==='guideIbImage') {
+          $('#guideIbImageWrap').hide();
+          $('#guideIbFileUploadImage').attr('src', e.target.result);
+          $('#guideIbFileUploadContent').show();
+          $('#guideIbImageTitle').html(input.files[0].name);
+        }
+      };
+
+      reader.readAsDataURL(input.files[0]);
+
+    } else {
+      removeUpload();
+    }
+  }
+</script>
+</body>
+</html>
