@@ -14,6 +14,7 @@ import java.util.List;
 public interface GuideService {
 
     Response<GuideDTO> save(GuideDTO guideDTO);
+    Response<GuideDTO> update(GuideDTO guideDTO);
     Response<GuideDTO> get(String id);
     Response<String> delete(String id);
 

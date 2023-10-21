@@ -74,4 +74,27 @@ public class GuideController {
     public Response<String> deleteGuide(@RequestParam String id){
         return guideService.delete(id);
     }
+
+    @RequestMapping
+    @ResponseBody
+    @PatchMapping
+    public Response<GuideDTO> updateGuide(
+            @RequestPart GuideDTO guide,
+            @RequestPart MultipartFile image,
+            @RequestPart MultipartFile nic_image_front,
+            @RequestPart MultipartFile nic_image_back,
+            @RequestPart MultipartFile guide_id_image_front,
+            @RequestPart MultipartFile guide_id_image_back
+    ) {
+        try {
+            guide.setImage(image.getBytes());
+            guide.setNicImageFront((nic_image_front.getBytes()));
+            guide.setNicImageBack((nic_image_back.getBytes()));
+            guide.setGuideIdImageFront((guide_id_image_front.getBytes()));
+            guide.setGuideIdImageBack((guide_id_image_back.getBytes()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return guideService.update(guide);
+    }
 }

@@ -58,7 +58,7 @@
     <li><a href="#" id="btnNewGuide" class="fw-bolder">New Guide</a>
     </li>
   </ul>
-  <div class="header_img"> <img src="https://i.imgur.com/hczKIze.jpg" alt=""> </div>
+  <div class="header_img"> <img src="" alt=""> </div>
 </header>
 <div class="l-navbar" id="nav-bar">
   <nav class="nav" >
@@ -179,11 +179,11 @@
           <div class="row mb-2">
             <div class="col mt-3">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="gender" id="male" value="option1" checked>
+                <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked>
                 <label class="form-check-label" for="male">Male</label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="gender" id="female" value="option1" checked>
+                <input class="form-check-input" type="radio" name="gender" id="female" value="female" checked>
                 <label class="form-check-label" for="female">Female</label>
               </div>
             </div>
@@ -312,6 +312,7 @@
           <button type="button" id="btnCreateGuide" class="btn btn-primary btn-block mb-2">Create</button>
           <button type="button" id="btnUpdateGuide" class="btn btn-success btn-block mb-2">Update</button>
           <button type="button" id="btnDeleteGuide" class="btn btn-danger btn-block mb-2">Delete</button>
+          <button type="button" id="btnCancelUpdateGuide" class="btn btn-light btn-block mb-2">Cancel</button>
         </form>
       </div>
     </div>
@@ -383,7 +384,7 @@
     }
   }
   function removeUpload() {
-    $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+    // $('.file-upload-input').replaceWith($('.file-upload-input').clone());
     $('.file-upload-content').hide();
     $('.image-upload-wrap').show();
   }

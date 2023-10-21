@@ -27,10 +27,27 @@ public class GuideServiceImpl implements GuideService {
     @Transactional
     @Override
     public Response<GuideDTO> save(GuideDTO guideDTO) {
-        Guide entity = converter.getGuideEntity(guideDTO);
-        Guide saveUser = guideRepo.save(entity);
-        return new Response<GuideDTO>(HttpStatus.CREATED,"User Save Successfully",converter.getGuideDTO(saveUser));
+
+        return new Response<GuideDTO>(HttpStatus.CREATED,"User Save Successfully",
+                converter.getGuideDTO(
+                        guideRepo.save(
+                                converter.getGuideEntity(guideDTO)
+                        )
+                ));
     }
+
+    @Transactional
+    @Override
+    public Response<GuideDTO> update(GuideDTO guideDTO) {
+
+        return  new Response<GuideDTO>(HttpStatus.CREATED,"User Update Successfully",
+                converter.getGuideDTO(
+                        guideRepo.save(
+                                converter.getGuideEntity(guideDTO)
+                        )
+                ));
+    }
+
     @Override
     public Response<GuideDTO> get(String id) {
         return new Response<>(HttpStatus.OK,"User find successfully",
