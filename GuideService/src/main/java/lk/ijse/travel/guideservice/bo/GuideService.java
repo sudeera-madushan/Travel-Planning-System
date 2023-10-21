@@ -15,6 +15,7 @@ public interface GuideService {
 
     Response<GuideDTO> save(GuideDTO guideDTO);
     Response<GuideDTO> get(String id);
+    Response<String> delete(String id);
 
     Response<List<GuideDTO>> getAll();
 

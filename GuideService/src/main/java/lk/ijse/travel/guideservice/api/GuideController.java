@@ -68,4 +68,10 @@ public class GuideController {
     public Response<List<GuideDTO>> getAllGuides(){
         return guideService.getAll();
     }
+
+    @ResponseBody
+    @DeleteMapping
+    public Response<String> deleteGuide(@RequestParam String id){
+        return guideService.delete(id);
+    }
 }

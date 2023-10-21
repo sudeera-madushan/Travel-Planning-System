@@ -38,6 +38,12 @@ public class GuideServiceImpl implements GuideService {
     }
 
     @Override
+    public Response<String> delete(String id) {
+        guideRepo.deleteById(id);
+        return new Response<>(HttpStatus.OK,"User Delete successfully","");
+    }
+
+    @Override
     public Response<List<GuideDTO>> getAll() {
         return new Response<>(HttpStatus.OK,"Get all guide list successfully",
                 guideRepo.findAll().stream().map(
