@@ -4,22 +4,25 @@
  * project : Front-End
  */
 import {Guide} from "../model/Guide.js";
+let guideList=[];
+let nowUpdatingGuide;
 $('#btnNewGuide').click(function () {
-    $('#new-guide').show();
-    $('#guide-list').hide();
-    $('#notification-header').text("Success");
-    $('#notification-time').text("");
-    $('#notification-desc').text("Guide Save Successfully !");
-    $('.toast').toast('show')
-
-
+    showNewGuide();
 });
 $('#btnGuideList').click(function () {
+    showGuideList()
+});
+let showNewGuide= (name) => {
+    $('#new-guide').show();
+    $('#guide-list').hide();
+    $('#btnUpdateGuide').hide();
+    $('#btnDeleteGuide').hide();
+}
+let showGuideList= (name) => {
     getAllGuides();
     $('#new-guide').hide();
     $('#guide-list').show();
-});
-
+}
 $('#btnCreateGuide').click(function () {
     let guide = {
         id: null,
@@ -52,18 +55,19 @@ $('#btnCreateGuide').click(function () {
         contentType: false,
         processData: false,
         success: function (data) {
-            $('#notification-header').text("Success");
-            $('#notification-time').text("");
-            $('#notification-desc').text("Guide Save Successfully !");
-            $('.toast').toast('show')
-
+            showToast("Success","Guide \"" + data.object.name +"\"' Save Successfully !")
         },
         error: function (error) {
             console.error(error);
         }
     });
 });
-
+let showToast= (type,name) => {
+    $('#notification-header').text(type);
+    $('#notification-time').text("");
+    $('#notification-desc').text(name);
+    $('.toast').toast('show')
+}
 let getAllGuides= () => {
     $.ajax({
         url: 'http://localhost:8092/travel/api/v1/guide/getAll',
@@ -73,18 +77,21 @@ let getAllGuides= () => {
         cache: false,
         success: function (data) {
             $('#guide-table-body').empty();
-            loadDataToGuideTable(data.object);
+            guideList=[];
+            guideList=data.object;
+            loadDataToGuideTable()
+            clearGuideFields();
         },
         error: function (error) {
             console.error(error);
         }
     });
 }
-let loadDataToGuideTable= (guideList) => {
+let loadDataToGuideTable= () => {
     
     guideList.map((value, index) => {
         let data=`<tr>
-        <td>
+        <td id="${value.id}">
           <div class="d-flex align-items-center">
             <img src="data:image/jpg;base64, ${value.image}"
                     alt=""
@@ -128,6 +135,92 @@ let loadDataToGuideTable= (guideList) => {
         $('#guide-table-body').append(data);
     })
 }
+let clearGuideFields= () => {
+        $('#address').val("");
+        $('#name').val("");
+        $('#contact').val("");
+        $('#age').val("");
+        $('#experience').val("");
+        $('#manDayValue').val("");
+        $('#remarks').val("");
+        // removeUpload();
+}
+$('#guide-table-body').on('click','button',function () {
+    let guideId = event.target.parentElement.parentElement.children[0].id;
+    guideList.map((value, index) => {
+        if (value.id === guideId) {
+            loadEditeGuide(value);
+        }
+    })
+})
 
+let loadEditeGuide=(guide)=>{
+    nowUpdatingGuide=guide;
 
+ 
+    $('#address').val(guide.address);
+    $('#name').val(guide.name);
+    $('#contact').val(guide.contact);
+    $('#age').val(guide.age);
+    $('#experience').val(guide.experience);
+    $('#manDayValue').val(guide.manDayValue);
+    $('#remarks').val(guide.remarks);
+    
+    $('#guideImageWrap').hide();
+    $('#guideFileUploadImage').attr('src', "data:image/jpg;base64,"+ guide.image);
+    $('#guideFileUploadContent').show();
+    
+    $('#guideNfImageWrap').hide();
+    $('#guideNfFileUploadImage').attr('src', "data:image/jpg;base64,"+ guide.nicImageFront);
+    $('#guideNfFileUploadContent').show();
+    
+    $('#guideNbImageWrap').hide();
+    $('#guideNbFileUploadImage').attr('src', "data:image/jpg;base64,"+ guide.nicImageBack);
+    $('#guideNbFileUploadContent').show();
+    
+    $('#guideIfImageWrap').hide();
+    $('#guideIfFileUploadImage').attr('src', "data:image/jpg;base64,"+ guide.nicImageFront);
+    $('#guideIfFileUploadContent').show();
+    
+    $('#guideIbImageWrap').hide();
+    $('#guideIbFileUploadImage').attr('src', "data:image/jpg;base64,"+ guide.nicImageBack);
+    $('#guideIbFileUploadContent').show();
+
+    $('#btnNewGuide').hide();
+    $('#btnUpdateGuide').show();
+    $('#btnDeleteGuide').show();
+    $('#new-guide').show();
+    $('#guide-list').hide();
+}
+
+$('#btnDeleteGuide').click(function () {
+    $('#conformation-alert').modal('show')
+})
+
+$('#conformation-ok-btn').click(function () {
+    let params={
+        id:nowUpdatingGuide.id
+    }
+    $.ajax({
+        url: 'http://localhost:8092/travel/api/v1/guide'+ '?' + $.param(params),
+        type: 'DELETE',
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (data) {
+            showGuideList()
+            showToast("Success","Guide \"" + nowUpdatingGuide.name +"\"' Delete Successfully !")
+            $('#conformation-alert').modal('hide');
+        },
+        error: function (error) {
+            console.error(error);
+        }
+    });
+})
+$('#conformation-close').click(function () {
+    $('#conformation-alert').modal('hide');
+})
+$('#conformation-close-btn').click(function () {
+    $('#conformation-alert').modal('hide')
+})
 getAllGuides();

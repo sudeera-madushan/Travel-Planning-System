@@ -10,6 +10,26 @@
   <link rel="stylesheet" href="css/style/Admin.css">
 </head>
 <body>
+<!-- Modal -->
+<div class="modal fade" id="conformation-alert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close btn" data-dismiss="modal" aria-label="Close" id="conformation-close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="conformation-close-btn">Close</button>
+        <button type="button" class="btn btn-primary" id="conformation-ok-btn">Conform</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Notification -->
 <div aria-live="polite" aria-atomic="true" style="position: absolute; right: 0; min-height: 200px ; z-index: 1000">
   <!-- Position it -->
   <div style="position: absolute; top: 0; right: 0;">
@@ -210,7 +230,7 @@
                 <div class="file-upload-content" id="guideFileUploadContent">
                   <img class="file-upload-image" src="#" alt="your image" id="guideFileUploadImage"/>
                   <div class="image-title-wrap">
-                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideImageTitle">Uploaded Image</span></button>
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideImageTitle">Image</span></button>
                   </div>
                 </div>
               </div>
@@ -227,7 +247,7 @@
                 <div class="file-upload-content" id="guideNfFileUploadContent">
                   <img class="file-upload-image" src="#" alt="your image" id="guideNfFileUploadImage"/>
                   <div class="image-title-wrap">
-                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideNfImageTitle">Uploaded Image</span></button>
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideNfImageTitle">Image</span></button>
                   </div>
                 </div>
               </div>
@@ -244,7 +264,7 @@
                 <div class="file-upload-content" id="guideNbFileUploadContent">
                   <img class="file-upload-image" src="#" alt="your image" id="guideNbFileUploadImage"/>
                   <div class="image-title-wrap">
-                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideNbImageTitle">Uploaded Image</span></button>
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideNbImageTitle">Image</span></button>
                   </div>
                 </div>
               </div>
@@ -261,7 +281,7 @@
                 <div class="file-upload-content" id="guideIfFileUploadContent">
                   <img class="file-upload-image" src="#" alt="your image" id="guideIfFileUploadImage"/>
                   <div class="image-title-wrap">
-                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideIfImageTitle">Uploaded Image</span></button>
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideIfImageTitle">Image</span></button>
                   </div>
                 </div>
               </div>
@@ -278,7 +298,7 @@
                 <div class="file-upload-content" id="guideIbFileUploadContent">
                   <img class="file-upload-image" src="#" alt="your image" id="guideIbFileUploadImage"/>
                   <div class="image-title-wrap">
-                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideIbImageTitle">Uploaded Image</span></button>
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="guideIbImageTitle">Image</span></button>
                   </div>
                 </div>
               </div>
@@ -290,6 +310,8 @@
           </div>
           <!-- Submit button -->
           <button type="button" id="btnCreateGuide" class="btn btn-primary btn-block mb-2">Create</button>
+          <button type="button" id="btnUpdateGuide" class="btn btn-success btn-block mb-2">Update</button>
+          <button type="button" id="btnDeleteGuide" class="btn btn-danger btn-block mb-2">Delete</button>
         </form>
       </div>
     </div>
@@ -359,6 +381,11 @@
     } else {
       removeUpload();
     }
+  }
+  function removeUpload() {
+    $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+    $('.file-upload-content').hide();
+    $('.image-upload-wrap').show();
   }
 </script>
 </body>
