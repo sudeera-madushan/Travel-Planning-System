@@ -148,22 +148,24 @@ let showToast= (type,name) => {
     $('.toast').toast('show')
 }
 let getAllGuides= () => {
+    let token = localStorage.getItem('token');
     $.ajax({
-        url: 'http://localhost:8092/travel/api/v1/guide/getAll',
-        type: 'GET',
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (data) {
-            $('#guide-table-body').empty();
-            guideList=[];
-            guideList=data.object;
-            loadDataToGuideTable()
+        type: "GET",
+        url: "http://localhost:8092/travel/api/v1/guide",
+        headers: {
+            "Authorization": `Bearer ${token}`
         },
-        error: function (error) {
-            console.error(error);
+        success: function(data) {
+            $('#guide-table-body').empty();
+                    guideList=[];
+                    guideList=data.object;
+                    loadDataToGuideTable()
+        },
+        error: function(err) {
+            console.log(err)
         }
     });
+
 }
 let loadDataToGuideTable= () => {
     

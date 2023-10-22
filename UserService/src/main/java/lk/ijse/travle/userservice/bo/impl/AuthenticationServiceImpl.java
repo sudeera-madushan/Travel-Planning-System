@@ -47,6 +47,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public String checkAuth(String token) {
-        return  jwtService.extractUserName(token);
+
+        return  userRepo.findByUsernameIgnoreCase(jwtService.extractUserName(token)).orElseThrow(() -> new BadCredentialsException("Invalid Username ")).getUsername();
     }
 }

@@ -44,6 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
             jwt = authHeader.substring(7);
+            System.out.println(jwt.toString());
             WebClient userClient = webClientBuilder.baseUrl("http://localhost:8091/travel/api/v1")
                     .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).build();
             userName = userClient.get()

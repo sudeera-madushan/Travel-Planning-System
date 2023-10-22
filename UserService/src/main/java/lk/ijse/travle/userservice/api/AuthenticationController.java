@@ -28,6 +28,7 @@ public class AuthenticationController {
     @ResponseBody
     @GetMapping(value = "{token}")
     public String authenticate(@PathVariable String token){
+        System.out.println(token);
         return authenticationService.checkAuth(token);
     }
 }

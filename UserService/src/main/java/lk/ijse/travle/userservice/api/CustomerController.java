@@ -38,9 +38,8 @@ public class CustomerController {
     }
 
     @DeleteMapping("delete")
-    public String test(@RequestPart Test test,
-                       @RequestPart byte[] image){
-        return test.getName();
+    public String test(){
+        return "Successfully";
     }
 
 }

@@ -40,9 +40,9 @@ public class SecurityConfiguration {
                  .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/v1/auth","/api/v1/user","/user","/hotel/save").permitAll()
-                        .requestMatchers("/customer/delete").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/api/v1/user/admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET,"/customer/get").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/customer/delete").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
@@ -57,8 +57,9 @@ public class SecurityConfiguration {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:63342")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")
                         .allowedHeaders("*")
+                        .exposedHeaders("Authorization")
                         .allowCredentials(true)
                         .maxAge(3600);
             }

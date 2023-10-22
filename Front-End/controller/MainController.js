@@ -59,38 +59,47 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
-let token=null;
 $(document).ready(function() {
 
     $("#login").show();
     $("#new-guide").hide();
     $("#body-pd").hide();
+    // $("#guide-header").hide();
 });
 
 function login(data) {
-    token=data.token;
+    localStorage.setItem('token', data.token);
     $("#navbar").show();
     let roles=data.role;
     roles.map((value, index) => {
         let row;
         if (value === "ROLE_GUIDE") {
             row =`
-         <a href="#" class="nav_link active">
+         <a href="#" class="nav_link " id="open-guide-home">
           <i class='bx bx-run nav_icon'></i>
           <span class="nav_name">GUIDE</span>
         </a>`
         }
         if (value === "ROLE_USER") {
             row =`
-         <a href="#" class="nav_link active">
+         <a href="#" class="nav_link ">
           <i class='bx bx-user nav_icon'></i>
           <span class="nav_name">USER</span>
+        </a>`
+        }
+        if (value === "ROLE_ADMIN") {
+            row =`
+         <a href="#" class="nav_link ">
+          <i class='bx bx-user nav_icon'></i>
+          <span class="nav_name">ADMIN</span>
         </a>`
         }
         $('#nav-list').append(row);
 
     })
+
     $("#body-pd").show();
+    $('#dashboard-btn-home').addClass('navbar-a-focus')
     $("#login").hide();
     $('#user-name').text($('#username').val())
     alert("Login successfully !");
@@ -121,7 +130,8 @@ $('#btn-login').click(function () {
 
 
 
-
+$('#open-guide-home').click(function (){
+})
 $('.image-upload-wrap').bind('dragover', function () {
     $('.image-upload-wrap').addClass('image-dropping');
 });

@@ -47,19 +47,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             jwt = authHeader.substring(7);
             WebClient userClient = webClientBuilder.baseUrl("http://localhost:8091/travel/api/v1")
                     .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).build();
-            userName = userClient.get()
+            String userName1 = userClient.get()
                     .uri("/auth/"+jwt)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
-            if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            System.out.println(userName1);
+            if (userName1 != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(userName, null, jwtService.getUserDetails(jwt));
+                        new UsernamePasswordAuthenticationToken(userName1, null, jwtService.getUserDetails(jwt));
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 filterChain.doFilter(request, response);
             } else {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Token");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Username");
             }
         } catch (Exception ex) {
             sendError(response, request, ex.getMessage());

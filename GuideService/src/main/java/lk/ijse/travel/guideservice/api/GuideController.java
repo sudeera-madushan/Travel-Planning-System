@@ -19,8 +19,9 @@ import java.util.List;
  * @Date : 10/13/2023
  * @Project : Next Travel Pvt. Ltd
  */
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("guide")
+@RequestMapping("api/v1/guide")
 public class GuideController {
     @Autowired
     private GuideService guideService;
@@ -52,19 +53,15 @@ public class GuideController {
         }
         return guideService.save(guide);
     }
-    @RequestMapping("test")
-    @ResponseBody
-    @PostMapping
-    public Response<GuideDTO> save(
-            @RequestPart Test test
+    @PostMapping("test")
+    public String save(
     ){
-        System.out.println(test);
-        return null;
+        return "null";
     }
 
-    @RequestMapping("getAll")
+//    @RequestMapping("all")
     @ResponseBody
-    @PostMapping
+    @GetMapping
     public Response<List<GuideDTO>> getAllGuides(){
         return guideService.getAll();
     }
@@ -97,4 +94,8 @@ public class GuideController {
         }
         return guideService.update(guide);
     }
+//    @DeleteMapping("delete")
+//    public String test(){
+//        return "Successfully";
+//    }
 }

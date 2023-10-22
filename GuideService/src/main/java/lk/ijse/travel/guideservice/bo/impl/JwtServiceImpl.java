@@ -47,7 +47,7 @@ public class JwtServiceImpl implements JwtService {
                 setClaims(claims).
                 setSubject(userDetails.getUsername()).
                 setIssuedAt(new Date(System.currentTimeMillis())).
-                setExpiration(new Date(System.currentTimeMillis() + (1800000))).
+                setExpiration(new Date(System.currentTimeMillis() + (1800000000))).
                 signWith(getSigninKey(), SignatureAlgorithm.HS256).
                 compact();
     }
@@ -106,7 +106,6 @@ public class JwtServiceImpl implements JwtService {
         Claims claims = getClaims(token);
         String subject = (String) claims.get(Claims.SUBJECT);
         String roles = (String) claims.get("roles");
-
         roles = roles.replace("[", "").replace("]", "");
         String[] roleNames = roles.split(",");
         ArrayList<String> list = new ArrayList<>();
