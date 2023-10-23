@@ -1,9 +1,6 @@
 package lk.ijse.travel.vehicleservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 /**
@@ -19,10 +16,28 @@ import lombok.*;
 @NoArgsConstructor
 @Table(name = "vehicle")
 public class Vehicle extends SuperEntity{
-    private String brand,category,fuel_type,vehicle_type,transmission_type,driver_name,driver_contact,remarks;
-    private boolean is_hybrid;
-    private int fuel_usage,seat_capacity;
-    private byte[] driver_license_image_front,driver_license_image_back;
+    private String brand,category;
+    @Column(name = "fuel_type")
+    private String fuelType;
+    @Column(name = "vehicle_type")
+    private String vehicleType;
+    @Column(name = "transmission_type")
+    private String transmissionType;
+    @Column(name = "driver_name")
+    private String driverName;
+    @Column(name = "driver_contact")
+    private String driverContact;
+    private String remarks;
+    @Column(name = "is_hybrid")
+    private boolean isHybrid;
+    @Column(name = "fuel_usage")
+    private int fuelUsage;
+    @Column(name = "seat_capacity")
+    private int seatCapacity;
+    @Column(name = "driver_license_image_front", columnDefinition = "LONGTEXT")
+    private String driverLicenseImageFront;
+    @Column(name = "driver_license_image_back", columnDefinition = "LONGTEXT")
+    private String driverLicenseImageBack;
     @OneToOne
     @JoinColumn(name = "vehicle_image_id")
     private VehicleImage vehicleImage;

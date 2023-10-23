@@ -1,6 +1,8 @@
 package lk.ijse.travel.vehicleservice;
 
 import lk.ijse.travel.vehicleservice.bo.impl.CustomUserDetailsService;
+import lk.ijse.travel.vehicleservice.bo.util.Base64ToByteConverter;
+import lk.ijse.travel.vehicleservice.bo.util.ImageConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -20,7 +22,11 @@ public class VehicleServiceApplication {
 
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper();
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.addConverter(new Base64ToByteConverter());
+        modelMapper.addConverter(new ImageConverter());
+
+        return modelMapper;
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

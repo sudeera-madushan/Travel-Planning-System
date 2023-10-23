@@ -29,9 +29,8 @@ let showHome= () => {
 }
 
 let showNewGuide= () => {
-    $('#btnNewGuide').addClass('navbar-a-focus')
-    $('#btnGuideList').removeClass('navbar-a-focus')
-    $('#btn-home').removeClass('navbar-a-focus')
+    $('#header-title').empty()
+    $("#header-title").append("Create Guide")
     $('#new-guide').show();
     $('#guide-list').hide();
     $('#btnUpdateGuide').hide();
@@ -40,10 +39,10 @@ let showNewGuide= () => {
     $('#btnCreateGuide').show();
 }
 let showGuideList= () => {
-    $('#btnNewGuide').removeClass('navbar-a-focus')
-    $('#btn-home').removeClass('navbar-a-focus')
-    $('#btnGuideList').addClass('navbar-a-focus')
     getAllGuides();
+
+    $('#header-title').empty()
+    $("#header-title").append("Guide List")
     $('#new-guide').hide();
     $('#guide-list').show();
 }

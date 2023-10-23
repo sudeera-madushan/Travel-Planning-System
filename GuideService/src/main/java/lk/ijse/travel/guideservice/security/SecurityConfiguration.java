@@ -37,7 +37,6 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST,"/api/v1/user/admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET,"/customer/get").hasRole("ADMIN")
                         .requestMatchers("/api/v1/guide/**").hasRole("ADMIN")
-//                        .requestMatchers("/api/v1/guide/set").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

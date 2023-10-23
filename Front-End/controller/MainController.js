@@ -52,8 +52,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
     }
     linkColor.forEach(l=> l.addEventListener('click', colorLink))
-
-    // Your code to run since DOM is loaded and ready
 });
 
 
@@ -61,9 +59,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 $(document).ready(function() {
 
-    $("#login").show();
-    $("#new-guide").hide();
-    $("#body-pd").hide();
+    $("#login").hide();
+    $("#guide-menu").hide();
+    // $("#body-pd").hide();
     // $("#guide-header").hide();
 });
 
@@ -74,11 +72,7 @@ function login(data) {
     roles.map((value, index) => {
         let row;
         if (value === "ROLE_GUIDE") {
-            row =`
-         <a href="#" class="nav_link " id="open-guide-home">
-          <i class='bx bx-run nav_icon'></i>
-          <span class="nav_name">GUIDE</span>
-        </a>`
+          $('#guide-menu').show()
         }
         if (value === "ROLE_USER") {
             row =`
@@ -130,8 +124,7 @@ $('#btn-login').click(function () {
 
 
 
-$('#open-guide-home').click(function (){
-})
+
 $('.image-upload-wrap').bind('dragover', function () {
     $('.image-upload-wrap').addClass('image-dropping');
 });

@@ -32,10 +32,10 @@
 <!-- Notification -->
 <div aria-live="polite" aria-atomic="true" style="position: absolute; right: 0; min-height: 200px ; z-index: 1000">
   <!-- Position it -->
-  <div style="position: absolute; top: 0; right: 0;">
+<div style="position: absolute; top: 0; right: 0;">
 
     <!-- Then put toasts within -->
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
         <strong class="mr-auto" id="notification-header">Bootstrap</strong>
         <small class="text-muted" id="notification-time">just now</small>
@@ -53,32 +53,51 @@
 <header class="header" id="header">
   <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
   <ul class="navbar mt-2" id="header-list">
-    <li><a href="#" id="btnGuideList" class="fw-bolder">Guide List</a>
-    <li><a href="#" id="btnNewGuide" class="fw-bolder">New Guide</a>
-    </li>
+      <p class="h1 pt-2 fw-bold text-primary" id="header-title">Dashboard</p>
   </ul>
   <div class="header_img"> <img src="" alt=""> </div>
 </header>
 <div class="l-navbar" id="nav-bar">
-  <nav class="nav" >
-    <div>
-      <a href="#" class="nav_logo">
-        <i class='bx bx-layer nav_logo-icon'></i>
-        <span class="nav_logo-name" id="user-name">Admin</span>
-      </a>
-      <div class="nav_list" id="nav-list">
-        <a href="#" class="nav_link active">
-          <i class='bx bx-grid-alt nav_icon'></i>
-          <span class="nav_name">Dashboard</span>
+  <nav class="nav mt-5" >
+
+      <div class=' nav_link'>
+        <a href="#!" class="dashboard-nav-item text-light">
+          <i class='bx bxs-dashboard'></i> Dashboard
         </a>
-    </div>
-    <a href="#" class="nav_link">
-    <i class='bx bx-log-out nav_icon'></i>
-    <span class="nav_name">SignOut</span> </a>
-    </div>
+      </div>
+    <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="guide-menu">
+      <li>
+        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
+          <i class='bx bx-run'></i> <span class="ms-1 d-none d-sm-inline">Guide</span> </a>
+        <ul class="collapse  nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+          <li class="w-100" id="btnNewGuide">
+            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline" >Create Guide</span></a>
+          </li>
+          <li id="btnGuideList">
+            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Guide List</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="vehicle-menu">
+      <li>
+        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
+          <i class='bx bx-run'></i> <span class="ms-1 d-none d-sm-inline">Vehicle</span> </a>
+        <ul class="collapse  nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+          <li class="w-100" id="btnNewVehicle">
+            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Create Vehicle</span></a>
+          </li>
+          <li>
+            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Vehicle List</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
 
+    <a href="#" class="nav_link ps-4">
+      <i class='bx bx-log-out nav_icon '></i>
+      <span class="nav_name">SignOut</span> </a>
   </nav>
-
 </div>
 </section>
 <!--Login-->
@@ -95,7 +114,7 @@
             </div>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control box-size-remove" id="password" placeholder="Enter your password">
+              <input type="password" class="form-control box-size-remove" id="password"  autocomplete="none" placeholder="Enter your password">
             </div>
             <button type="button" class="btn btn-primary btn-block" id="btn-login">Login</button>
           </form>
@@ -107,52 +126,6 @@
 
 
 
-
-<!--Navbar-->
-<!--<nav class="navbar navbar bg-primary fixed-top" id="navbar">
-  <div class="container-fluid">
-    <a class="navbar-brand text-light " href="#">Next Travel pvt LTD</a>
-    <button class="navbar-toggler box-size-remove" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="offcanvas offcanvas-end text-bg-light" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-      <div class="offcanvas-header">
-        <button class="btn btn-outline-primary rounded-circle">
-          <i class="bx bx-user"></i>
-        </button>
-        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
-        <button type="button" class="btn-close btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <button type="button" class="btn" style="w"> Guide</button>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu dropdown-menu-dark">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-        </ul>
-        <form class="d-flex mt-3" role="search">
-          <input class="form-control me-2 box-size-remove" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-success" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</nav>-->
 
 
 
@@ -337,10 +310,282 @@
     </table>
   </section>
 </section>
+<section class="vehicle-section">
+  <section class="container" id="newVehicleContainer">
+    <div class="row">
+      <div class="col-11">
+        <form>
+          <div class="form-outline mb-2 mt-2">
+            <label class="form-label" for="vehicle-brand">Brand</label>
+            <input type="text" id="vehicle-brand" class="form-control" />
+          </div>
+
+          <div class="row mb-2">
+            <div class="form-outline mb-2 mt-2 col-3">
+              <label class="form-label" for="name">Category</label>
+              <select class="form-select" aria-label="Default select example" id="vehicleCategory">
+                <option selected>Select</option>
+                <option value="1">Economy</option>
+                <option value="2">Mid-Range</option>
+                <option value="3">Luxury</option>
+                <option value="4">Super Luxury </option>
+              </select>
+            </div>
+
+            <div class="form-outline mb-2 mt-2 col-3">
+              <label class="form-label" for="name">Vehicle Type</label>
+              <select class="form-select" aria-label="Default select example" id="vehicleType">
+                <option selected>Select</option>
+                <option value="1">Car</option>
+                <option value="2">Van (7-12 seats)</option>
+                <option value="3">SUV</option>
+                <option value="4">Bus (30-40 seats)</option>
+              </select>
+            </div>
+
+            <div class="col mt-md-4">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="fuel-type" id="diesel" value="Diesel" checked>
+                <label class="form-check-label" for="diesel">Diesel</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="fuel-type" id="petrol" value="Petrol" checked>
+                <label class="form-check-label" for="petrol">Petrol</label>
+              </div>
+            </div>
+            <div class="form-outline mt-sm-4 col">
+              <div class="form-check d-flex justify-content-start mb-2">
+                <input class="form-check-input me-2" type="checkbox" value="" id="isAutoGear" checked />
+                <label class="form-check-label" for="isAutoGear"> Auto Gear </label>
+              </div>
+              <div class="form-check d-flex justify-content-start mb-2">
+                <input class="form-check-input me-2" type="checkbox" value="" id="isHybrid" checked />
+                <label class="form-check-label" for="isHybrid"> Hybrid </label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="age">Fuel Usage</label>
+                <input type="number" id="vehicle-fuel-usage" class="form-control" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="age">Seat Capacity</label>
+                <input type="number" id="vehicle-seat-capacity" class="form-control" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col  border  rounded">
+              <div class="row">
+                <div class="col">
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="vehicle-driver-name">Driver Name</label>
+                    <input type="text" id="vehicle-driver-name" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="form-outline mb-2">
+                    <label class="form-label" for="vehicle-driver-name">Driver Contact</label>
+                    <input type="text" id="vehicle-driver-contact" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col">
+                  <div class="file-upload">
+                    <label class="form-label file-upload-label" for="driverLicenseFrontImage">License Front</label>
+                    <div class="image-upload-wrap" id="driverLicenseFrontImageWrap">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="driverLicenseFrontImage"/>
+                      <div class="drag-text">
+                        <a href="">drag here</a>
+                      </div>
+                    </div>
+                    <div class="file-upload-content" id=driverLicenseFrontFileUploadContent">
+                      <img class="file-upload-image" src="#" alt="your image" id="driverLicenseFrontFileUploadImage"/>
+                      <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="driverLicenseFrontImageTitle">Image</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="file-upload">
+                    <label class="form-label file-upload-label" for="driver-license-back-image">License Back Image<Image></Image></label>
+                    <div class="image-upload-wrap" id="driver-license-back-view">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="driver-license-back-image"/>
+                      <div class="drag-text">
+                        <a href="">drag here</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+            <div class="col ms-3   rounded">
+              <div class="row mt-2">
+                <div class="col">
+                  <div class="file-upload">
+                    <label class="form-label file-upload-label" for="vehicle-front-image">Front View</label>
+                    <div class="image-upload-wrap" id="vehicle-front-view">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicle-front-image"/>
+                      <div class="drag-text">
+                        <a href="">drag here</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="file-upload">
+                    <label class="form-label file-upload-label" for="vehicle-rear-image">Rear View<Image></Image></label>
+                    <div class="image-upload-wrap" id="vehicle-rear-view">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicle-rear-image"/>
+                      <div class="drag-text">
+                        <a href="">drag here</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                  <div class="file-upload">
+                    <label class="form-label file-upload-label" for="vehicle-side-image">Side View</label>
+                    <div class="image-upload-wrap" id="vehicle-side-view">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicle-side-image"/>
+                      <div class="drag-text">
+                        <a href="">drag here</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="file-upload">
+                    <label class="form-label file-upload-label" for="vehicle-front-interior-image">Front Interior<Image></Image></label>
+                    <div class="image-upload-wrap" id="vehicle-front-interior-view">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicle-front-interior-image"/>
+                      <div class="drag-text">
+                        <a href="">drag here</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-9">
+              <div class="form-outline mb-2">
+                <label class="form-label" for="remarks">Additional information</label>
+                <textarea class="form-control" id="vehicle-remarks" rows="4"></textarea>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="file-upload">
+                <label class="form-label file-upload-label" for="vehicleRearInteriorImage">Rear Interior</label>
+                <div class="image-upload-wrap" id="vehicleRearInteriorView">
+                  <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleRearInteriorImage"/>
+                  <div class="drag-text">
+                    <a href="">drag here</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Submit button -->
+          <button type="button" id="btnCreateVehicle" class="btn btn-primary btn-block mb-2">Create</button>
+          <button type="button" id="btnUpdateVehicle" class="btn btn-success btn-block mb-2">Update</button>
+          <button type="button" id="btnDeleteVehicle" class="btn btn-danger btn-block mb-2">Delete</button>
+          <button type="button" id="btnCancelUpdateVehicle" class="btn btn-light btn-block mb-2">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section id="vehicle-list">
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+      <tr>
+        <th>Vehicle</th>
+        <th>Fuel Usage (1L)</th>
+        <th>Seat Capacity</th>
+        <th>Images</th>
+        <th>Driver Name</th>
+        <th>Contact</th>
+        <th>License</th>
+        <th>Remarks</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody id="vehicle-table-body">
+<!--      <tr>-->
+<!--        <td id="${value.id}">-->
+<!--          <div class="d-flex align-items-center">-->
+<!--            <img src="data:image/jpg;base64, ${value.image}"-->
+<!--                 alt=""-->
+<!--                 style="width: 45px; height: 45px"-->
+<!--                 class="rounded-circle"/>-->
+<!--            <div class="ms-3">-->
+<!--              <p class="fw-bold mb-1">BMW C300</p>-->
+<!--              <p class="text-muted mb-0">-->
+<!--                <span class="bg-info badge" style="font-size:10px">Luxury</span>-->
+<!--                <span class="bg-danger badge" style="font-size:10px">Petrel</span>-->
+<!--                <span class="bg-success badge" style="font-size:10px">Car</span>-->
+<!--                <span class="bg-primary badge" style="font-size:10px">Auto</span>-->
+<!--                <span class="bg-secondary badge" style="font-size:10px">Hybrid</span>-->
+<!--              </p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </td>-->
+<!--        <td>10</td>-->
+<!--        <td>12</td>-->
+<!--        <td>-->
+<!--          <img src="data:image/jpg;base64, ${value.nicImageFront}"-->
+<!--               alt=""-->
+<!--               style="width: 60px; height: 40px"/>-->
+<!--          <img src="data:image/jpg;base64, ${value.nicImageBack}"-->
+<!--               alt=""-->
+<!--               style="width: 60px; height: 40px"/>-->
+<!--          <img src="data:image/jpg;base64, ${value.guideIdImageFront}"-->
+<!--               alt=""-->
+<!--               style="width: 60px; height: 40px"/>-->
+<!--          <img src="data:image/jpg;base64, ${value.guideIdImageBack}"-->
+<!--               alt=""-->
+<!--               style="width: 60px; height: 40px"/>-->
+<!--        </td>-->
+<!--        <td style="font-size:12px">Sudeera Madushan</td>-->
+<!--        <td style="font-size:12px">+94788989526</td>-->
+<!--        <td>-->
+<!--          <img src="data:image/jpg;base64, ${value.guideIdImageFront}"-->
+<!--               alt=""-->
+<!--               style="width: 60px; height: 40px"/>-->
+<!--          <img src="data:image/jpg;base64, ${value.guideIdImageBack}"-->
+<!--               alt=""-->
+<!--               style="width: 60px; height: 40px"/>-->
+<!--        </td>-->
+<!--        <td><label style="font-size: 12px">${value.remarks}</label></td>-->
+<!--        <td>-->
+<!--          <button type="button" class="btn btn-link badge bg-dark-subtle btn-sm btn-rounded">-->
+<!--            Edit-->
+<!--          </button>-->
+<!--        </td>-->
+<!--      </tr>-->
+      </tbody>
+    </table>
+  </section>
+</section>
+
 <script src="css/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
 <script src="lib/jquery.js"></script>
 <script type="module" src="controller/GuideController.js"></script>
 <script type="module" src="controller/MainController.js"></script>
+<script type="module" src="controller/VehicleController.js"></script>
 <script  type="module" src="model/Guide.js"></script>
 <script>
   function readURL(input) {
@@ -348,6 +593,7 @@
       var reader = new FileReader();
 
       reader.onload = function(e) {
+        console.log(input.id)
         if (input.id==='guideImage') {
           $('#guideImageWrap').hide();
           $('#guideFileUploadImage').attr('src', e.target.result);
@@ -373,6 +619,11 @@
           $('#guideIbFileUploadImage').attr('src', e.target.result);
           $('#guideIbFileUploadContent').show();
           $('#guideIbImageTitle').html(input.files[0].name);
+        }else if(input.id==='driverLicenseFrontImage') {
+          $('#driverLicenseFrontImageWrap').hide();
+          $('#driverLicenseFrontFileUploadImage').attr('src', e.target.result);
+          $('#driverLicenseFrontFileUploadContent').show();
+          $('#driverLicenseFrontImageTitle').html(input.files[0].name);
         }
       };
 
@@ -382,6 +633,13 @@
       removeUpload();
     }
   }
+  let openGuide= () => {
+    $('#header-list').append(
+            `<li><a href="#" id="btnGuideList" className="fw-bolder">Guide List</a>
+        <li><a href="#" id="btnNewGuide" className="fw-bolder">New Guide</a>`
+    )
+  }
+
   function removeUpload() {
     // $('.file-upload-input').replaceWith($('.file-upload-input').clone());
     $('.file-upload-content').hide();
