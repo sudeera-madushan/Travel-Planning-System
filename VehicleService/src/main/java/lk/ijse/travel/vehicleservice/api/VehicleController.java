@@ -35,6 +35,7 @@ public class VehicleController {
             @RequestPart MultipartFile driver_license_image_back,
             @RequestPart MultipartFile front_view,
             @RequestPart MultipartFile rear_view,
+            @RequestPart MultipartFile side_view,
             @RequestPart MultipartFile front_interior,
             @RequestPart MultipartFile rear_interior
             ) {
@@ -42,6 +43,7 @@ public class VehicleController {
         try {
             vehicleImage.setFrontView(front_view.getBytes());
             vehicleImage.setRearView(rear_view.getBytes());
+            vehicleImage.setSideView(side_view.getBytes());
             vehicleImage.setRearInterior(rear_interior.getBytes());
             vehicleImage.setFrontInterior(front_interior.getBytes());
             vehicle.setDriverLicenseImageFront(driver_license_image_front.getBytes());
@@ -51,5 +53,9 @@ public class VehicleController {
         }
         vehicle.setVehicleImage(vehicleImage);
         return vehicleService.save(vehicle);
+    }
+    @GetMapping
+    public String test(){
+        return "Ok";
     }
 }

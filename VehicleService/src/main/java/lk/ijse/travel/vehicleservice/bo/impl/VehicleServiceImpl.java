@@ -4,6 +4,9 @@ import lk.ijse.travel.vehicleservice.bo.VehicleService;
 import lk.ijse.travel.vehicleservice.bo.util.Converter;
 import lk.ijse.travel.vehicleservice.dto.Response;
 import lk.ijse.travel.vehicleservice.dto.VehicleDTO;
+import lk.ijse.travel.vehicleservice.entity.Vehicle;
+import lk.ijse.travel.vehicleservice.entity.VehicleImage;
+import lk.ijse.travel.vehicleservice.persistence.VehicleImageRepo;
 import lk.ijse.travel.vehicleservice.persistence.VehicleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,11 +24,19 @@ public class VehicleServiceImpl implements VehicleService {
     private Converter converter;
     @Autowired
     private VehicleRepo vehicleRepo;
+    @Autowired
+    private VehicleImageRepo vehicleImageRepo;
     @Transactional
     @Override
     public Response<VehicleDTO> save(VehicleDTO dto) {
+        VehicleImage vehicleImage= converter.getVehicleImageEntity(dto.getVehicleImage());
+        VehicleImage image = vehicleImageRepo.save(vehicleImage);
+        dto.setVehicleImage(converter.getVehicleImageDTO(image));
+        Vehicle vehicle = vehicleRepo.save(converter.getVehicleEntity(dto));
+//        vehicleImage.setVehicle(vehicle);
+//        vehicle.setVehicleImage(image);
         return new Response<>(HttpStatus.CREATED,"Vehicle save Successfully",
-                converter.getVehicleDTO(vehicleRepo.save(converter.getVehicleEntity(dto))));
+                converter.getVehicleDTO(vehicle));
     }
 
     @Override

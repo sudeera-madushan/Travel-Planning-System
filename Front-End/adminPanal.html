@@ -405,7 +405,7 @@
                         <a href="">drag here</a>
                       </div>
                     </div>
-                    <div class="file-upload-content" id=driverLicenseFrontFileUploadContent">
+                    <div class="file-upload-content" id="driverLicenseFrontFileUploadContent">
                       <img class="file-upload-image" src="#" alt="your image" id="driverLicenseFrontFileUploadImage"/>
                       <div class="image-title-wrap">
                         <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="driverLicenseFrontImageTitle">Image</span></button>
@@ -415,11 +415,17 @@
                 </div>
                 <div class="col">
                   <div class="file-upload">
-                    <label class="form-label file-upload-label" for="driver-license-back-image">License Back Image<Image></Image></label>
-                    <div class="image-upload-wrap" id="driver-license-back-view">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="driver-license-back-image"/>
+                    <label class="form-label file-upload-label" for="driverLicenseBackImage">License Back</label>
+                    <div class="image-upload-wrap" id="driverLicenseBackImageWrap">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="driverLicenseBackImage"/>
                       <div class="drag-text">
                         <a href="">drag here</a>
+                      </div>
+                    </div>
+                    <div class="file-upload-content" id="driverLicenseBackFileUploadContent">
+                      <img class="file-upload-image" src="#" alt="your image" id="driverLicenseBackFileUploadImage"/>
+                      <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="driverLicenseBackImageTitle">Image</span></button>
                       </div>
                     </div>
                   </div>
@@ -431,52 +437,82 @@
             </div>
             <div class="col ms-3   rounded">
               <div class="row mt-2">
+
                 <div class="col">
                   <div class="file-upload">
-                    <label class="form-label file-upload-label" for="vehicle-front-image">Front View</label>
-                    <div class="image-upload-wrap" id="vehicle-front-view">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicle-front-image"/>
+                    <label class="form-label file-upload-label" for="vehicleFrontImage">Front View</label>
+                    <div class="image-upload-wrap" id="vehicleFrontImageWrap">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleFrontImage"/>
                       <div class="drag-text">
                         <a href="">drag here</a>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="file-upload">
-                    <label class="form-label file-upload-label" for="vehicle-rear-image">Rear View<Image></Image></label>
-                    <div class="image-upload-wrap" id="vehicle-rear-view">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicle-rear-image"/>
-                      <div class="drag-text">
-                        <a href="">drag here</a>
+                    <div class="file-upload-content" id="vehicleFrontFileUploadContent">
+                      <img class="file-upload-image" src="#" alt="your image" id="vehicleFrontFileUploadImage"/>
+                      <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleFrontImageTitle">Image</span></button>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                <div class="col">
+                  <div class="file-upload">
+                    <label class="form-label file-upload-label" for="vehicleRearImage">Rear View</label>
+                    <div class="image-upload-wrap" id="vehicleRearImageWrap">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleRearImage"/>
+                      <div class="drag-text">
+                        <a href="">drag here</a>
+                      </div>
+                    </div>
+                    <div class="file-upload-content" id="vehicleRearFileUploadContent">
+                      <img class="file-upload-image" src="#" alt="your image" id="vehicleRearFileUploadImage"/>
+                      <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleRearImageTitle">Image</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
               <div class="row mt-2">
+
                 <div class="col">
                   <div class="file-upload">
-                    <label class="form-label file-upload-label" for="vehicle-side-image">Side View</label>
-                    <div class="image-upload-wrap" id="vehicle-side-view">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicle-side-image"/>
+                    <label class="form-label file-upload-label" for="vehicleSideImage">Side View</label>
+                    <div class="image-upload-wrap" id="vehicleSideImageWrap">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleSideImage"/>
                       <div class="drag-text">
                         <a href="">drag here</a>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="file-upload">
-                    <label class="form-label file-upload-label" for="vehicle-front-interior-image">Front Interior<Image></Image></label>
-                    <div class="image-upload-wrap" id="vehicle-front-interior-view">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicle-front-interior-image"/>
-                      <div class="drag-text">
-                        <a href="">drag here</a>
+                    <div class="file-upload-content" id="vehicleSideFileUploadContent">
+                      <img class="file-upload-image" src="#" alt="your image" id="vehicleSideFileUploadImage"/>
+                      <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleSideImageTitle">Image</span></button>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                <div class="col">
+                  <div class="file-upload">
+                    <label class="form-label file-upload-label" for="vehicleFrontInteriorImage">Front Interior View</label>
+                    <div class="image-upload-wrap" id="vehicleFrontInteriorImageWrap">
+                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleFrontInteriorImage"/>
+                      <div class="drag-text">
+                        <a href="">drag here</a>
+                      </div>
+                    </div>
+                    <div class="file-upload-content" id="vehicleFrontInteriorFileUploadContent">
+                      <img class="file-upload-image" src="#" alt="your image" id="vehicleFrontInteriorFileUploadImage"/>
+                      <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleFrontInteriorImageTitle">Image</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
@@ -489,11 +525,17 @@
             </div>
             <div class="col-3">
               <div class="file-upload">
-                <label class="form-label file-upload-label" for="vehicleRearInteriorImage">Rear Interior</label>
-                <div class="image-upload-wrap" id="vehicleRearInteriorView">
+                <label class="form-label file-upload-label" for="vehicleRearInteriorImage">Rear Interior View</label>
+                <div class="image-upload-wrap" id="vehicleRearInteriorImageWrap">
                   <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleRearInteriorImage"/>
                   <div class="drag-text">
                     <a href="">drag here</a>
+                  </div>
+                </div>
+                <div class="file-upload-content" id="vehicleRearInteriorFileUploadContent">
+                  <img class="file-upload-image" src="#" alt="your image" id="vehicleRearInteriorFileUploadImage"/>
+                  <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleRearInteriorImageTitle">Image</span></button>
                   </div>
                 </div>
               </div>
@@ -591,41 +633,47 @@
   function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
-
       reader.onload = function(e) {
-        console.log(input.id)
-        if (input.id==='guideImage') {
-          $('#guideImageWrap').hide();
-          $('#guideFileUploadImage').attr('src', e.target.result);
-          $('#guideFileUploadContent').show();
-          $('#guideImageTitle').html(input.files[0].name);
-        }else if(input.id==='guideNfImage') {
-          $('#guideNfImageWrap').hide();
-          $('#guideNfFileUploadImage').attr('src', e.target.result);
-          $('#guideNfFileUploadContent').show();
-          $('#guideNfImageTitle').html(input.files[0].name);
-        }else if(input.id==='guideNbImage') {
-          $('#guideNbImageWrap').hide();
-          $('#guideNbFileUploadImage').attr('src', e.target.result);
-          $('#guideNbFileUploadContent').show();
-          $('#guideNbImageTitle').html(input.files[0].name);
-        }else if(input.id==='guideIfImage') {
-          $('#guideIfImageWrap').hide();
-          $('#guideIfFileUploadImage').attr('src', e.target.result);
-          $('#guideIfFileUploadContent').show();
-          $('#guideIfImageTitle').html(input.files[0].name);
-        }else if(input.id==='guideIbImage') {
-          $('#guideIbImageWrap').hide();
-          $('#guideIbFileUploadImage').attr('src', e.target.result);
-          $('#guideIbFileUploadContent').show();
-          $('#guideIbImageTitle').html(input.files[0].name);
-        }else if(input.id==='driverLicenseFrontImage') {
-          $('#driverLicenseFrontImageWrap').hide();
-          $('#driverLicenseFrontFileUploadImage').attr('src', e.target.result);
-          $('#driverLicenseFrontFileUploadContent').show();
-          $('#driverLicenseFrontImageTitle').html(input.files[0].name);
-        }
-      };
+        let id='#' + input.id.split("Image")[0]
+        $(id+'ImageWrap').hide();
+        $(id+'FileUploadImage').attr('src', e.target.result);
+        $(id+'FileUploadContent').show();
+        $(id+'ImageTitle').html(input.files[0].name);
+      }
+      // reader.onload = function(e) {
+      //   if (input.id==='guideImage') {
+      //     $('#guideImageWrap').hide();
+      //     $('#guideFileUploadImage').attr('src', e.target.result);
+      //     $('#guideFileUploadContent').show();
+      //     $('#guideImageTitle').html(input.files[0].name);
+      //   }else if(input.id==='guideNfImage') {
+      //     $('#guideNfImageWrap').hide();
+      //     $('#guideNfFileUploadImage').attr('src', e.target.result);
+      //     $('#guideNfFileUploadContent').show();
+      //     $('#guideNfImageTitle').html(input.files[0].name);
+      //   }else if(input.id==='guideNbImage') {
+      //     $('#guideNbImageWrap').hide();
+      //     $('#guideNbFileUploadImage').attr('src', e.target.result);
+      //     $('#guideNbFileUploadContent').show();
+      //     $('#guideNbImageTitle').html(input.files[0].name);
+      //   }else if(input.id==='guideIfImage') {
+      //     $('#guideIfImageWrap').hide();
+      //     $('#guideIfFileUploadImage').attr('src', e.target.result);
+      //     $('#guideIfFileUploadContent').show();
+      //     $('#guideIfImageTitle').html(input.files[0].name);
+      //   }else if(input.id==='guideIbImage') {
+      //     $('#guideIbImageWrap').hide();
+      //     $('#guideIbFileUploadImage').attr('src', e.target.result);
+      //     $('#guideIbFileUploadContent').show();
+      //     $('#guideIbImageTitle').html(input.files[0].name);
+      //   }else if(input.id==='driverLicenseFrontImage') {
+      //     console.log(input)
+      //     $('#driverLicenseFrontImageWrap').hide();
+      //     $('#driverLicenseFrontFileUploadImage').attr('src', e.target.result);
+      //     $('#driverLicenseFrontFileUploadContent').show();
+      //     $('#driverLicenseFrontImageTitle').html(input.files[0].name);
+      //   }
+      // };
 
       reader.readAsDataURL(input.files[0]);
 
@@ -641,6 +689,11 @@
   }
 
   function removeUpload() {
+    // $(event.target).parent().parent().parent().parent().children().eq(1).children().eq(0).replaceWith($(event.target).parent().parent().parent().parent().children().eq(1).children().eq(0).clone());
+    // $(event.target).parent().parent().parent().parent().children().eq(1).show();
+    // $(event.target).parent().parent().parent().eq(0).children().eq(2).hide();
+
+
     // $('.file-upload-input').replaceWith($('.file-upload-input').clone());
     $('.file-upload-content').hide();
     $('.image-upload-wrap').show();

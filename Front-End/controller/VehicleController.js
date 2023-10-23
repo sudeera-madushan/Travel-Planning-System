@@ -36,17 +36,21 @@ $('#btnCreateVehicle').click(function () {
 
     const formData = new FormData();
     formData.append("vehicle", blob);
-    formData.append('driver_license_image_front', $('#driver-license-front-image')[0].files[0]);
-    formData.append('driver_license_image_back', $('#driver-license-back-image')[0].files[0]);
-    formData.append('front_view', $('#vehicle-front-image')[0].files[0]);
-    formData.append('rear_view', $('#vehicle-rear-image')[0].files[0]);
-    formData.append('front_interior', $('#vehicle-front-interior-image')[0].files[0]);
-    formData.append('rear_interior', $('#vehicle-rear-interior-image')[0].files[0]);
+    formData.append('driver_license_image_front', $('#driverLicenseFrontImage')[0].files[0]);
+    formData.append('driver_license_image_back', $('#driverLicenseBackImage')[0].files[0]);
+    formData.append('side_view', $('#vehicleSideImage')[0].files[0]);
+    formData.append('front_view', $('#vehicleFrontImage')[0].files[0]);
+    formData.append('rear_view', $('#vehicleRearImage')[0].files[0]);
+    formData.append('front_interior', $('#vehicleFrontInteriorImage')[0].files[0]);
+    formData.append('rear_interior', $('#vehicleRearInteriorImage')[0].files[0]);
+    console.log(vehicle)
+    console.log(formData)
     $.ajax({
         url: 'http://localhost:8093/travel/api/v1/vehicle/save',
         type: 'POST',
         cache: false,
         enctype: 'multipart/form-formData',
+        data: formData,
         contentType: false,
         processData: false,
         success: function (data) {
@@ -55,7 +59,19 @@ $('#btnCreateVehicle').click(function () {
             // getAllGuides();
         },
         error: function (error) {
-            console.error(error);
+            console.log(error)
         }
     });
+    // $.ajax({
+    //     url: 'http://localhost:8093/travel/api/v1/vehicle',
+    //     type: 'GET',
+    //     success: function (data) {
+    //         console.log(data)
+    //         // showToast("Success","Guide \"" + data.object.name +"\"' Save Successfully !")
+    //         // getAllGuides();
+    //     },
+    //     error: function (error) {
+    //         console.log(error)
+    //     }
+    // });
 })

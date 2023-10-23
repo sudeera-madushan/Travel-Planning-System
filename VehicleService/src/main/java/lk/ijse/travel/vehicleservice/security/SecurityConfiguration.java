@@ -29,7 +29,8 @@ public class SecurityConfiguration {
 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
+                .cors(AbstractHttpConfigurer::disable)
+//                .cors(cors -> cors.configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("**").permitAll()
 //                        .requestMatchers("/api/v1/vehicle/**").hasRole("ADMIN")
