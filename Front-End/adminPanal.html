@@ -125,10 +125,6 @@
 </div>
 
 
-
-
-
-
 <section class="guide-section">
   <section class="container" id="new-guide">
     <div class="row">
@@ -328,7 +324,7 @@
                 <option value="1">Economy</option>
                 <option value="2">Mid-Range</option>
                 <option value="3">Luxury</option>
-                <option value="4">Super Luxury </option>
+                <option value="4">Super Luxury</option>
               </select>
             </div>
 
@@ -338,7 +334,7 @@
                 <option selected>Select</option>
                 <option value="1">Car</option>
                 <option value="2">Van (7-12 seats)</option>
-                <option value="3">SUV</option>
+                <option value="3">Luxury</option>
                 <option value="4">Bus (30-40 seats)</option>
               </select>
             </div>
@@ -555,10 +551,10 @@
       <thead class="bg-light">
       <tr>
         <th>Vehicle</th>
-        <th>Fuel Usage (1L)</th>
-        <th>Seat Capacity</th>
+        <th>Fuel</th>
+        <th>Seat</th>
         <th>Images</th>
-        <th>Driver Name</th>
+        <th>Driver</th>
         <th>Contact</th>
         <th>License</th>
         <th>Remarks</th>
@@ -646,6 +642,26 @@
     // $('.file-upload-input').replaceWith($('.file-upload-input').clone());
     $('.file-upload-content').hide();
     $('.image-upload-wrap').show();
+  }
+
+  let showToast= (type,name) => {
+    $('#notification-header').text(type);
+    $('#notification-time').text("");
+    $('#notification-desc').text(name);
+    $('.toast').toast('show')
+  }
+
+  let base64ToFile= (imageDataUrl) => {
+    console.log(imageDataUrl);
+    var dataUrlParts = imageDataUrl.split(",");
+    var contentType = dataUrlParts[0].split(":")[1].split(";")[0];
+    var byteCharacters = atob(dataUrlParts[1]);
+    var byteNumbers = new Array(byteCharacters.length);
+    for (var i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    var byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
   }
 </script>
 </body>

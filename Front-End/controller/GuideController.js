@@ -46,17 +46,7 @@ let showGuideList= () => {
     $('#new-guide').hide();
     $('#guide-list').show();
 }
-let base64ToFile= (imageDataUrl) => {
-    var dataUrlParts = imageDataUrl.split(",");
-    var contentType = dataUrlParts[0].split(":")[1].split(";")[0];
-    var byteCharacters = atob(dataUrlParts[1]);
-    var byteNumbers = new Array(byteCharacters.length);
-    for (var i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    var byteArray = new Uint8Array(byteNumbers);
-    return new Blob([byteArray], { type: contentType });
-}
+
 $('#btnUpdateGuide').click(function () {
     let guide = {
         id: nowUpdatingGuide.id,
@@ -140,12 +130,7 @@ $('#btnCreateGuide').click(function () {
         }
     });
 });
-let showToast= (type,name) => {
-    $('#notification-header').text(type);
-    $('#notification-time').text("");
-    $('#notification-desc').text(name);
-    $('.toast').toast('show')
-}
+
 let getAllGuides= () => {
     let token = localStorage.getItem('token');
     $.ajax({
@@ -167,7 +152,7 @@ let getAllGuides= () => {
 
 }
 let loadDataToGuideTable= () => {
-    
+    $('#guide-table-body').empty()
     guideList.map((value, index) => {
         let data=`<tr>
         <td id="${value.id}">
