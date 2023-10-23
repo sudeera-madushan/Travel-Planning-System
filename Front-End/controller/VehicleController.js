@@ -75,3 +75,16 @@ $('#btnCreateVehicle').click(function () {
     //     }
     // });
 })
+
+$('#btnVehicleList').click(function () {
+    $.ajax({
+        url: 'http://localhost:8093/travel/api/v1/vehicle',
+        type: 'GET',
+        success: function (data) {
+            console.log(data)
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+})

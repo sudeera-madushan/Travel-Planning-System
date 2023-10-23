@@ -1,7 +1,10 @@
 package lk.ijse.travel.vehicleservice.persistence;
 
+import lk.ijse.travel.vehicleservice.dto.VehicleDTO;
 import lk.ijse.travel.vehicleservice.entity.Vehicle;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 /**
  * @Author : Sudeera Madushan
@@ -9,4 +12,5 @@ import org.springframework.data.repository.CrudRepository;
  * @Project : Next Travel Pvt. Ltd
  */
 public interface VehicleRepo extends CrudRepository<Vehicle,String> {
+    List<Vehicle> findAll();
 }

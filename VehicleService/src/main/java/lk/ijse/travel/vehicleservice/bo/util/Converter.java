@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Author : Sudeera Madushan
  * @Date : 10/11/2023
@@ -28,5 +31,18 @@ public class Converter {
     }
     public VehicleImage getVehicleImageEntity(VehicleImageDTO entity){
         return modelMapper.map(entity, VehicleImage.class);
+    }
+
+    public List<VehicleDTO> getAllVehicleDTO(List<Vehicle> list) {
+        ArrayList<VehicleDTO> vehicleDTOS = new ArrayList<>();
+        for (Vehicle vehicle : list) {
+            VehicleImageDTO imageDTO = getVehicleImageDTO(vehicle.getVehicleImage());
+            vehicle.setVehicleImage(null);
+            imageDTO.setVehicle(null);
+            VehicleDTO vehicleDTO = getVehicleDTO(vehicle);
+            vehicleDTO.setVehicleImage(imageDTO);
+            vehicleDTOS.add(vehicleDTO);
+        }
+        return vehicleDTOS;
     }
 }

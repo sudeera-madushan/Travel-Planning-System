@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Author : Sudeera Madushan
  * @Date : 10/13/2023
@@ -43,5 +45,10 @@ public class VehicleServiceImpl implements VehicleService {
     public Response<VehicleDTO> get(String id) {
         return new Response<>(HttpStatus.OK,"Vehicle find Successfully",
                 converter.getVehicleDTO(vehicleRepo.findById(id).get()));
+    }
+    @Override
+    public Response<List<VehicleDTO>> getAll(){
+        return new Response<>(HttpStatus.OK,"Get All Vehicle successfully",
+                converter.getAllVehicleDTO(vehicleRepo.findAll()));
     }
 }

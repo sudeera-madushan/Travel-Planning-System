@@ -3,6 +3,8 @@ package lk.ijse.travel.vehicleservice.bo;
 import lk.ijse.travel.vehicleservice.dto.Response;
 import lk.ijse.travel.vehicleservice.dto.VehicleDTO;
 
+import java.util.List;
+
 /**
  * @Author : Sudeera Madushan
  * @Date : 10/13/2023
@@ -11,4 +13,5 @@ import lk.ijse.travel.vehicleservice.dto.VehicleDTO;
 public interface VehicleService {
     Response<VehicleDTO> save(VehicleDTO dto);
     Response<VehicleDTO> get(String id);
+    Response<List<VehicleDTO>> getAll();
 }

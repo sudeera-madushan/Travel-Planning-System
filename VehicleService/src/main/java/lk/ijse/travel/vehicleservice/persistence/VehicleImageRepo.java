@@ -1,7 +1,10 @@
 package lk.ijse.travel.vehicleservice.persistence;
 
+import lk.ijse.travel.vehicleservice.entity.Vehicle;
 import lk.ijse.travel.vehicleservice.entity.VehicleImage;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.List;
 
 /**
  * @Author : Sudeera Madushan
