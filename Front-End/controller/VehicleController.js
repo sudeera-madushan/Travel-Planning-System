@@ -3,7 +3,7 @@
  * date : 10/23/2023
  * project : Front-End
  */
-
+let vehicleList=[];
 $(document).ready(function() {
     $("#vehicle-list").hide()
     // $("#newVehicleContainer").hide()
@@ -62,29 +62,86 @@ $('#btnCreateVehicle').click(function () {
             console.log(error)
         }
     });
-    // $.ajax({
-    //     url: 'http://localhost:8093/travel/api/v1/vehicle',
-    //     type: 'GET',
-    //     success: function (data) {
-    //         console.log(data)
-    //         // showToast("Success","Guide \"" + data.object.name +"\"' Save Successfully !")
-    //         // getAllGuides();
-    //     },
-    //     error: function (error) {
-    //         console.log(error)
-    //     }
-    // });
 })
 
 $('#btnVehicleList').click(function () {
+    $('#vehicleListContainer').show()
+    $('#newVehicleContainer').hide()
+
+    $('#header-title').empty()
+    $("#header-title").append("Vehicle List")
+    getAllVehicles()
+
+});
+
+let getAllVehicles=() => {
     $.ajax({
         url: 'http://localhost:8093/travel/api/v1/vehicle',
         type: 'GET',
         success: function (data) {
-            console.log(data)
+            vehicleList=[];
+            vehicleList=data.object;
+            loadDataToVehicleTable()
         },
         error: function (error) {
             console.log(error)
         }
     })
-})
+}
+let loadDataToVehicleTable=() => {
+    vehicleList.map((value, index) => {
+        let data=`   <tr>
+        <td id="${value.id}">
+          <div class="d-flex align-items-center">
+            <img src="data:image/jpg;base64, ${value.vehicleImage.frontView}"
+                 alt=""
+                 style="width: 45px; height: 45px"
+                 class="rounded-circle"/>
+            <div class="ms-3">
+              <p class="fw-bold mb-1">${value.brand}</p>
+              <p class="text-muted mb-0">
+                <span class="bg-info badge" style="font-size:10px">${value.category}</span>
+                <span class="bg-danger badge" style="font-size:10px">${value.fuelType}</span>
+                <span class="bg-success badge" style="font-size:10px">${value.vehicleType}</span>
+                <span class="bg-primary badge" style="font-size:10px">${value.transmissionType}</span>
+                <span class="bg-secondary badge" style="font-size:10px">${value.isHybrid?"Hybrid":"Non-Hybrid"}</span>
+              </p>
+            </div>
+          </div>
+        </td>
+        <td>${value.fuelUsage}</td>
+        <td>${value.seatCapacity}</td>
+        <td>
+          <img src="data:image/jpg;base64, ${value.vehicleImage.rearView}"
+               alt=""
+               style="width: 60px; height: 40px"/>
+          <img src="data:image/jpg;base64, ${value.vehicleImage.sideView}"
+               alt=""
+               style="width: 60px; height: 40px"/>
+          <img src="data:image/jpg;base64, ${value.vehicleImage.frontInterior}"
+               alt=""
+               style="width: 60px; height: 40px"/>
+          <img src="data:image/jpg;base64, ${value.vehicleImage.rearInterior}"
+               alt=""
+               style="width: 60px; height: 40px"/>
+        </td>
+        <td style="font-size:12px">${value.driverName}</td>
+        <td style="font-size:12px">${value.driverContact}</td>
+        <td>
+          <img src="data:image/jpg;base64, ${value.driverLicenseImageFront}"
+               alt=""
+               style="width: 60px; height: 40px"/>
+          <img src="data:image/jpg;base64, ${value.driverLicenseImageBack}"
+               alt=""
+               style="width: 60px; height: 40px"/>
+        </td>
+        <td><label style="font-size: 12px">${value.remarks}</label></td>
+        <td>
+          <button type="button" class="btn btn-link badge bg-dark-subtle btn-sm btn-rounded">
+            Edit
+          </button>
+        </td>
+      </tr>`;
+        $('#vehicle-table-body').append(data);
+    })
+}
