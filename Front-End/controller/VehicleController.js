@@ -271,15 +271,13 @@ $('#btnUpdateVehicle').click(function () {
 
     const formData = new FormData();
     formData.append("vehicle", blob);
-    formData.append('driver_license_image_front',base64ToFile($('#driverLicenseFrontImage').attr('src')));
-    formData.append('driver_license_image_back', $('#driverLicenseBackImage')[0].files[0]);
-    formData.append('side_view', $('#vehicleSideImage')[0].files[0]);
-    formData.append('front_view', $('#vehicleFrontImage')[0].files[0]);
-    formData.append('rear_view', $('#vehicleRearImage')[0].files[0]);
-    formData.append('front_interior', $('#vehicleFrontInteriorImage')[0].files[0]);
-    formData.append('rear_interior', $('#vehicleRearInteriorImage')[0].files[0]);
-    console.log(vehicle)
-    console.log(formData)
+    formData.append('driver_license_image_front',base64ToFile($('#driverLicenseFrontFileUploadImage').attr('src')));
+    formData.append('driver_license_image_back', base64ToFile($('#driverLicenseBackFileUploadImage').attr('src')));
+    formData.append('side_view', base64ToFile($('#vehicleSideFileUploadImage').attr('src')));
+    formData.append('front_view',base64ToFile($('#vehicleFrontFileUploadImage').attr('src')));
+    formData.append('rear_view', base64ToFile($('#vehicleRearFileUploadImage').attr('src')));
+    formData.append('front_interior', base64ToFile($('#vehicleFrontInteriorFileUploadImage').attr('src')));
+    formData.append('rear_interior', base64ToFile($('#vehicleRearInteriorFileUploadImage').attr('src')));
     $.ajax({
         url: 'http://localhost:8093/travel/api/v1/vehicle/save',
         type: 'POST',
@@ -292,6 +290,7 @@ $('#btnUpdateVehicle').click(function () {
             showToast("Success","Vehicle \"" + data.object.brand +"\"' Save Successfully !");
             // getAllVehicles();
             clearVehicleFields();
+            showVehicleList();
         },
         error: function (error) {
             console.log(error)
