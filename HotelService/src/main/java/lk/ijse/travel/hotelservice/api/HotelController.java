@@ -18,8 +18,9 @@ import java.util.List;
  * @Date : 10/13/2023
  * @Project : Next Travel Pvt. Ltd
  */
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("hotel")
+@RequestMapping("api/v1/hotel")
 public class HotelController {
     @Autowired
     private HotelService hotelService;

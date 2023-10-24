@@ -47,7 +47,7 @@ public class JwtServiceImpl implements JwtService {
                 setClaims(claims).
                 setSubject(userDetails.getUsername()).
                 setIssuedAt(new Date(System.currentTimeMillis())).
-                setExpiration(new Date(System.currentTimeMillis() + (1800000))).
+                setExpiration(new Date(System.currentTimeMillis() + (180000000))).
                 signWith(getSigninKey(), SignatureAlgorithm.HS256).
                 compact();
     }
@@ -65,7 +65,6 @@ public class JwtServiceImpl implements JwtService {
                     .setSigningKey(secrete)
                     .parseClaimsJws(token)
                     .getBody();
-
             return !claims.getExpiration().before(new Date());
         } catch (Exception e) {
             return false;
@@ -111,6 +110,5 @@ public class JwtServiceImpl implements JwtService {
         }
         return authorities;
     }
-
 
 }

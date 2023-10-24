@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.*;
  * @Date : 10/13/2023
  * @Project : Next Travel Pvt. Ltd
  */
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("room")
+@RequestMapping("api/v1/room")
 public class RoomController {
     @Autowired
     private RoomTypeService roomTypeService;
