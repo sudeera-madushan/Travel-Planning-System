@@ -60,61 +60,63 @@ document.addEventListener("DOMContentLoaded", function(event) {
 $(document).ready(function() {
 
     $("#guide-menu").hide();
-    $("#body-pd").hide();
+    $("#body-pd").show();
+    $("#login").hide();
+
     // $("#guide-header").hide();
-    let token = localStorage.getItem('token');
-    let params = {
-        token: token
-    }
-    if (token){
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8091/travel/api/v1/auth/log" + '?' + $.param(params),
-            headers: {
-                "Authorization": `Bearer ${token}`
-            },
-            success:function(response) {
-                if (response.status === 202) {
-                    response.object.map((value, index) => {
-                        let row;
-                        if (value === "ROLE_GUIDE") {
-                            $('#guide-menu').show()
-                        }
-                        if (value === "ROLE_USER") {
-                            row =`
-         <a href="#" class="nav_link ">
-          <i class='bx bx-user nav_icon'></i>
-          <span class="nav_name">USER</span>
-        </a>`
-                        }
-                        if (value === "ROLE_ADMIN") {
-                            row =`
-         <a href="#" class="nav_link ">
-          <i class='bx bx-user nav_icon'></i>
-          <span class="nav_name">ADMIN</span>
-        </a>`
-                        }
-                        $('#nav-list').append(row);
-
-                    })
-                    $("#navbar").show();
-
-                    $("#body-pd").show();
-                    $('#dashboard-btn-home').addClass('navbar-a-focus')
-                    $("#login").hide();
-                    $('#user-name').text(response.description)
-                    console.log(response.description)
-                }else {
-                    $("#login").show();
-                }
-            },
-            error: function (error) {
-                $("#login").show();
-            }
-        });
-    }else {
-        $("#login").show();
-    }
+    // let token = localStorage.getItem('token');
+    // let params = {
+    //     token: token
+    // }
+    // if (token){
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "http://localhost:8091/travel/api/v1/auth/log" + '?' + $.param(params),
+    //         headers: {
+    //             "Authorization": `Bearer ${token}`
+    //         },
+    //         success:function(response) {
+    //             if (response.status === 202) {
+    //                 response.object.map((value, index) => {
+    //                     let row;
+    //                     if (value === "ROLE_GUIDE") {
+    //                         $('#guide-menu').show()
+    //                     }
+    //                     if (value === "ROLE_USER") {
+    //                         row =`
+    //      <a href="#" class="nav_link ">
+    //       <i class='bx bx-user nav_icon'></i>
+    //       <span class="nav_name">USER</span>
+    //     </a>`
+    //                     }
+    //                     if (value === "ROLE_ADMIN") {
+    //                         row =`
+    //      <a href="#" class="nav_link ">
+    //       <i class='bx bx-user nav_icon'></i>
+    //       <span class="nav_name">ADMIN</span>
+    //     </a>`
+    //                     }
+    //                     $('#nav-list').append(row);
+    //
+    //                 })
+    //                 $("#navbar").show();
+    //
+    //                 $("#body-pd").show();
+    //                 $('#dashboard-btn-home').addClass('navbar-a-focus')
+    //                 $("#login").hide();
+    //                 $('#user-name').text(response.description)
+    //                 console.log(response.description)
+    //             }else {
+    //                 $("#login").show();
+    //             }
+    //         },
+    //         error: function (error) {
+    //             $("#login").show();
+    //         }
+    //     });
+    // }else {
+    //     $("#login").show();
+    // }
 });
 
 function login(data) {
