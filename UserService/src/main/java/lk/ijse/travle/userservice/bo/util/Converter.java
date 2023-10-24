@@ -31,6 +31,7 @@ public class Converter {
     public UserDTO getUserDTO(User user){
         UserDTO dto = modelMapper.map(user, UserDTO.class);
         dto.setRole(user.getAuths().stream().map(auth -> auth.getRole().getType()).collect(Collectors.toList()));
+        dto.setPassword("");
         return dto;
     }
 }

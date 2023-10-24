@@ -8,6 +8,8 @@ import lk.ijse.travle.userservice.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @Author : Sudeera Madushan
  * @Date : 10/8/2023
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
-//    @CrossOrigin(origins = "http://localhost:63342")
     @ResponseBody
     @PostMapping
     public Response<Token> authenticate(@RequestBody UserDTO user){
@@ -28,7 +29,15 @@ public class AuthenticationController {
     @ResponseBody
     @GetMapping(value = "{token}")
     public String authenticate(@PathVariable String token){
-        System.out.println(token);
         return authenticationService.checkAuth(token);
+    }
+
+
+
+    @RequestMapping("log")
+    @ResponseBody
+    @GetMapping
+    public Response<List<String>> getRoles(@RequestParam String token){
+        return authenticationService.getRoles(token);
     }
 }

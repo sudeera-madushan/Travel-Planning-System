@@ -1,12 +1,18 @@
 package lk.ijse.travel.vehicleservice.security;
 
+import com.nimbusds.jose.shaded.gson.Gson;
+import com.nimbusds.jose.shaded.gson.GsonBuilder;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.travel.vehicleservice.bo.JwtService;
+import lk.ijse.travel.vehicleservice.dto.LocalDateTimeAdapter;
+import lk.ijse.travel.vehicleservice.exeption.Error;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -15,6 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 /**
  * @Author : Sudeera Madushan
@@ -44,29 +51,36 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
             jwt = authHeader.substring(7);
-            System.out.println(jwt.toString());
             WebClient userClient = webClientBuilder.baseUrl("http://localhost:8091/travel/api/v1")
                     .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + jwt).build();
-            userName = userClient.get()
+            String userName1 = userClient.get()
                     .uri("/auth/"+jwt)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
-            if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (userName1 != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(userName, null, jwtService.getUserDetails(jwt));
+                        new UsernamePasswordAuthenticationToken(userName1, null, jwtService.getUserDetails(jwt));
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 filterChain.doFilter(request, response);
             } else {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Token");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Username");
             }
         } catch (Exception ex) {
             sendError(response, request, ex.getMessage());
         }
     }
 
-    private void sendError(HttpServletResponse response, HttpServletRequest request, String errorMessage) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, errorMessage);
+    @SneakyThrows
+    private void sendError(HttpServletResponse response, HttpServletRequest request, String message) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(gson.toJson(new Error(HttpStatus.PRECONDITION_FAILED, message, request.getContextPath(),
+                LocalDateTime.now())));
     }
 }

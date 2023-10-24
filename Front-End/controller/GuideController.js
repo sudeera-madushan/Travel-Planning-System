@@ -29,6 +29,8 @@ let showHome= () => {
 }
 
 let showNewGuide= () => {
+    $('#vehicleSection').hide();
+    $('#guideSection').show();
     $('#header-title').empty()
     $("#header-title").append("Create Guide")
     $('#new-guide').show();
@@ -39,6 +41,8 @@ let showNewGuide= () => {
     $('#btnCreateGuide').show();
 }
 let showGuideList= () => {
+    $('#vehicleSection').hide();
+    $('#guideSection').show();
     getAllGuides();
 
     $('#header-title').empty()
@@ -79,6 +83,9 @@ $('#btnUpdateGuide').click(function () {
         enctype: 'multipart/form-formData',
         contentType: false,
         processData: false,
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
         success: function (data) {
             console.log(data);
             showToast("Success","Guide \"" + data.object.name+"\"' Update Successfully !")
@@ -121,9 +128,12 @@ $('#btnCreateGuide').click(function () {
         enctype: 'multipart/form-formData',
         contentType: false,
         processData: false,
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        },
         success: function (data) {
             showToast("Success","Guide \"" + data.object.name +"\"' Save Successfully !")
-            getAllGuides();
+            clearGuideFields()
         },
         error: function (error) {
             console.error(error);
@@ -278,7 +288,6 @@ $('#btnCancelUpdateGuide').click(function () {
 $('#conformation-ok-btn').click(function () {
 
     if ($('#model-body').text().endsWith("Guide")) {
-        console.log("++++++")
         let params = {
             id: nowUpdatingGuide.id
         }
@@ -288,6 +297,9 @@ $('#conformation-ok-btn').click(function () {
             processData: false,
             contentType: false,
             cache: false,
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            },
             success: function (data) {
                 showGuideList()
                 showToast("Success", "Guide \"" + nowUpdatingGuide.name + "\"' Delete Successfully !")

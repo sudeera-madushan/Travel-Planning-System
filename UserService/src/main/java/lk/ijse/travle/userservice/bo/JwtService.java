@@ -1,8 +1,11 @@
 package lk.ijse.travle.userservice.bo;
 
 import io.jsonwebtoken.Claims;
+import lk.ijse.travle.userservice.dto.Type;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -19,4 +22,8 @@ public interface JwtService {
     String generateToken(Map<String, Object> claims, UserDetails userDetails);
 
     boolean isTokenValid(String token, UserDetails userDetails);
+
+    List<String> getUserDetails(String token);
+
+    Claims getClaims(String token);
 }

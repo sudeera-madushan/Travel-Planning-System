@@ -47,7 +47,7 @@ public class JwtServiceImpl implements JwtService {
                 setClaims(claims).
                 setSubject(userDetails.getUsername()).
                 setIssuedAt(new Date(System.currentTimeMillis())).
-                setExpiration(new Date(System.currentTimeMillis() + (1800000))).
+                setExpiration(new Date(System.currentTimeMillis() + (180000000))).
                 signWith(getSigninKey(), SignatureAlgorithm.HS256).
                 compact();
     }
@@ -62,14 +62,11 @@ public class JwtServiceImpl implements JwtService {
     public boolean isValid(String token) {
         try {
             Claims claims = Jwts.parser()
-                    .setSigningKey(secrete) // Use the same secret key as the authentication service
+                    .setSigningKey(secrete)
                     .parseClaimsJws(token)
                     .getBody();
-
-            // Check if the token is expired (optional)
             return !claims.getExpiration().before(new Date());
         } catch (Exception e) {
-            // Token is invalid or expired
             return false;
         }
     }
@@ -101,21 +98,17 @@ public class JwtServiceImpl implements JwtService {
     }
     @Override
     public List<GrantedAuthority> getUserDetails(String token) {
-
         List<GrantedAuthority> authorities=new ArrayList<>();
-        Claims claims = getClaims(token);
-        String subject = (String) claims.get(Claims.SUBJECT);
-        String roles = (String) claims.get("roles");
-
-        roles = roles.replace("[", "").replace("]", "");
-        String[] roleNames = roles.split(",");
-        ArrayList<String> list = new ArrayList<>();
-
-        for (String aRoleName : roleNames) {
-            authorities.add(new Auth(aRoleName));
-        }
-        for (GrantedAuthority authority : authorities) {
-            System.out.println(authority.getAuthority());
+        try {
+            Claims claims = getClaims(token);
+            String subject = (String) claims.get(Claims.SUBJECT);
+            System.out.println(claims);
+            ArrayList<String> roles = (ArrayList<String>) claims.get("roles");
+            for (String aRoleName : roles) {
+                authorities.add(new Auth(aRoleName));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return authorities;
     }

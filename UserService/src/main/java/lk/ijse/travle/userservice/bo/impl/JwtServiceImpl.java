@@ -6,14 +6,15 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lk.ijse.travle.userservice.bo.JwtService;
+import lk.ijse.travle.userservice.dto.Type;
+import lk.ijse.travle.userservice.entity.security.Auth;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.util.Date;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 
 /**
@@ -83,6 +84,20 @@ public class JwtServiceImpl implements JwtService {
     private Key getSigninKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secrete);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+    @Override
+    public List<String> getUserDetails(String token) {
+            Claims claims = getClaims(token);
+            ArrayList<String> roles = (ArrayList<String>) claims.get("roles");
+        return roles;
+    }
+
+    @Override
+    public Claims getClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(secrete)
+                .parseClaimsJws(token)
+                .getBody();
     }
 
 }

@@ -58,8 +58,13 @@
   <div class="header_img"> <img src="" alt=""> </div>
 </header>
 <div class="l-navbar" id="nav-bar">
-  <nav class="nav mt-5" >
-
+  <nav class="nav" >
+      <p class="text-light  mt-2 mb-0 " style="height: 1rem; margin-left: 1.9rem">
+        <i class='bx bxs-user'></i>
+        <span class="ms-3">
+        Sudeera
+        </span>
+      </p>
       <div class=' nav_link'>
         <a href="#!" class="dashboard-nav-item text-light">
           <i class='bx bxs-dashboard'></i> Dashboard
@@ -82,7 +87,7 @@
     <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="vehicle-menu">
       <li>
         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
-          <i class='bx bx-run'></i> <span class="ms-1 d-none d-sm-inline">Vehicle</span> </a>
+          <i class='bx bx-car'></i> <span class="ms-1 d-none d-sm-inline">Vehicle</span> </a>
         <ul class="collapse  nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
           <li class="w-100" id="btnNewVehicle">
             <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Create Vehicle</span></a>
@@ -101,8 +106,8 @@
 </div>
 </section>
 <!--Login-->
-<div class="container" id="login">
-  <div class="row justify-content-center align-items-center" style="height: 100vh;">
+<div class="container" id="login" style="position: relative; right: 3vw">
+  <div class="row justify-content-center align-items-center" style="height: 75vh;">
     <div class="col-md-4">
       <div class="card">
         <div class="card-body">
@@ -116,7 +121,7 @@
               <label for="password">Password</label>
               <input type="password" class="form-control box-size-remove" id="password"  autocomplete="none" placeholder="Enter your password">
             </div>
-            <button type="button" class="btn btn-primary btn-block" id="btn-login">Login</button>
+            <button type="button" class="btn btn-primary btn-block mt-2" id="btn-login">Login</button>
           </form>
         </div>
       </div>
@@ -125,7 +130,7 @@
 </div>
 
 
-<section class="guide-section">
+<section class="guide-section" id="guideSection">
   <section class="container" id="new-guide">
     <div class="row">
       <div class="col-11">
@@ -306,7 +311,7 @@
     </table>
   </section>
 </section>
-<section class="vehicle-section">
+<section class="vehicle-section" id="vehicleSection">
   <section class="container" id="newVehicleContainer">
     <div class="row">
       <div class="col-11">
@@ -585,40 +590,6 @@
         $(id+'FileUploadContent').show();
         $(id+'ImageTitle').html(input.files[0].name);
       }
-      // reader.onload = function(e) {
-      //   if (input.id==='guideImage') {
-      //     $('#guideImageWrap').hide();
-      //     $('#guideFileUploadImage').attr('src', e.target.result);
-      //     $('#guideFileUploadContent').show();
-      //     $('#guideImageTitle').html(input.files[0].name);
-      //   }else if(input.id==='guideNfImage') {
-      //     $('#guideNfImageWrap').hide();
-      //     $('#guideNfFileUploadImage').attr('src', e.target.result);
-      //     $('#guideNfFileUploadContent').show();
-      //     $('#guideNfImageTitle').html(input.files[0].name);
-      //   }else if(input.id==='guideNbImage') {
-      //     $('#guideNbImageWrap').hide();
-      //     $('#guideNbFileUploadImage').attr('src', e.target.result);
-      //     $('#guideNbFileUploadContent').show();
-      //     $('#guideNbImageTitle').html(input.files[0].name);
-      //   }else if(input.id==='guideIfImage') {
-      //     $('#guideIfImageWrap').hide();
-      //     $('#guideIfFileUploadImage').attr('src', e.target.result);
-      //     $('#guideIfFileUploadContent').show();
-      //     $('#guideIfImageTitle').html(input.files[0].name);
-      //   }else if(input.id==='guideIbImage') {
-      //     $('#guideIbImageWrap').hide();
-      //     $('#guideIbFileUploadImage').attr('src', e.target.result);
-      //     $('#guideIbFileUploadContent').show();
-      //     $('#guideIbImageTitle').html(input.files[0].name);
-      //   }else if(input.id==='driverLicenseFrontImage') {
-      //     console.log(input)
-      //     $('#driverLicenseFrontImageWrap').hide();
-      //     $('#driverLicenseFrontFileUploadImage').attr('src', e.target.result);
-      //     $('#driverLicenseFrontFileUploadContent').show();
-      //     $('#driverLicenseFrontImageTitle').html(input.files[0].name);
-      //   }
-      // };
 
       reader.readAsDataURL(input.files[0]);
 

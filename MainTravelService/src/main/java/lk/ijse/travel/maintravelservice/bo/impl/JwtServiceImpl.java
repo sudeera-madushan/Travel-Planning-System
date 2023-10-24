@@ -101,23 +101,18 @@ public class JwtServiceImpl implements JwtService {
     }
     @Override
     public List<GrantedAuthority> getUserDetails(String token) {
-
         List<GrantedAuthority> authorities=new ArrayList<>();
-        Claims claims = getClaims(token);
-        String subject = (String) claims.get(Claims.SUBJECT);
-        String roles = (String) claims.get("roles");
-
-        roles = roles.replace("[", "").replace("]", "");
-        String[] roleNames = roles.split(",");
-        ArrayList<String> list = new ArrayList<>();
-
-        for (String aRoleName : roleNames) {
-            authorities.add(new Auth(aRoleName));
-        }
-        for (GrantedAuthority authority : authorities) {
-            System.out.println(authority.getAuthority());
+        try {
+            Claims claims = getClaims(token);
+            ArrayList<String> roles = (ArrayList<String>) claims.get("roles");
+            for (String aRoleName : roles) {
+                authorities.add(new Auth(aRoleName));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return authorities;
     }
+
 
 }

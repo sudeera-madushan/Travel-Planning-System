@@ -6,12 +6,14 @@
 let vehicleList=[];
 let nowUpdatingVehicle;
 $(document).ready(function() {
-    // $("#vehicleListContainer").hide()
+    $("#vehicleListContainer").hide()
     $("#newVehicleContainer").hide()
-    getAllVehicles()
+    // getAllVehicles()
 });
 
 $('#btnNewVehicle').click(function () {
+    $('#guideSection').hide();
+    $('#vehicleSection').show();
     $('#newVehicleContainer').show()
     $("#vehicleListContainer").hide()
     $('#header-title').empty()
@@ -53,6 +55,7 @@ $('#btnCreateVehicle').click(function () {
     formData.append('rear_view', $('#vehicleRearImage')[0].files[0]);
     formData.append('front_interior', $('#vehicleFrontInteriorImage')[0].files[0]);
     formData.append('rear_interior', $('#vehicleRearInteriorImage')[0].files[0]);
+    let token = localStorage.getItem('token');
     $.ajax({
         url: 'http://localhost:8093/travel/api/v1/vehicle/save',
         type: 'POST',
@@ -61,6 +64,9 @@ $('#btnCreateVehicle').click(function () {
         data: formData,
         contentType: false,
         processData: false,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         success: function (data) {
             showToast("Success","Vehicle \"" + data.object.brand +"\"' Save Successfully !");
             // getAllVehicles();
@@ -77,6 +83,9 @@ $('#btnVehicleList').click(function () {
 
 });
 let showVehicleList= () => {
+
+    $('#guideSection').hide();
+    $('#vehicleSection').show();
     $('#vehicleListContainer').show()
     $('#newVehicleContainer').hide()
 
@@ -85,9 +94,13 @@ let showVehicleList= () => {
     getAllVehicles()
 }
 let getAllVehicles=() => {
+    let token = localStorage.getItem('token');
     $.ajax({
         url: 'http://localhost:8093/travel/api/v1/vehicle',
         type: 'GET',
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         success: function (data) {
             vehicleList=[];
             vehicleList=data.object;
@@ -280,6 +293,7 @@ $('#btnUpdateVehicle').click(function () {
     formData.append('rear_view', base64ToFile($('#vehicleRearFileUploadImage').attr('src')));
     formData.append('front_interior', base64ToFile($('#vehicleFrontInteriorFileUploadImage').attr('src')));
     formData.append('rear_interior', base64ToFile($('#vehicleRearInteriorFileUploadImage').attr('src')));
+    let token = localStorage.getItem('token');
     $.ajax({
         url: 'http://localhost:8093/travel/api/v1/vehicle/save',
         type: 'POST',
@@ -288,6 +302,9 @@ $('#btnUpdateVehicle').click(function () {
         data: formData,
         contentType: false,
         processData: false,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         success: function (data) {
             showToast("Success","Vehicle \"" + data.object.brand +"\"' Update Successfully !");
             // getAllVehicles();
@@ -308,6 +325,7 @@ $('#btnDeleteVehicle').click(function () {
 
 $('#conformation-ok-btn').click(function () {
     if ($('#model-body').text().endsWith("Vehicle")) {
+        let token = localStorage.getItem('token');
         let params = {
             id: nowUpdatingVehicle.id,
             imageId:nowUpdatingVehicle.vehicleImage.id
@@ -318,9 +336,14 @@ $('#conformation-ok-btn').click(function () {
             processData: false,
             contentType: false,
             cache: false,
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
             success: function (data) {
+                console.log(data)
+                console.log(nowUpdatingVehicle)
+                showToast("Success", "Vehicle \"" + nowUpdatingVehicle.brand + "\"' Delete Successfully !")
                 showVehicleList()
-                showToast("Success", "Guide \"" + nowUpdatingVehicle.name + "\"' Delete Successfully !")
                 $('#conformation-alert').modal('hide');
             },
             error: function (error) {
