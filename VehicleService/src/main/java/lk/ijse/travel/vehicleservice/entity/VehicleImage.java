@@ -26,7 +26,11 @@ public class VehicleImage extends SuperEntity{
     private String frontInterior;
     @Column(name = "rear_interior", columnDefinition = "LONGTEXT")
     private String rearInterior;
-    @OneToOne
+//    @OneToOne
+//    @JoinColumn(name = "vehicle_id")
+//    private Vehicle vehicle;
+
+    @OneToOne(mappedBy = "vehicleImage")
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 }

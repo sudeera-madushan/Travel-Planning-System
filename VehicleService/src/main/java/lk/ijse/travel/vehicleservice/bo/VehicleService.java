@@ -14,4 +14,6 @@ public interface VehicleService {
     Response<VehicleDTO> save(VehicleDTO dto);
     Response<VehicleDTO> get(String id);
     Response<List<VehicleDTO>> getAll();
+
+    Response<String> deleteVehicle(String id,String imageId);
 }

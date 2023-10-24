@@ -266,6 +266,9 @@ let loadEditeGuide=(guide)=>{
 
 $('#btnDeleteGuide').click(function () {
     $('#conformation-alert').modal('show')
+    $('#model-body').empty();
+    $('#model-body').append("Conform Delete Guide");
+
 })
 
 $('#btnCancelUpdateGuide').click(function () {
@@ -273,24 +276,28 @@ $('#btnCancelUpdateGuide').click(function () {
 })
 
 $('#conformation-ok-btn').click(function () {
-    let params={
-        id:nowUpdatingGuide.id
-    }
-    $.ajax({
-        url: 'http://localhost:8092/travel/api/v1/guide'+ '?' + $.param(params),
-        type: 'DELETE',
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (data) {
-            showGuideList()
-            showToast("Success","Guide \"" + nowUpdatingGuide.name +"\"' Delete Successfully !")
-            $('#conformation-alert').modal('hide');
-        },
-        error: function (error) {
-            console.error(error);
+
+    if ($('#model-body').text().endsWith("Guide")) {
+        console.log("++++++")
+        let params = {
+            id: nowUpdatingGuide.id
         }
-    });
+        $.ajax({
+            url: 'http://localhost:8092/travel/api/v1/guide' + '?' + $.param(params),
+            type: 'DELETE',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (data) {
+                showGuideList()
+                showToast("Success", "Guide \"" + nowUpdatingGuide.name + "\"' Delete Successfully !")
+                $('#conformation-alert').modal('hide');
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
 })
 $('#conformation-close').click(function () {
     $('#conformation-alert').modal('hide');

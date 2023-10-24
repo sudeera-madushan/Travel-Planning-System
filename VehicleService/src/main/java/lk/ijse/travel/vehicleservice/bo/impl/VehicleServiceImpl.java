@@ -51,4 +51,11 @@ public class VehicleServiceImpl implements VehicleService {
         return new Response<>(HttpStatus.OK,"Get All Vehicle successfully",
                 converter.getAllVehicleDTO(vehicleRepo.findAll()));
     }
+
+    @Override
+    public Response<String> deleteVehicle(String id,String imageId){
+        vehicleRepo.deleteById(id);
+        vehicleImageRepo.deleteById(imageId);
+        return new Response<>(HttpStatus.OK,"Vehicle Delete Successfully","id");
+    }
 }

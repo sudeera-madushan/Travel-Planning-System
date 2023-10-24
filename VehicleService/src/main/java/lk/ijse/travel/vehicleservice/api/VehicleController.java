@@ -61,4 +61,9 @@ public class VehicleController {
         return vehicleService.getAll();
     }
 
+    @DeleteMapping
+    public Response<String> deleteVehicle(@RequestParam String id ,
+                                          @RequestParam String imageId){
+        return vehicleService.deleteVehicle(id,imageId);
+    }
 }

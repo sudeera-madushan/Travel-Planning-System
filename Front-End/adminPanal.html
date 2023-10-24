@@ -11,7 +11,7 @@
 </head>
 <body>
 <!-- Modal -->
-<div class="modal fade" id="conformation-alert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="conformation-alert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" >
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -20,7 +20,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="model-body">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="conformation-close-btn">Close</button>
@@ -30,7 +30,7 @@
   </div>
 </div>
 <!-- Notification -->
-<div aria-live="polite" aria-atomic="true" style="position: absolute; right: 0; min-height: 200px ; z-index: 1000">
+<div aria-live="polite" aria-atomic="true" style="position: fixed; right: 0; min-height: 200px ; z-index: 1000">
   <!-- Position it -->
 <div style="position: absolute; top: 0; right: 0;">
 
@@ -652,17 +652,19 @@
   }
 
   let base64ToFile= (imageDataUrl) => {
-    console.log(imageDataUrl);
-    var dataUrlParts = imageDataUrl.split(",");
-    var contentType = dataUrlParts[0].split(":")[1].split(";")[0];
-    var byteCharacters = atob(dataUrlParts[1]);
-    var byteNumbers = new Array(byteCharacters.length);
-    for (var i = 0; i < byteCharacters.length; i++) {
+    let dataUrlParts = imageDataUrl.split(",");
+    let contentType = dataUrlParts[0].split(":")[1].split(";")[0];
+    let byteCharacters = atob(dataUrlParts[1]);
+    let byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
-    var byteArray = new Uint8Array(byteNumbers);
+    let byteArray = new Uint8Array(byteNumbers);
     return new Blob([byteArray], { type: contentType });
   }
+
+
+
 </script>
 </body>
 </html>

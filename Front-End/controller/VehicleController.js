@@ -16,6 +16,11 @@ $('#btnNewVehicle').click(function () {
     $("#vehicleListContainer").hide()
     $('#header-title').empty()
     $("#header-title").append("Create Vehicle")
+    $('#btnCreateVehicle').show()
+    $('#btnUpdateVehicle').hide();
+    $('#btnCancelUpdateVehicle').hide();
+    $('#btnDeleteVehicle').hide();
+    clearVehicleFields();
 })
 
 $('#btnCreateVehicle').click(function () {
@@ -48,8 +53,6 @@ $('#btnCreateVehicle').click(function () {
     formData.append('rear_view', $('#vehicleRearImage')[0].files[0]);
     formData.append('front_interior', $('#vehicleFrontInteriorImage')[0].files[0]);
     formData.append('rear_interior', $('#vehicleRearInteriorImage')[0].files[0]);
-    console.log(vehicle)
-    console.log(formData)
     $.ajax({
         url: 'http://localhost:8093/travel/api/v1/vehicle/save',
         type: 'POST',
@@ -177,7 +180,6 @@ $('#vehicle-table-body').on('click','button',function () {
 
 let loadEditeVehicle=(vehicle)=>{
     nowUpdatingVehicle=vehicle;
-    console.log(vehicle)
     $('#vehicle-brand').val(vehicle.brand);
     $("#vehicleCategory").val(
         vehicle.category==="Economy"?"1"
@@ -287,7 +289,7 @@ $('#btnUpdateVehicle').click(function () {
         contentType: false,
         processData: false,
         success: function (data) {
-            showToast("Success","Vehicle \"" + data.object.brand +"\"' Save Successfully !");
+            showToast("Success","Vehicle \"" + data.object.brand +"\"' Update Successfully !");
             // getAllVehicles();
             clearVehicleFields();
             showVehicleList();
@@ -296,4 +298,34 @@ $('#btnUpdateVehicle').click(function () {
             console.log(error)
         }
     });
+})
+
+$('#btnDeleteVehicle').click(function () {
+    $('#conformation-alert').modal('show')
+    $('#model-body').empty();
+    $('#model-body').append("Conform Delete Vehicle");
+})
+
+$('#conformation-ok-btn').click(function () {
+    if ($('#model-body').text().endsWith("Vehicle")) {
+        let params = {
+            id: nowUpdatingVehicle.id,
+            imageId:nowUpdatingVehicle.vehicleImage.id
+        }
+        $.ajax({
+            url: 'http://localhost:8093/travel/api/v1/vehicle' + '?' + $.param(params),
+            type: 'DELETE',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (data) {
+                showVehicleList()
+                showToast("Success", "Guide \"" + nowUpdatingVehicle.name + "\"' Delete Successfully !")
+                $('#conformation-alert').modal('hide');
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
 })

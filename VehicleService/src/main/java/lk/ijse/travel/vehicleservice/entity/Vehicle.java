@@ -38,9 +38,15 @@ public class Vehicle extends SuperEntity{
     private String driverLicenseImageFront;
     @Column(name = "driver_license_image_back", columnDefinition = "LONGTEXT")
     private String driverLicenseImageBack;
+//    @OneToOne(mappedBy = "vehicle")
+//    @JoinColumn(name = "vehicle_image_id")
+//    private VehicleImage vehicleImage;
+
     @OneToOne
     @JoinColumn(name = "vehicle_image_id")
     private VehicleImage vehicleImage;
+
+
     private String packageCategoryId;
 
 }
