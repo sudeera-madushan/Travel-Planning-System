@@ -22,8 +22,9 @@ public class HotelServiceImpl implements HotelService {
     private Converter converter;
     @Override
     public Response<HotelDTO> saveHotel(HotelDTO dto) {
-        return new Response<>(HttpStatus.CREATED,"Hotel save successfully",
-                converter.getHotelDTO(hotelRepo.save(converter.getHotelEntity(dto))));
+//        return new Response<>(HttpStatus.CREATED,"Hotel save successfully",
+//                converter.getHotelDTO(hotelRepo.save(converter.getHotelEntity(dto))));
+        return new Response<>(HttpStatus.CREATED,"Hotel save successfully",dto);
     }
 
     @Override

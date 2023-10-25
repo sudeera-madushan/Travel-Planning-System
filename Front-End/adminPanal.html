@@ -614,7 +614,7 @@
           </div>
 
           <div class="row mb-2">
-            <div class="form-outline col-3">
+            <div class="form-outline col">
               <label class="form-label" for="hotelCategory">Category</label>
               <select class="form-select" aria-label="Default select example" id="hotelCategory">
                 <option selected>Select</option>
@@ -623,18 +623,6 @@
                 <option value="3">Luxury</option>
                 <option value="4">Super Luxury</option>
               </select>
-            </div>
-            <div class="col">
-              <div class="form-outline ">
-                <label class="form-label" for="vehicleContactOne">Contact No One</label>
-                <input type="text" id="vehicleContactOne" class="form-control" />
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-outline">
-                <label class="form-label" for="vehicleContactTwo">Contact No Two</label>
-                <input type="text" id="vehicleContactTwo" class="form-control" />
-              </div>
             </div>
             <div class="form-outline mt-sm-4 col">
               <div class="form-check form-switch">
@@ -659,9 +647,37 @@
             </div>
             </fieldset>
           </div>
-          <div class="row mb-4 border rounded" >
+          <div class="row mb-4">
+
+            <div class="col">
+              <div class="form-outline ">
+                <label class="form-label" for="hotelContactOne">Contact No One</label>
+                <input type="text" id="hotelContactOne" class="form-control" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="hotelContactTwo">Contact No Two</label>
+                <input type="text" id="hotelContactTwo" class="form-control" />
+              </div>
+            </div>
+
+            <fieldset class="col ">
+              <label class="form-check-label" for="cancellationFee"> Hotel Fee </label>
+              <div class="input-group col h-25 mt-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="hotelFee" >
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="row mb-4 border rounded" id="hotelImageContainer">
             <label class="form-label file-upload-label mt-2" for="hotelImageChooserImage">Images</label>
-            <div class="col-2 mt-1 mb-1" id="hotelImageContainer">
+            <div class="col-2 mt-1 mb-1" id="hotelImageUpload">
               <div class="file-upload">
                 <div class="image-upload-wrap" id="hotelImageChooserImageWrap">
                   <input class="file-upload-input" type='file' onchange="readURLHotelImages(this);" accept="image/*" id="hotelImageChooserImage"/>
@@ -690,19 +706,53 @@
     <table class="table align-middle mb-0 bg-white">
       <thead class="bg-light">
       <tr>
-        <th>Vehicle</th>
-        <th>Fuel</th>
-        <th>Seat</th>
-        <th>Images</th>
-        <th>Driver</th>
+        <th>Name</th>
+        <th>Category</th>
         <th>Contact</th>
-        <th>License</th>
-        <th>Remarks</th>
+        <th>Pets Allowed</th>
+        <th>Cancellation Criteria</th>
+        <th>Images</th>
         <th>Action</th>
       </tr>
       </thead>
       <tbody id="hotel-table-body">
-
+      <tr>
+        <td id="${value.id}">
+          <div class="d-flex align-items-center">
+            <img src="data:image/jpg;base64, ${value.vehicleImage.frontView}"
+                 alt=""
+                 style="width: 45px; height: 45px"
+                 class="rounded-circle"/>
+            <div class="ms-3">
+              <p class="fw-bold mb-1">Blue Water Hotel Wadduwa </p>
+              <p class="text-muted mb-0" style="font-size: 12px">Blue Water Hotel Wadduwa
+                <a href="fsa l; afasj afaaj;a a;jf;a" class="bg-info badge " target="_blank">map</a>
+              </p>
+            </div>
+          </div>
+        </td>
+        <td>Luxury</td>
+        <td>
+          <a href="tel:+9488787554545" class="m-0">+9488787554545</a>
+          <a href="tel:+9488787554545" class="m-0">+9488787554545</a>
+        </td>
+        <td>Allow</td>
+        <td><i class="bg-danger badge">pay</i> 500$</td>
+        <td>
+          <img src="data:image/jpg;base64, ${value.vehicleImage.rearView}"
+               alt=""
+               style="width: 60px; height: 40px"/>
+          <img src="data:image/jpg;base64, ${value.vehicleImage.sideView}"
+               alt=""
+               style="width: 60px; height: 40px"/>
+        </td>
+        <td>
+          <button type="button" class="btn bg-success  badge ">Rooms</button>
+          <button type="button" class="btn btn-link badge bg-secondary btn-sm btn-rounded">
+            Edit
+          </button>
+        </td>
+      </tr>
       </tbody>
     </table>
   </section>
@@ -713,6 +763,7 @@
 <script type="module" src="controller/GuideController.js"></script>
 <script type="module" src="controller/MainController.js"></script>
 <script type="module" src="controller/VehicleController.js"></script>
+<script type="module" src="controller/HotelController.js"></script>
 <script  type="module" src="model/Guide.js"></script>
 <script>
 
@@ -780,7 +831,7 @@
                    <button type="button" onclick="removeUploadHotelImage(this)" class="remove-image">Remove <span class="image-title">Image</span></button>
                    </div>
                  </div>`
-        $('#hotelImageContainer').before(data)
+        $('#hotelImageUpload').before(data)
       }
 
       reader.readAsDataURL(input.files[0]);

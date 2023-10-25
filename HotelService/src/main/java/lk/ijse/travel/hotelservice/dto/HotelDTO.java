@@ -24,8 +24,6 @@ public class HotelDTO {
     private boolean cancellationCriteriaIsFree;
     private BigDecimal cancellationFee;
     private String packageCategoryId;
-    private List<byte[]> images=new ArrayList<>();
+    private List<String> images;
     private List<RoomTypeDTO> roomTypes;
 }
-
-//Ao8aV36nPR2JK7I96_BUXq5aySOON9wjDR8bJbtFpbINPFAIsOiFCA5adl6wkJTu

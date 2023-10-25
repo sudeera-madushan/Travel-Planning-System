@@ -31,60 +31,19 @@ public class HotelController {
     }
     @RequestMapping("save")
     @ResponseBody
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public Response<HotelDTO> save(
-            @RequestPart String name,
-            @RequestPart String category,
-            @RequestPart String location,
-            @RequestPart String email,
-            @RequestPart String mapLocation,
-            @RequestPart String contactNoOne,
-            @RequestPart String contactNoTwo,
-            @RequestPart String petIsAllowed,
-            @RequestPart String hotelFee,
-            @RequestPart String cancellationCriteriaIsFree,
-            @RequestPart String cancellationFee,
-            @RequestPart String packageCategoryId,
-            @RequestPart List<MultipartFile> images) {
-        HotelDTO dto = new HotelDTO();
-        dto.setName(name);
-        dto.setCategory(category);
-        dto.setLocation(location);
-        dto.setEmail(email);
-        dto.setMapLocation(mapLocation);
-        dto.setContactNoOne(contactNoOne);
-        dto.setPackageCategoryId(packageCategoryId);
-        dto.setContactNoTwo(contactNoTwo);
-        dto.setPetIsAllowed(petIsAllowed.equalsIgnoreCase("true"));
-        dto.setHotelFee(new BigDecimal(hotelFee));
-        dto.setCancellationCriteriaIsFree(cancellationCriteriaIsFree.equalsIgnoreCase("true"));
-        dto.setCancellationFee(new BigDecimal(cancellationFee));
-//        try {
-//            ArrayList<byte[]> list = new ArrayList<>();
-//            for (MultipartFile image : images) {
-//                list.add(image.getBytes());
-//        List<byte[]> list = images.stream().map(multipartFile -> {
+            @RequestPart HotelDTO hotel
+//            @RequestPart MultipartFile images
+            ) {
+//        hotel.setImages(new ArrayList<>());
+//        for (MultipartFile image : images) {
 //            try {
-//                return multipartFile.getBytes();
-//            } catch (IOException ex) {
-//                throw new RuntimeException(ex);
+//                hotel.getImages().add(image.getBytes());
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
 //            }
-//        }).toList();
-//        dto.setImages(list);
-
-        images.forEach(multipartFile -> {
-            try {
-                dto.getImages().add(multipartFile.getBytes());
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-
-//            }
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
 //        }
-        return hotelService.saveHotel(dto);
+        return hotelService.saveHotel(hotel);
     }
 }

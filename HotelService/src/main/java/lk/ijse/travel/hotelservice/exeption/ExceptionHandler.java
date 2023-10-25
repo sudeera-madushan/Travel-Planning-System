@@ -20,8 +20,8 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
     @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
-    public ResponseEntity<java.lang.Error> handleGlobalException(Exception ex, WebRequest request) {
-        java.lang.Error error = new java.lang.Error(
+    public ResponseEntity<Error> handleGlobalException(Exception ex, WebRequest request) {
+        Error error = new Error(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 ex.getMessage(),
                 request.getDescription(false),
@@ -31,8 +31,8 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler(ServiceException.class)
-    public ResponseEntity<java.lang.Error> handleServiceException(ServiceException ex, WebRequest request) {
-        java.lang.Error error = new java.lang.Error(
+    public ResponseEntity<Error> handleServiceException(ServiceException ex, WebRequest request) {
+        Error error = new Error(
                 ex.getHttpStatus(),
                 ex.getMessage(),
                 request.getDescription(false),
