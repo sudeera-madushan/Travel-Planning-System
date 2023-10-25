@@ -8,7 +8,6 @@ import lombok.*;
  * @Date : 10/13/2023
  * @Project : Next Travel Pvt. Ltd
  */
-@ToString
 @Getter
 @Setter
 @Entity

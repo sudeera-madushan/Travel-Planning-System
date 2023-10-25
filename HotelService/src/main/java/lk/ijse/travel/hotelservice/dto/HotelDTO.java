@@ -1,5 +1,6 @@
 package lk.ijse.travel.hotelservice.dto;
 
+import lk.ijse.travel.hotelservice.entity.HotelImage;
 import lk.ijse.travel.hotelservice.entity.RoomType;
 import lombok.*;
 
@@ -24,6 +25,6 @@ public class HotelDTO {
     private boolean cancellationCriteriaIsFree;
     private BigDecimal cancellationFee;
     private String packageCategoryId;
-    private List<String> images;
+    private List<HotelImageDTO> hotelImages = new ArrayList<>();
     private List<RoomTypeDTO> roomTypes;
 }

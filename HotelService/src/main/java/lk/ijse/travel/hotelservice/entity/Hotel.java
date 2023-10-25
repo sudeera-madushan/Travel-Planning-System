@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,6 @@ import java.util.List;
  * @Date : 10/13/2023
  * @Project : Next Travel Pvt. Ltd
  */
-@ToString
 @Getter
 @Setter
 @Entity
@@ -38,7 +38,9 @@ public class Hotel extends SuperEntity{
     private BigDecimal cancellationFee;
     @Column(name = "package_category_id")
     private String packageCategoryId;
-//    @OneToMany
-//    private List<RoomType> roomTypes;
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    private List<HotelImage> hotelImages = new ArrayList<>();
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
+    private List<RoomType> roomTypes= new ArrayList<>();
 
 }

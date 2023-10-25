@@ -27,4 +27,9 @@ public class RoomTypeDTO{
         this.imageData = imageData;
         this.hotel = hotel;
     }
+
+    public RoomTypeDTO(String type, byte[] imageData) {
+        this.type = type;
+        this.imageData = imageData;
+    }
 }

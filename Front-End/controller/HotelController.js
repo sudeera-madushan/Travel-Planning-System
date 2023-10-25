@@ -16,9 +16,21 @@ $('#btnCreateHotel').click(function () {
     let imageArr=[];
     let roomArr=[];
     for (let i = 1; i < $('#hotelImageContainer').children().length-1; i++) {
-        // formData.append("images", base64ToFile($('#hotelImageContainer').children().eq(i).children('img').eq(0).attr('src')))
-        imageArr.unshift($('#hotelImageContainer').children().eq(i).children('img').eq(0).attr('src').split(',')[1])
+        formData.append("images", base64ToFile($('#hotelImageContainer').children().eq(i).children('img').eq(0).attr('src')))
+        // imageArr.unshift(
+        //     {hotelImages:{
+        //         type: "image/jpeg",
+        //         imageData:$('#hotelImageContainer').children().eq(i).children('img').eq(0).attr('src')}})
     }
+
+    for (let i = 1; i < $('#hotelRoomContainer').children().length; i++) {
+            roomArr.unshift({
+                type: $('#hotelRoomContainer').children().eq(i).children().eq(0).val()
+                // imageData: $('#hotelRoomContainer').children().eq(i).children().eq(1).children().eq(0).attr('src')
+            });
+        formData.append("roomType",base64ToFile($('#hotelRoomContainer').children().eq(i).children().eq(1).children().eq(0).attr('src')))
+    }
+
     let hotel = {
         id: null,
         name: $('#hotelName').val(),
@@ -36,8 +48,7 @@ $('#btnCreateHotel').click(function () {
         cancellationCriteriaIsFree: $('#cancellationCriteriaIsFree').is(":checked"),
         cancellationFee: parseFloat($('#cancellationFee').val()),
         packageCategoryId: "",
-        images:imageArr,
-        roomTypes:[]
+        roomTypes: roomArr
     };
     const json = JSON.stringify(hotel);
     const blob = new Blob([json], {
@@ -57,7 +68,7 @@ $('#btnCreateHotel').click(function () {
         contentType: false,
         processData: false,
         success: function (data) {
-            showToast("Success","Vehicle \"" + data.object.name +"\"' Save Successfully !");
+            showToast("Success","Vehicle \"" + data +"\"' Save Successfully !");
             console.log(data)
         },
         error: function (error) {

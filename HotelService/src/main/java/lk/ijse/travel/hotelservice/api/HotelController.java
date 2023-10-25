@@ -2,7 +2,9 @@ package lk.ijse.travel.hotelservice.api;
 
 import lk.ijse.travel.hotelservice.bo.HotelService;
 import lk.ijse.travel.hotelservice.dto.HotelDTO;
+import lk.ijse.travel.hotelservice.dto.HotelImageDTO;
 import lk.ijse.travel.hotelservice.dto.Response;
+import lk.ijse.travel.hotelservice.dto.RoomTypeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -29,21 +31,31 @@ public class HotelController {
     public Response<HotelDTO> getUserDetails(@RequestParam String id) {
         return hotelService.getHotel(id);
     }
+
+
     @RequestMapping("save")
-    @ResponseBody
     @PostMapping
     public Response<HotelDTO> save(
-            @RequestPart HotelDTO hotel
-//            @RequestPart MultipartFile images
+            @RequestPart HotelDTO hotel,
+            @RequestPart List<MultipartFile> images,
+            @RequestPart List<MultipartFile> roomType
             ) {
-//        hotel.setImages(new ArrayList<>());
-//        for (MultipartFile image : images) {
-//            try {
-//                hotel.getImages().add(image.getBytes());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-        return hotelService.saveHotel(hotel);
+        ArrayList<HotelImageDTO> imageDTOArrayList = new ArrayList<>();
+            try {
+                for (MultipartFile image : images) {
+                    imageDTOArrayList.add(new HotelImageDTO(image.getBytes()));
+                }
+                for (int i = 0; i < roomType.size(); i++) {
+                    hotel.getRoomTypes().get(i).setImageData(roomType.get(i).getBytes());
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            hotel.setHotelImages(imageDTOArrayList);
+        Response<HotelDTO> saved = hotelService.saveHotel(hotel);
+//        saved.getObject().setRoomTypes(null);
+        saved.getObject().setHotelImages(null);
+
+        return saved;
     }
 }

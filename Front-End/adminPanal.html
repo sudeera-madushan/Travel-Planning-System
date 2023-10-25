@@ -693,6 +693,7 @@
             <button type="button" class="btn btn-outline-primary col-2 m-2" onclick="addHotelRoom()">Add Room</button>
             <label class="form-label file-upload-label mt-2 col" for="hotelImageChooserImage">Hotel Rooms</label>
             </div>
+
           </div>
           <button type="button" id="btnCreateHotel" class="btn btn-primary btn-block mb-2">Create</button>
           <button type="button" id="btnUpdateHotel" class="btn btn-success btn-block mb-2">Update</button>
@@ -771,15 +772,16 @@
   function addHotelRoom(){
     let data=`
             <div class="col-2 mt-1 mb-1">
-              <input class="form-control form-control-sm mb-1" type="text" placeholder="Room Type">
+              <input class="form-control form-control-sm mb-1" style="max-width: 150px" type="text" placeholder="Room Type">
               <div class="file-upload">
-                <div class="image-upload-wrap">
+                <div class="image-upload-wrap"  style="max-width: 150px" >
                   <input class="file-upload-input" type='file' onchange="readURLHotelRoomImages(this);" accept="image">
                   <div class="drag-text">
                     <a href="">drag here</a>
                   </div>
                 </div>
               </div>
+              <button type="button" onclick="removeUploadHotelRoom(this)" style="max-width: 150px" class="remove-image">Remove <span class="image-title">Room</span></button>
             </div>`
 
     $('#hotelRoomContainer').append(data)
@@ -789,12 +791,17 @@
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function(e) {
-        let data=`<div class="col-2 border" style="margin: .5vw; min-width: 100px">
-                    <img class="file-upload-image" src="${e.target.result}"  style="width: 10vw; height: 5vw; "/>
-                 </div>
-                   <button type="button" onclick="removeUploadHotelRoom(this)" class="remove-image">Remove <span class="image-title">Room</span></button>`
-        input.parentElement.parentElement.parentElement.insertAdjacentHTML('beforeend', data);
+        let data=`<div class="col-2 border" style="margin:max-width: 150px">
+                    <img class="file-upload-image" src="${e.target.result}" sizes="height: 5vw; "/>
+                 </div>`
+        // input.parentElement.parentElement.parentElement.insertAdjacentHTML('beforeend', data);
+        // console.log(input.parentElement.parentElement.parentElement.children[2].before(data));
+        var parentElement = input.parentElement.parentElement.parentElement;
+        var lastElement = parentElement.lastElementChild; // Get the last element
+
+// Insert the HTML content before the last element
         input.parentElement.parentElement.remove()
+        lastElement.insertAdjacentHTML('beforebegin', data);
       }
 
       reader.readAsDataURL(input.files[0]);
