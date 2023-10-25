@@ -5,10 +5,10 @@
  */
 
 $(document).ready(function() {
-    // $("#newHotelContainer").hide()
-    $("#hotelListContainer").hide()
+    $("#newHotelContainer").hide()
+    // $("#hotelListContainer").hide()
     // $("#newVehicleContainer").hide()
-    // getAllVehicles()
+    getAllHotels()
 });
 
 $('#btnCreateHotel').click(function () {
@@ -76,3 +76,29 @@ $('#btnCreateHotel').click(function () {
         }
     });
 })
+
+
+const loadDataToHotelTable = () => {
+    $('#hotel-table-body').empty()
+    vehicleList.map((value, index) => {
+        let data=`
+};
+let getAllHotels=()=>{
+    // let token = localStorage.getItem('token');
+    $.ajax({
+        url: 'http://localhost:8094/travel/api/v1/hotel',
+        type: 'GET',
+        // headers: {
+        //     "Authorization": `Bearer ${token}`
+        // },
+        success: function (data) {
+            console.log(data.object)
+            hotelList=[];
+            hoteList=data.object;
+            loadDataToHotelTable()
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+}

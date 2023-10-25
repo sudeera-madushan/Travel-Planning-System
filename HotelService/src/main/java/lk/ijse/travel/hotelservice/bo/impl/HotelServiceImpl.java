@@ -63,4 +63,17 @@ public class HotelServiceImpl implements HotelService {
         return new Response<>(HttpStatus.OK,"Hotel get successfully" ,
                 converter.getHotelDTO(hotelRepo.findById(id).get()));
     }
+
+    @Override
+    public Response<List<HotelDTO>> getAllHotels() {
+        return new Response<>(HttpStatus.OK,"Get All Hotels Successfully",
+                hotelRepo.findAll().stream().map(
+                        entity -> {
+                            HotelDTO dto=converter.getHotelDTO(entity);
+                            dto.setHotelImages(null);
+                            dto.setRoomTypes(null);
+                           return dto;
+                        }
+                ).toList());
+    }
 }

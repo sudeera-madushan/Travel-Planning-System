@@ -28,7 +28,7 @@ public class HotelController {
     private HotelService hotelService;
     @RequestMapping("get")
     @GetMapping
-    public Response<HotelDTO> getUserDetails(@RequestParam String id) {
+    public Response<HotelDTO> getHotel(@RequestParam String id) {
         return hotelService.getHotel(id);
     }
 
@@ -53,9 +53,13 @@ public class HotelController {
             }
             hotel.setHotelImages(imageDTOArrayList);
         Response<HotelDTO> saved = hotelService.saveHotel(hotel);
-//        saved.getObject().setRoomTypes(null);
-        saved.getObject().setHotelImages(null);
 
         return saved;
     }
+
+    @GetMapping
+    public Response<List<HotelDTO>> getAllHotel() {
+        return hotelService.getAllHotels();
+    }
+
 }

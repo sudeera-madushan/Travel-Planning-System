@@ -1,5 +1,6 @@
 package lk.ijse.travel.hotelservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -25,5 +26,6 @@ public class HotelImage  extends SuperEntity{
 
     @ManyToOne
     @JoinColumn(name = "hotel_id")
+//    @JsonBackReference
     private Hotel hotel;
 }
