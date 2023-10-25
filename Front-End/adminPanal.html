@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/style/Admin.css">
 </head>
 <body>
+
 <!-- Modal -->
 <div class="modal fade" id="conformation-alert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" >
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -70,6 +71,7 @@
           <i class='bx bxs-dashboard'></i> Dashboard
         </a>
       </div>
+
     <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="guide-menu">
       <li>
         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
@@ -87,7 +89,7 @@
     <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="vehicle-menu">
       <li>
         <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
-          <i class='bx bx-car'></i> <span class="ms-1 d-none d-sm-inline">Vehicle</span> </a>
+          <i class='bx bx-car'></i><span class="ms-1 d-none d-sm-inline">Vehicle</span> </a>
         <ul class="collapse  nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
           <li class="w-100" id="btnNewVehicle">
             <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Create Vehicle</span></a>
@@ -98,7 +100,7 @@
         </ul>
       </li>
     </ul>
-    <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="vehicle-menu">
+    <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="hotel-menu">
       <li>
         <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
           <i class='bx bx-building-house'></i><span class="ms-1 d-none d-sm-inline">Hotel</span> </a>
@@ -107,7 +109,7 @@
             <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Create Hotel</span></a>
           </li>
           <li id="btnHotelList">
-            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Vehicle List</span></a>
+            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Hotel List</span></a>
           </li>
         </ul>
       </li>
@@ -592,17 +594,28 @@
       <div class="col-11">
         <form>
           <div class="form-outline mb-2 mt-2">
-            <label class="form-label" for="vehicle-brand">Name</label>
+            <label class="form-label" for="hotelName">Hotel Name</label>
             <input type="text" id="hotelName" class="form-control" />
           </div>
 
           <div class="form-outline mb-2 mt-2">
-            <label class="form-label" for="vehicle-brand">Location</label>
+            <label class="form-label" for="hotelLocation">Location Address</label>
             <input type="text" id="hotelLocation" class="form-control" />
           </div>
+
+          <div class="form-outline mb-2 mt-2">
+            <label class="form-label" for="hotelLocationMap">Location Map src</label>
+            <input type="text" id="hotelLocationMap" class="form-control" />
+          </div>
+
+          <div class="form-outline mb-2 mt-2">
+            <label class="form-label" for="hotelEmail">Email</label>
+            <input type="text" id="hotelEmail" class="form-control" />
+          </div>
+
           <div class="row mb-2">
-            <div class="form-outline mb-2 mt-2 col-3">
-              <label class="form-label" for="name">Category</label>
+            <div class="form-outline col-3">
+              <label class="form-label" for="hotelCategory">Category</label>
               <select class="form-select" aria-label="Default select example" id="hotelCategory">
                 <option selected>Select</option>
                 <option value="1">Economy</option>
@@ -611,226 +624,69 @@
                 <option value="4">Super Luxury</option>
               </select>
             </div>
-
-            <div class="form-outline mb-2 mt-2 col-3">
-              <label class="form-label" for="name">Vehicle Type</label>
-              <select class="form-select" aria-label="Default select example" id="vehicleType">
-                <option selected>Select</option>
-                <option value="1">Car</option>
-                <option value="2">Van (7-12 seats)</option>
-                <option value="3">Luxury</option>
-                <option value="4">Bus (30-40 seats)</option>
-              </select>
-            </div>
-
-            <div class="col mt-md-4">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="fuel-type" id="diesel" value="Diesel" checked>
-                <label class="form-check-label" for="diesel">Diesel</label>
+            <div class="col">
+              <div class="form-outline ">
+                <label class="form-label" for="vehicleContactOne">Contact No One</label>
+                <input type="text" id="vehicleContactOne" class="form-control" />
               </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="fuel-type" id="petrol" value="Petrol" checked>
-                <label class="form-check-label" for="petrol">Petrol</label>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="vehicleContactTwo">Contact No Two</label>
+                <input type="text" id="vehicleContactTwo" class="form-control" />
               </div>
             </div>
             <div class="form-outline mt-sm-4 col">
-              <div class="form-check d-flex justify-content-start mb-2">
-                <input class="form-check-input me-2" type="checkbox" value="" id="isAutoGear" checked />
-                <label class="form-check-label" for="isAutoGear"> Auto Gear </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="petIsAllowed">
+                <label class="form-check-label" for="petIsAllowed">Pets Allowed</label>
               </div>
-              <div class="form-check d-flex justify-content-start mb-2">
-                <input class="form-check-input me-2" type="checkbox" value="" id="isHybrid" checked />
-                <label class="form-check-label" for="isHybrid"> Hybrid </label>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-outline">
-                <label class="form-label" for="age">Fuel Usage</label>
-                <input type="number" id="vehicle-fuel-usage" class="form-control" />
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="cancellationCriteriaIsFree" checked>
+                <label class="form-check-label" for="cancellationCriteriaIsFree">Cancel is Free</label>
               </div>
             </div>
-            <div class="col">
-              <div class="form-outline">
-                <label class="form-label" for="age">Seat Capacity</label>
-                <input type="number" id="vehicle-seat-capacity" class="form-control" />
+            <fieldset class="col mt-2" disabled>
+              <label class="form-check-label" for="cancellationFee"> Cancellation Fee </label>
+            <div class="input-group col h-25 mt-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="cancellationFee" >
+              <div class="input-group-append">
+                <span class="input-group-text">.00</span>
               </div>
             </div>
+            </fieldset>
           </div>
-          <div class="row">
-
-            <div class="col  border  rounded">
-              <div class="row">
-                <div class="col">
-                  <div class="form-outline mb-2">
-                    <label class="form-label" for="vehicle-driver-name">Driver Name</label>
-                    <input type="text" id="vehicle-driver-name" class="form-control" />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <div class="form-outline mb-2">
-                    <label class="form-label" for="vehicle-driver-name">Driver Contact</label>
-                    <input type="text" id="vehicle-driver-contact" class="form-control" />
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-2">
-                <div class="col">
-                  <div class="file-upload">
-                    <label class="form-label file-upload-label" for="driverLicenseFrontImage">License Front</label>
-                    <div class="image-upload-wrap" id="driverLicenseFrontImageWrap">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="driverLicenseFrontImage"/>
-                      <div class="drag-text">
-                        <a href="">drag here</a>
-                      </div>
-                    </div>
-                    <div class="file-upload-content" id="driverLicenseFrontFileUploadContent">
-                      <img class="file-upload-image" src="#" alt="your image" id="driverLicenseFrontFileUploadImage"/>
-                      <div class="image-title-wrap">
-                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="driverLicenseFrontImageTitle">Image</span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="file-upload">
-                    <label class="form-label file-upload-label" for="driverLicenseBackImage">License Back</label>
-                    <div class="image-upload-wrap" id="driverLicenseBackImageWrap">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="driverLicenseBackImage"/>
-                      <div class="drag-text">
-                        <a href="">drag here</a>
-                      </div>
-                    </div>
-                    <div class="file-upload-content" id="driverLicenseBackFileUploadContent">
-                      <img class="file-upload-image" src="#" alt="your image" id="driverLicenseBackFileUploadImage"/>
-                      <div class="image-title-wrap">
-                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="driverLicenseBackImageTitle">Image</span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-
-            </div>
-            <div class="col ms-3   rounded">
-              <div class="row mt-2">
-
-                <div class="col">
-                  <div class="file-upload">
-                    <label class="form-label file-upload-label" for="vehicleFrontImage">Front View</label>
-                    <div class="image-upload-wrap" id="vehicleFrontImageWrap">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleFrontImage"/>
-                      <div class="drag-text">
-                        <a href="">drag here</a>
-                      </div>
-                    </div>
-                    <div class="file-upload-content" id="vehicleFrontFileUploadContent">
-                      <img class="file-upload-image" src="#" alt="your image" id="vehicleFrontFileUploadImage"/>
-                      <div class="image-title-wrap">
-                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleFrontImageTitle">Image</span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col">
-                  <div class="file-upload">
-                    <label class="form-label file-upload-label" for="vehicleRearImage">Rear View</label>
-                    <div class="image-upload-wrap" id="vehicleRearImageWrap">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleRearImage"/>
-                      <div class="drag-text">
-                        <a href="">drag here</a>
-                      </div>
-                    </div>
-                    <div class="file-upload-content" id="vehicleRearFileUploadContent">
-                      <img class="file-upload-image" src="#" alt="your image" id="vehicleRearFileUploadImage"/>
-                      <div class="image-title-wrap">
-                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleRearImageTitle">Image</span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <div class="row mt-2">
-
-                <div class="col">
-                  <div class="file-upload">
-                    <label class="form-label file-upload-label" for="vehicleSideImage">Side View</label>
-                    <div class="image-upload-wrap" id="vehicleSideImageWrap">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleSideImage"/>
-                      <div class="drag-text">
-                        <a href="">drag here</a>
-                      </div>
-                    </div>
-                    <div class="file-upload-content" id="vehicleSideFileUploadContent">
-                      <img class="file-upload-image" src="#" alt="your image" id="vehicleSideFileUploadImage"/>
-                      <div class="image-title-wrap">
-                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleSideImageTitle">Image</span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col">
-                  <div class="file-upload">
-                    <label class="form-label file-upload-label" for="vehicleFrontInteriorImage">Front Interior View</label>
-                    <div class="image-upload-wrap" id="vehicleFrontInteriorImageWrap">
-                      <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleFrontInteriorImage"/>
-                      <div class="drag-text">
-                        <a href="">drag here</a>
-                      </div>
-                    </div>
-                    <div class="file-upload-content" id="vehicleFrontInteriorFileUploadContent">
-                      <img class="file-upload-image" src="#" alt="your image" id="vehicleFrontInteriorFileUploadImage"/>
-                      <div class="image-title-wrap">
-                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleFrontInteriorImageTitle">Image</span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-          <div class="row mt-2">
-            <div class="col-9">
-              <div class="form-outline mb-2">
-                <label class="form-label" for="remarks">Additional information</label>
-                <textarea class="form-control" id="vehicle-remarks" rows="4"></textarea>
-              </div>
-            </div>
-            <div class="col-3">
+          <div class="row mb-4 border rounded" >
+            <label class="form-label file-upload-label mt-2" for="hotelImageChooserImage">Images</label>
+            <div class="col-2 mt-1 mb-1" id="hotelImageContainer">
               <div class="file-upload">
-                <label class="form-label file-upload-label" for="vehicleRearInteriorImage">Rear Interior View</label>
-                <div class="image-upload-wrap" id="vehicleRearInteriorImageWrap">
-                  <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleRearInteriorImage"/>
+                <div class="image-upload-wrap" id="hotelImageChooserImageWrap">
+                  <input class="file-upload-input" type='file' onchange="readURLHotelImages(this);" accept="image/*" id="hotelImageChooserImage"/>
                   <div class="drag-text">
                     <a href="">drag here</a>
                   </div>
                 </div>
-                <div class="file-upload-content" id="vehicleRearInteriorFileUploadContent">
-                  <img class="file-upload-image" src="#" alt="your image" id="vehicleRearInteriorFileUploadImage"/>
-                  <div class="image-title-wrap">
-                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleRearInteriorImageTitle">Image</span></button>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
-          <!-- Submit button -->
-          <button type="button" id="btnCreateVehicle" class="btn btn-primary btn-block mb-2">Create</button>
-          <button type="button" id="btnUpdateVehicle" class="btn btn-success btn-block mb-2">Update</button>
-          <button type="button" id="btnDeleteVehicle" class="btn btn-danger btn-block mb-2">Delete</button>
-          <button type="button" id="btnCancelUpdateVehicle" class="btn btn-light btn-block mb-2">Cancel</button>
+          <div class="row mb-4 border rounded" id="hotelRoomContainer">
+            <div class="row">
+            <button type="button" class="btn btn-outline-primary col-2 m-2" onclick="addHotelRoom()">Add Room</button>
+            <label class="form-label file-upload-label mt-2 col" for="hotelImageChooserImage">Hotel Rooms</label>
+            </div>
+          </div>
+          <button type="button" id="btnCreateHotel" class="btn btn-primary btn-block mb-2">Create</button>
+          <button type="button" id="btnUpdateHotel" class="btn btn-success btn-block mb-2">Update</button>
+          <button type="button" id="btnDeleteHotel" class="btn btn-danger btn-block mb-2">Delete</button>
+          <button type="button" id="btnCancelUpdateHotel" class="btn btn-light btn-block mb-2">Cancel</button>
         </form>
       </div>
     </div>
   </section>
-  <section id="vehicleListContainer">
+  <section id="hotelListContainer">
     <table class="table align-middle mb-0 bg-white">
       <thead class="bg-light">
       <tr>
@@ -845,7 +701,7 @@
         <th>Action</th>
       </tr>
       </thead>
-      <tbody id="vehicle-table-body">
+      <tbody id="hotel-table-body">
 
       </tbody>
     </table>
@@ -859,6 +715,43 @@
 <script type="module" src="controller/VehicleController.js"></script>
 <script  type="module" src="model/Guide.js"></script>
 <script>
+
+
+  function addHotelRoom(){
+    let data=`
+            <div class="col-2 mt-1 mb-1">
+              <input class="form-control form-control-sm mb-1" type="text" placeholder="Room Type">
+              <div class="file-upload">
+                <div class="image-upload-wrap">
+                  <input class="file-upload-input" type='file' onchange="readURLHotelRoomImages(this);" accept="image">
+                  <div class="drag-text">
+                    <a href="">drag here</a>
+                  </div>
+                </div>
+              </div>
+            </div>`
+
+    $('#hotelRoomContainer').append(data)
+  }
+
+  function readURLHotelRoomImages(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        let data=`<div class="col-2 border" style="margin: .5vw; min-width: 100px">
+                    <img class="file-upload-image" src="${e.target.result}"  style="width: 10vw; height: 5vw; "/>
+                 </div>
+                   <button type="button" onclick="removeUploadHotelRoom(this)" class="remove-image">Remove <span class="image-title">Room</span></button>`
+        input.parentElement.parentElement.parentElement.insertAdjacentHTML('beforeend', data);
+        input.parentElement.parentElement.remove()
+      }
+
+      reader.readAsDataURL(input.files[0]);
+
+    } else {
+      removeUpload();
+    }
+  }
   function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -875,6 +768,33 @@
     } else {
       removeUpload();
     }
+  }
+  function readURLHotelImages(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        let data=`
+               <div class="col-2 border" style="margin: .5vw; min-width: 100px">
+                <img class="file-upload-image" src="${e.target.result}"  style="width: 10vw; height: 5vw; "/>
+                  <div class="image-title-wrap">
+                   <button type="button" onclick="removeUploadHotelImage(this)" class="remove-image">Remove <span class="image-title">Image</span></button>
+                   </div>
+                 </div>`
+        $('#hotelImageContainer').before(data)
+      }
+
+      reader.readAsDataURL(input.files[0]);
+
+    } else {
+      removeUpload();
+    }
+  }
+
+  let removeUploadHotelImage = (element) => {
+    element.parentElement.parentElement.remove()
+  }
+  let removeUploadHotelRoom = (element) => {
+    element.parentElement.remove();
   }
   let openGuide= () => {
     $('#header-list').append(

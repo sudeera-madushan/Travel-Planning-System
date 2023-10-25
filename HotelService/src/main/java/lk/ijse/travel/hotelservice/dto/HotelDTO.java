@@ -27,3 +27,5 @@ public class HotelDTO {
     private List<byte[]> images=new ArrayList<>();
     private List<RoomTypeDTO> roomTypes;
 }
+
+//Ao8aV36nPR2JK7I96_BUXq5aySOON9wjDR8bJbtFpbINPFAIsOiFCA5adl6wkJTu
