@@ -41,10 +41,8 @@ public class Hotel extends SuperEntity{
     @Column(name = "package_category_id")
     private String packageCategoryId;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<HotelImage> hotelImages = new ArrayList<>();
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<RoomType> roomTypes= new ArrayList<>();
 
 }

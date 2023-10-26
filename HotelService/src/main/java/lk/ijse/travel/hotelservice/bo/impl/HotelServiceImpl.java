@@ -33,25 +33,23 @@ public class HotelServiceImpl implements HotelService {
     private final RoomTypeRepo roomTypeRepo;
     private final HotelImageRepo hotelImageRepo;
     private final Converter converter;
-    @Transactional
+//    @Transactional
     @Override
     public Response<HotelDTO> saveHotel(HotelDTO dto) {
         List<RoomTypeDTO> roomTypes = dto.getRoomTypes();
         List<HotelImageDTO> hotelImages = dto.getHotelImages();
-        ArrayList<RoomType> roomE = new ArrayList<>();
-        ArrayList<HotelImage> hotelImagesE = new ArrayList<>();
-//        dto.setRoomTypes(null);
-//        dto.setRoomTypes(new ArrayList<>());
+        dto.setRoomTypes(new ArrayList<>());
+        dto.setHotelImages(new ArrayList<>());
         Hotel hotel = hotelRepo.save(converter.getHotelEntity(dto));
-//        for (RoomType type : roomTypes.stream().map(s -> converter.getRoomTypeEntity(s)).toList()) {
-//            type.setHotel(hotel);
-//            roomE.add(roomTypeRepo.save(type));
-//        }
+        for (RoomType type : roomTypes.stream().map(s -> converter.getRoomTypeEntity(s)).toList()) {
+            type.setHotel(hotel);
+            hotel.getRoomTypes().add(roomTypeRepo.save(type));
+        }
 //        hotel.setRoomTypes(roomE);
-//        for (HotelImage hotelImage : hotelImages.stream().map(s -> converter.getHotelImageEntity(s)).toList()) {
-//            hotelImage.setHotel(hotel);
-//            hotelImagesE.add(hotelImageRepo.save(hotelImage));
-//        }
+        for (HotelImage hotelImage : hotelImages.stream().map(s -> converter.getHotelImageEntity(s)).toList()) {
+            hotelImage.setHotel(hotel);
+            hotel.getHotelImages().add(hotelImageRepo.save(hotelImage));
+        }
 //        hotel.setHotelImages(hotelImagesE);
         return new Response<>(HttpStatus.CREATED,"Hotel save successfully",
                 converter.getHotelDTO(hotel));
@@ -70,8 +68,8 @@ public class HotelServiceImpl implements HotelService {
                 hotelRepo.findAll().stream().map(
                         entity -> {
                             HotelDTO dto=converter.getHotelDTO(entity);
-                            dto.setHotelImages(null);
-                            dto.setRoomTypes(null);
+//                            dto.setHotelImages(null);
+//                            dto.setRoomTypes(null);
                            return dto;
                         }
                 ).toList());

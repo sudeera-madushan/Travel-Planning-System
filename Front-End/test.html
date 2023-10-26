@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Bing Maps Api</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!--    <link rel='stylesheet' type='text/css' media='screen' href='estilo.css'>-->
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            overflow: hidden;
+        }
+        header{
+            text-align: center;
+            width: 100vw;
+            height: 8vh;
+            background-color: #555;
+            color: #fff;
+            padding-top: 10px;
+        }
+        main{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            width: 100vw;
+            height: 84vh;
+        }
+        .options{
+            margin-top: 10px;
+        }
+        .search_input{
+            width: 40vw;
+            height: 6vh;
+            border-radius: 15px;
+            border-color: #000;
+            padding: 3px;
+        }
+        .search_btn{
+            width: 10vw;
+            height: 6vh;
+            border-radius: 15px;
+            border-color: #000;
+            padding: 3px;
+        }
+        .search_btn:hover{
+            background-color: #fff;
+        }
+        #map{
+            width: 80vw;
+            height: 80vh;
+            margin: 10px;
+            background: #555;
+        }
+        footer{
+            display: inline-block;
+            bottom: 0;
+            width: 100vw;
+            height: 8vh;
+            background-color: #555;
+        }
+        .copyright{
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+            padding-top: 2vh;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Bing Maps Api</h1>
+</header>
+<main>
+    <div class="options">
+        <input class="search_input" placeholder="Search">
+        <button class="search_btn">Search</button>
+    </div>
+    <div id="map"></div>
+
+</main>
+<footer>
+    <p class="copyright">2022 - LC Codes</p>
+</footer>
+<!--<script src="maps.js"></script>-->
+<script src='http://www.bing.com/api/maps/mapcontrol?callback=getMap' async></script>
+<script>
+    const searchInput = document.querySelector(".search_input");
+    const searchBtn = document.querySelector(".search_btn");
+
+    let map, searchManager;
+
+    searchBtn.addEventListener("click", ()=>{
+        map.entities.clear();
+        geocodeQuery(searchInput.value);
+    });
+
+    function getMap(){
+        map = new Microsoft.Maps.Map('#map', {
+            // You need your key.
+            credentials: 'Ao8aV36nPR2JK7I96_BUXq5aySOON9wjDR8bJbtFpbINPFAIsOiFCA5adl6wkJTu',
+        });
+    };
+
+    function geocodeQuery(query){
+        if (!searchManager) {
+            Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
+                searchManager = new Microsoft.Maps.Search.SearchManager(map);
+                geocodeQuery(query);
+            });
+        } else {
+            let searchRequest = {
+                where: query,
+                callback: function (r) {
+                    if (r && r.results && r.results.length > 0) {
+                        var pin = new Microsoft.Maps.Pushpin(r.results[0].location);
+                        map.entities.push(pin);
+
+                        map.setView({ bounds: r.results[0].bestView });
+                    };
+                },
+                errorCallback: function (e) {
+                    alert("No results found.");
+                }
+            };
+            searchManager.geocode(searchRequest);
+        };
+    };
+</script>
+</body>
+</html>

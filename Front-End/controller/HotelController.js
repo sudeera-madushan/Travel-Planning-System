@@ -3,7 +3,7 @@
  * date : 10/25/2023
  * project : Front-End
  */
-
+let hotelList=[];
 $(document).ready(function() {
     $("#newHotelContainer").hide()
     // $("#hotelListContainer").hide()
@@ -79,11 +79,53 @@ $('#btnCreateHotel').click(function () {
 
 
 const loadDataToHotelTable = () => {
+
     $('#hotel-table-body').empty()
-    vehicleList.map((value, index) => {
+    hotelList.map((value, index) => {
+        console.log(value.name ,  value.hotelImages.length)
         let data=`
-};
-let getAllHotels=()=>{
+      <tr>
+        <td id="${value.id}">
+          <div class="d-flex align-items-center">
+            <img src="data:image/jpg;base64, ${value.hotelImages.length!==0?value.hotelImages[0].image:null}"
+                 alt=""
+                 style="width: 45px; height: 45px"
+                 class="rounded-circle"/>
+            <div class="ms-3">
+              <p class="fw-bold mb-1">${value.name}</p>
+              <p class="text-muted mb-0" style="font-size: 12px">${value.}
+                <a href="fsa l; afasj afaaj;a a;jf;a" class="bg-info badge " target="_blank">map</a>
+              </p>
+            </div>
+          </div>
+        </td>
+        <td>Luxury</td>
+        <td>
+          <a href="tel:+9488787554545" class="m-0">+9488787554545</a>
+          <a href="tel:+9488787554545" class="m-0">+9488787554545</a>
+        </td>
+        <td>Allow</td>
+        <td><i class="bg-danger badge">pay</i> 500$</td>
+        <td>
+          <img src="data:image/jpg;base64, "
+               alt=""
+               style="width: 60px; height: 40px"/>
+          <img src="data:image/jpg;base64, "
+               alt=""
+               style="width: 60px; height: 40px"/>
+        </td>
+        <td>
+          <button type="button" class="btn bg-success  badge ">Rooms</button>
+          <button type="button" class="btn btn-link badge bg-secondary btn-sm btn-rounded">
+            Edit
+          </button>
+        </td>
+      </tr>`
+
+        $('#hotel-table-body').append(data);
+    })
+}
+let getAllHotels=()=> {
     // let token = localStorage.getItem('token');
     $.ajax({
         url: 'http://localhost:8094/travel/api/v1/hotel',
@@ -93,8 +135,8 @@ let getAllHotels=()=>{
         // },
         success: function (data) {
             console.log(data.object)
-            hotelList=[];
-            hoteList=data.object;
+            hotelList = [];
+            hotelList = data.object;
             loadDataToHotelTable()
         },
         error: function (error) {
