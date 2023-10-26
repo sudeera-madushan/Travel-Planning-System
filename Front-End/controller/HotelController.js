@@ -93,27 +93,28 @@ const loadDataToHotelTable = () => {
                  class="rounded-circle"/>
             <div class="ms-3">
               <p class="fw-bold mb-1">${value.name}</p>
-              <p class="text-muted mb-0" style="font-size: 12px">${value.}
-                <a href="fsa l; afasj afaaj;a a;jf;a" class="bg-info badge " target="_blank">map</a>
+              <p class="text-muted mb-0" style="font-size: 12px">${value.location}
+                <a href="${value.mapLocation}" class="bg-info badge " target="_blank">map</a>
               </p>
             </div>
           </div>
         </td>
-        <td>Luxury</td>
+        <td>${value.category}</td>
         <td>
-          <a href="tel:+9488787554545" class="m-0">+9488787554545</a>
-          <a href="tel:+9488787554545" class="m-0">+9488787554545</a>
+          <a href="${value.contactNoOne}" class="m-0">${value.contactNoOne}</a>
+          <a href="${value.contactNoTwo}" class="m-0">${value.contactNoTwo}</a>
         </td>
-        <td>Allow</td>
-        <td><i class="bg-danger badge">pay</i> 500$</td>
-        <td>
-          <img src="data:image/jpg;base64, "
-               alt=""
-               style="width: 60px; height: 40px"/>
-          <img src="data:image/jpg;base64, "
-               alt=""
-               style="width: 60px; height: 40px"/>
-        </td>
+        <td>${value.petIsAllowed?"Allow":"Not Allow"}</td>
+        <td><i class="bg-danger badge">${value.cancellationCriteriaIsFree?"free":"pay"}</i>${
+            !value.cancellationCriteriaIsFree?" "+value.cancellationFee:""}</td>
+        <td>`
+        for (let i = 1; i < value.hotelImages.length; i++) {
+            data=data+`          <img src="data:image/jpg;base64, ${value.hotelImages[i].image}"
+               alt="hotel image"
+               style="width: 60px; height: 40px"/>`
+
+        }
+        data=data+`</td>
         <td>
           <button type="button" class="btn bg-success  badge ">Rooms</button>
           <button type="button" class="btn btn-link badge bg-secondary btn-sm btn-rounded">
