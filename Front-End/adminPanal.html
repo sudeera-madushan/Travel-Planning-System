@@ -615,13 +615,13 @@
 
           <div class="row mb-2">
             <div class="form-outline col">
-              <label class="form-label" for="hotelCategory">Category</label>
+              <label class="form-label" for="hotelCategory">Star Rate</label>
               <select class="form-select" aria-label="Default select example" id="hotelCategory">
                 <option selected>Select</option>
-                <option value="1">Economy</option>
-                <option value="2">Mid-Range</option>
-                <option value="3">Luxury</option>
-                <option value="4">Super Luxury</option>
+                <option value="1">2 Star</option>
+                <option value="2">3 Star</option>
+                <option value="3">4 Star</option>
+                <option value="4">5 Star</option>
               </select>
             </div>
             <div class="form-outline mt-sm-4 col">
@@ -634,7 +634,7 @@
                 <label class="form-check-label" for="cancellationCriteriaIsFree">Cancel is Free</label>
               </div>
             </div>
-            <fieldset class="col mt-2" disabled>
+            <fieldset class="col mt-2"  id="cancellationFeeEnabel" disabled>
               <label class="form-check-label" for="cancellationFee"> Cancellation Fee </label>
             <div class="input-group col h-25 mt-2">
               <div class="input-group-prepend">
@@ -647,7 +647,7 @@
             </div>
             </fieldset>
           </div>
-          <div class="row mb-4">
+          <div class="row mb-3">
 
             <div class="col">
               <div class="form-outline ">
@@ -662,20 +662,69 @@
               </div>
             </div>
 
-            <fieldset class="col ">
-              <label class="form-check-label" for="cancellationFee"> Hotel Fee </label>
-              <div class="input-group col h-25 mt-2">
+
+          </div>
+          <div class="row">
+            <div class="col">
+              <fieldset class="col ">
+              <label class="form-check-label" for="cancellationFee">Full Board with A/C Luxury Room Double Charge</label>
+              <div class="input-group col h-25 mt-1">
                 <div class="input-group-prepend">
                   <span class="input-group-text">$</span>
                 </div>
-                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="hotelFee" >
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="fullBoardWithACLuxuryRoomDoubleCharge" >
                 <div class="input-group-append">
                   <span class="input-group-text">.00</span>
                 </div>
               </div>
-            </fieldset>
+              </fieldset>
+            </div>
+            <div class="col">
+              <fieldset class="col ">
+              <label class="form-check-label" for="cancellationFee">Half Board with A/C Luxury Room Double Charge</label>
+              <div class="input-group col h-25 mt-1">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="halfBoardWithACLuxuryRoomDoubleCharge" >
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+              </fieldset>
+            </div>
           </div>
-          <div class="row mb-4 border rounded" id="hotelImageContainer">
+          <div class="row mb-2">
+            <div class="col">
+              <fieldset class="col ">
+              <label class="form-check-label" for="cancellationFee">Full Board with A/C Luxury Room Triple Charge</label>
+              <div class="input-group col h-25 mt-1">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="fullBoardWithACLuxuryRoomTripleCharge" >
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+              </fieldset>
+            </div>
+            <div class="col">
+              <fieldset class="col ">
+              <label class="form-check-label" for="cancellationFee">Half Board with A/C Luxury Room Triple Charge</label>
+              <div class="input-group col h-25 mt-1">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="halfBoardWithACLuxuryRoomTripleCharge" >
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+              </fieldset>
+            </div>
+          </div>
+          <div class="row mb-4 mt-3 border rounded" id="hotelImageContainer">
             <label class="form-label file-upload-label mt-2" for="hotelImageChooserImage">Images</label>
             <div class="col-2 mt-1 mb-1" id="hotelImageUpload">
               <div class="file-upload">
@@ -688,13 +737,18 @@
               </div>
             </div>
           </div>
-          <div class="row mb-4 border rounded" id="hotelRoomContainer">
+
+          <div class="form-outline mb-2">
+            <label class="form-label" for="remarks">Additional information</label>
+            <textarea class="form-control" id="remarks" rows="4"></textarea>
+          </div>
+          <!--<div class="row mb-4 border rounded" id="hotelRoomContainer">
             <div class="row">
             <button type="button" class="btn btn-outline-primary col-2 m-2" onclick="addHotelRoom()">Add Room</button>
             <label class="form-label file-upload-label mt-2 col" for="hotelImageChooserImage">Hotel Rooms</label>
             </div>
 
-          </div>
+          </div>-->
           <button type="button" id="btnCreateHotel" class="btn btn-primary btn-block mb-2">Create</button>
           <button type="button" id="btnUpdateHotel" class="btn btn-success btn-block mb-2">Update</button>
           <button type="button" id="btnDeleteHotel" class="btn btn-danger btn-block mb-2">Delete</button>
@@ -720,120 +774,6 @@
       </tbody>
     </table>
   </section>
-  <section class="container" id="holetOptionContainer">
-    <div class="row">
-      <div class="col-11">
-        <form>
-          <div class="form-outline mb-2 mt-2">
-            <label class="form-label" for="hotelName">Hotel Name</label>
-            <input type="text" id="hotelName" class="form-control" />
-          </div>
-
-          <div class="form-outline mb-2 mt-2">
-            <label class="form-label" for="hotelLocation">Location Address</label>
-            <input type="text" id="hotelLocation" class="form-control" />
-          </div>
-
-          <div class="form-outline mb-2 mt-2">
-            <label class="form-label" for="hotelLocationMap">Location Map src</label>
-            <input type="text" id="hotelLocationMap" class="form-control" />
-          </div>
-
-          <div class="form-outline mb-2 mt-2">
-            <label class="form-label" for="hotelEmail">Email</label>
-            <input type="text" id="hotelEmail" class="form-control" />
-          </div>
-
-          <div class="row mb-2">
-            <div class="form-outline col">
-              <label class="form-label" for="hotelCategory">Category</label>
-              <select class="form-select" aria-label="Default select example" id="hotelCategory">
-                <option selected>Select</option>
-                <option value="1">Economy</option>
-                <option value="2">Mid-Range</option>
-                <option value="3">Luxury</option>
-                <option value="4">Super Luxury</option>
-              </select>
-            </div>
-            <div class="form-outline mt-sm-4 col">
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="petIsAllowed">
-                <label class="form-check-label" for="petIsAllowed">Pets Allowed</label>
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="cancellationCriteriaIsFree" checked>
-                <label class="form-check-label" for="cancellationCriteriaIsFree">Cancel is Free</label>
-              </div>
-            </div>
-            <fieldset class="col mt-2" disabled>
-              <label class="form-check-label" for="cancellationFee"> Cancellation Fee </label>
-              <div class="input-group col h-25 mt-2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">$</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="cancellationFee" >
-                <div class="input-group-append">
-                  <span class="input-group-text">.00</span>
-                </div>
-              </div>
-            </fieldset>
-          </div>
-          <div class="row mb-4">
-
-            <div class="col">
-              <div class="form-outline ">
-                <label class="form-label" for="hotelContactOne">Contact No One</label>
-                <input type="text" id="hotelContactOne" class="form-control" />
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-outline">
-                <label class="form-label" for="hotelContactTwo">Contact No Two</label>
-                <input type="text" id="hotelContactTwo" class="form-control" />
-              </div>
-            </div>
-
-            <fieldset class="col ">
-              <label class="form-check-label" for="cancellationFee"> Hotel Fee </label>
-              <div class="input-group col h-25 mt-2">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">$</span>
-                </div>
-                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" id="hotelFee" >
-                <div class="input-group-append">
-                  <span class="input-group-text">.00</span>
-                </div>
-              </div>
-            </fieldset>
-          </div>
-          <div class="row mb-4 border rounded" id="hotelImageContainer">
-            <label class="form-label file-upload-label mt-2" for="hotelImageChooserImage">Images</label>
-            <div class="col-2 mt-1 mb-1" id="hotelImageUpload">
-              <div class="file-upload">
-                <div class="image-upload-wrap" id="hotelImageChooserImageWrap">
-                  <input class="file-upload-input" type='file' onchange="readURLHotelImages(this);" accept="image/*" id="hotelImageChooserImage"/>
-                  <div class="drag-text">
-                    <a href="">drag here</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row mb-4 border rounded" id="hotelRoomContainer">
-            <div class="row">
-              <button type="button" class="btn btn-outline-primary col-2 m-2" onclick="addHotelRoom()">Add Room</button>
-              <label class="form-label file-upload-label mt-2 col" for="hotelImageChooserImage">Hotel Rooms</label>
-            </div>
-
-          </div>
-          <button type="button" id="btnCreateHotel" class="btn btn-primary btn-block mb-2">Create</button>
-          <button type="button" id="btnUpdateHotel" class="btn btn-success btn-block mb-2">Update</button>
-          <button type="button" id="btnDeleteHotel" class="btn btn-danger btn-block mb-2">Delete</button>
-          <button type="button" id="btnCancelUpdateHotel" class="btn btn-light btn-block mb-2">Cancel</button>
-        </form>
-      </div>
-    </div>
-  </section>
 </section>
 
 <script src="css/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
@@ -846,7 +786,7 @@
 <script>
 
 
-  function addHotelRoom(){
+  /*function addHotelRoom(){
     let data=`
             <div class="col-2 mt-1 mb-1">
               <input class="form-control form-control-sm mb-1" style="max-width: 150px" type="text" placeholder="Room Type">
@@ -862,9 +802,9 @@
             </div>`
 
     $('#hotelRoomContainer').append(data)
-  }
+  }*/
 
-  function readURLHotelRoomImages(input) {
+  /*function readURLHotelRoomImages(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -886,7 +826,7 @@
     } else {
       removeUpload();
     }
-  }
+  }*/
   function readURL(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();

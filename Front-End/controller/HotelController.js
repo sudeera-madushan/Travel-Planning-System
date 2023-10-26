@@ -5,7 +5,7 @@
  */
 let hotelList=[];
 $(document).ready(function() {
-    $("#newHotelContainer").hide()
+    // $("#newHotelContainer").hide()
     $("#hotelListContainer").hide()
     // $("#newVehicleContainer").hide()
     // getAllHotels()
@@ -145,3 +145,8 @@ let getAllHotels=()=> {
         }
     })
 }
+
+$('#cancellationCriteriaIsFree').click(function () {
+
+    $("#cancellationFeeEnabel").prop("disabled", $('#cancellationCriteriaIsFree').is(":checked"));
+})
