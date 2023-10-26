@@ -3,8 +3,8 @@ package lk.ijse.travel.hotelservice.bo.impl;
 import lk.ijse.travel.hotelservice.bo.RoomTypeService;
 import lk.ijse.travel.hotelservice.bo.util.Converter;
 import lk.ijse.travel.hotelservice.dto.Response;
-import lk.ijse.travel.hotelservice.dto.RoomTypeDTO;
-import lk.ijse.travel.hotelservice.persistence.RoomTypeRepo;
+import lk.ijse.travel.hotelservice.dto.HotelOptionDTO;
+import lk.ijse.travel.hotelservice.persistence.OptionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,11 +17,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoomTypeServiceImpl implements RoomTypeService {
     @Autowired
-    private RoomTypeRepo roomTypeRepo;
+    private OptionRepo roomTypeRepo;
     @Autowired
     private Converter converter;
     @Override
-    public Response<RoomTypeDTO> saveRoomType(RoomTypeDTO dto) {
+    public Response<HotelOptionDTO> saveRoomType(HotelOptionDTO dto) {
         return new Response<>(HttpStatus.CREATED,"Hotel Type save successfully",
                 converter.getRoomTypeDTO(roomTypeRepo.save(
                         converter.getRoomTypeEntity(dto)
@@ -29,7 +29,7 @@ public class RoomTypeServiceImpl implements RoomTypeService {
     }
 
     @Override
-    public Response<RoomTypeDTO> getRoomType(String id) {
+    public Response<HotelOptionDTO> getRoomType(String id) {
         return new Response<>(HttpStatus.CREATED,"Hotel Type get successfully",
                 converter.getRoomTypeDTO(roomTypeRepo.findById(id).get()));
     }

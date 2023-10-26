@@ -5,18 +5,13 @@ import lk.ijse.travel.hotelservice.bo.util.Converter;
 import lk.ijse.travel.hotelservice.dto.HotelDTO;
 import lk.ijse.travel.hotelservice.dto.HotelImageDTO;
 import lk.ijse.travel.hotelservice.dto.Response;
-import lk.ijse.travel.hotelservice.dto.RoomTypeDTO;
 import lk.ijse.travel.hotelservice.entity.Hotel;
 import lk.ijse.travel.hotelservice.entity.HotelImage;
-import lk.ijse.travel.hotelservice.entity.RoomType;
 import lk.ijse.travel.hotelservice.persistence.HotelImageRepo;
 import lk.ijse.travel.hotelservice.persistence.HotelRepo;
-import lk.ijse.travel.hotelservice.persistence.RoomTypeRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,30 +25,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HotelServiceImpl implements HotelService {
     private final HotelRepo hotelRepo;
-    private final RoomTypeRepo roomTypeRepo;
     private final HotelImageRepo hotelImageRepo;
     private final Converter converter;
 //    @Transactional
     @Override
     public Response<HotelDTO> saveHotel(HotelDTO dto) {
-        List<RoomTypeDTO> roomTypes = dto.getRoomTypes();
         List<HotelImageDTO> hotelImages = dto.getHotelImages();
-        dto.setRoomTypes(new ArrayList<>());
         dto.setHotelImages(new ArrayList<>());
         Hotel hotel = hotelRepo.save(converter.getHotelEntity(dto));
-        for (RoomType type : roomTypes.stream().map(s -> converter.getRoomTypeEntity(s)).toList()) {
-            type.setHotel(hotel);
-            hotel.getRoomTypes().add(roomTypeRepo.save(type));
-        }
-//        hotel.setRoomTypes(roomE);
-        for (HotelImage hotelImage : hotelImages.stream().map(s -> converter.getHotelImageEntity(s)).toList()) {
+        for (HotelImage hotelImage : hotelImages.stream().map(converter::getHotelImageEntity).toList()) {
             hotelImage.setHotel(hotel);
             hotel.getHotelImages().add(hotelImageRepo.save(hotelImage));
         }
-//        hotel.setHotelImages(hotelImagesE);
         return new Response<>(HttpStatus.CREATED,"Hotel save successfully",
                 converter.getHotelDTO(hotel));
-//        return new Response<>(HttpStatus.CREATED,"Hotel save successfully",dto);
     }
 
     @Override
@@ -68,8 +53,6 @@ public class HotelServiceImpl implements HotelService {
                 hotelRepo.findAll().stream().map(
                         entity -> {
                             HotelDTO dto=converter.getHotelDTO(entity);
-//                            dto.setHotelImages(null);
-//                            dto.setRoomTypes(null);
                            return dto;
                         }
                 ).toList());

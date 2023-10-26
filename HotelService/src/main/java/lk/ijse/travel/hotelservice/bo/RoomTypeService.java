@@ -1,8 +1,7 @@
 package lk.ijse.travel.hotelservice.bo;
 
-import lk.ijse.travel.hotelservice.dto.HotelDTO;
 import lk.ijse.travel.hotelservice.dto.Response;
-import lk.ijse.travel.hotelservice.dto.RoomTypeDTO;
+import lk.ijse.travel.hotelservice.dto.HotelOptionDTO;
 
 /**
  * @Author : Sudeera Madushan
@@ -10,6 +9,6 @@ import lk.ijse.travel.hotelservice.dto.RoomTypeDTO;
  * @Project : Next Travel Pvt. Ltd
  */
 public interface RoomTypeService {
-    Response<RoomTypeDTO> saveRoomType(RoomTypeDTO dto);
-    Response<RoomTypeDTO> getRoomType(String id);
+    Response<HotelOptionDTO> saveRoomType(HotelOptionDTO dto);
+    Response<HotelOptionDTO> getRoomType(String id);
 }

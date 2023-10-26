@@ -6,9 +6,9 @@
 let hotelList=[];
 $(document).ready(function() {
     $("#newHotelContainer").hide()
-    // $("#hotelListContainer").hide()
+    $("#hotelListContainer").hide()
     // $("#newVehicleContainer").hide()
-    getAllHotels()
+    // getAllHotels()
 });
 
 $('#btnCreateHotel').click(function () {

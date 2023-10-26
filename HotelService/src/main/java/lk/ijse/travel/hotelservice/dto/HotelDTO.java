@@ -1,7 +1,5 @@
 package lk.ijse.travel.hotelservice.dto;
 
-import lk.ijse.travel.hotelservice.entity.HotelImage;
-import lk.ijse.travel.hotelservice.entity.RoomType;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -26,5 +24,5 @@ public class HotelDTO {
     private BigDecimal cancellationFee;
     private String packageCategoryId;
     private List<HotelImageDTO> hotelImages = new ArrayList<>();
-    private List<RoomTypeDTO> roomTypes;
+    private List<HotelOptionDTO> optionList;
 }

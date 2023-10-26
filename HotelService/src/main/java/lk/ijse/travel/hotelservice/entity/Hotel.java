@@ -1,10 +1,7 @@
 package lk.ijse.travel.hotelservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -42,7 +39,11 @@ public class Hotel extends SuperEntity{
     private String packageCategoryId;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<HotelImage> hotelImages = new ArrayList<>();
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
-    private List<RoomType> roomTypes= new ArrayList<>();
+    @ManyToMany
+    @JoinTable(name = "options",
+            joinColumns = @JoinColumn(name = "hotel_id"),
+            inverseJoinColumns = @JoinColumn(name = "option_id")
+    )
+    private List<HotelOption> options= new ArrayList<>();
 
 }

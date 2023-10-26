@@ -1,6 +1,6 @@
 package lk.ijse.travel.hotelservice.persistence;
 
-import lk.ijse.travel.hotelservice.entity.RoomType;
+import lk.ijse.travel.hotelservice.entity.HotelOption;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * @Project : Next Travel Pvt. Ltd
  */
 @Repository
-public interface RoomTypeRepo extends CrudRepository<RoomType,String> {
+public interface OptionRepo extends CrudRepository<HotelOption,String> {
 }

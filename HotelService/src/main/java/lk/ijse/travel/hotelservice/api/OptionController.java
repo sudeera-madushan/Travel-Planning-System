@@ -3,7 +3,7 @@ package lk.ijse.travel.hotelservice.api;
 import lk.ijse.travel.hotelservice.bo.HotelService;
 import lk.ijse.travel.hotelservice.bo.RoomTypeService;
 import lk.ijse.travel.hotelservice.dto.Response;
-import lk.ijse.travel.hotelservice.dto.RoomTypeDTO;
+import lk.ijse.travel.hotelservice.dto.HotelOptionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,24 +14,19 @@ import org.springframework.web.bind.annotation.*;
  */
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/v1/room")
-public class RoomController {
+@RequestMapping("api/v1/option")
+public class OptionController {
     @Autowired
     private RoomTypeService roomTypeService;
     @Autowired
     private HotelService hotelService;
     @PostMapping("save")
-    public Response<RoomTypeDTO> saveRoomType(
-            @RequestPart String type,
-            @RequestPart String hotelId,
-            @RequestPart byte[] imageData){
-        return roomTypeService.saveRoomType(new RoomTypeDTO(type
-                ,imageData
-                ,hotelService.getHotel(hotelId).getObject()
-        ));
+    public Response<HotelOptionDTO> saveRoomType(
+            @RequestPart HotelOptionDTO option){
+        return roomTypeService.saveRoomType(option);
     }
     @GetMapping
-    public Response<RoomTypeDTO> getRoomType(@RequestParam String id){
+    public Response<HotelOptionDTO> getRoomType(@RequestParam String id){
         return roomTypeService.getRoomType(id);
     }
 }
