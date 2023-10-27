@@ -35,6 +35,7 @@ public class Hotel extends SuperEntity{
     private BigDecimal cancellationFee;
     @Column(name = "package_category_id")
     private String packageCategoryId;
+    private String remarks;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<HotelImage> hotelImages = new ArrayList<>();
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)

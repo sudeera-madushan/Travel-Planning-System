@@ -74,7 +74,7 @@ $('#btnCreateHotel').click(function () {
         cancellationCriteriaIsFree: $('#cancellationCriteriaIsFree').is(":checked"),
         cancellationFee: parseFloat($('#cancellationFee').val()),
         packageCategoryId: "",
-        optionList: [
+        options: [
             {
             name:"Full Board with A/C Luxury Room Double",
             charge:parseFloat($('#fullBoardWithACLuxuryRoomDoubleCharge').val())
@@ -157,12 +157,12 @@ const loadDataToHotelTable = () => {
         }
         data=data+`</td>
         <td>
-           <p class="mb-0 mt-0" style="font-size: 12px">Full :${value.optionList[0].charge}</p>
-           <p class="mb-0 mt-0" style="font-size: 12px">Half :${value.optionList[1].charge}</p>
+           <p class="mb-0 mt-0" style="font-size: 12px">Full :${value.options[0].charge}</p>
+           <p class="mb-0 mt-0" style="font-size: 12px">Half :${value.options[1].charge}</p>
         </td>
         <td>
-           <p class="mb-0 mt-0" style="font-size: 12px">Full :${value.optionList[2].charge}</p>
-           <p class="mb-0 mt-0" style="font-size: 12px">Falf :${value.optionList[3].charge}</p>
+           <p class="mb-0 mt-0" style="font-size: 12px">Full :${value.options[2].charge}</p>
+           <p class="mb-0 mt-0" style="font-size: 12px">Falf :${value.options[3].charge}</p>
         </td>
         <td>
           <button type="button" class="btn btn-link badge bg-secondary btn-sm btn-rounded" onclick="">
@@ -216,10 +216,10 @@ let loadEditeHotel=(hotel)=> {
     $('#hotelEmail').val(hotel.email)
     console.log(hotel.category==="4 Star")
     $('#hotelCategory').val(
-        hotel.category==="2 Star"?"2 Star":
-            hotel.category==="3 Star"?"3 Star":
-                hotel.category==='4 Star'?'4 Star':
-                    hotel.category==="5 Star"?"5 Star":"Select"
+        hotel.category==="2 Star"?"1":
+            hotel.category==="3 Star"?"2":
+                hotel.category==='4 Star'?'3':
+                    hotel.category==="5 Star"?"4":"Select"
     )
     if (hotel.petIsAllowed){
         $('#petIsAllowed').prop('checked', true)
@@ -228,9 +228,65 @@ let loadEditeHotel=(hotel)=> {
     }
     if (hotel.cancellationCriteriaIsFree){
         $('#cancellationCriteriaIsFree').prop('checked', true)
+        $("#cancellationFeeEnabel").prop("disabled",true)
+        $("#cancellationFee").val("")
     }else {
         $('#cancellationCriteriaIsFree').prop('checked', false)
+        $("#cancellationFeeEnabel").prop("disabled",false)
+        $("#cancellationFee").val(hotel.cancellationFee)
     }
+    $('#hotelContactOne').val(hotel.contactNoOne)
+    $('#hotelContactTwo').val(hotel.contactNoTwo)
+    $('#fullBoardWithACLuxuryRoomDoubleCharge').val(hotel.options[0].charge)
+    $('#halfBoardWithACLuxuryRoomDoubleCharge').val(hotel.options[1].charge)
+    $('#fullBoardWithACLuxuryRoomTripleCharge').val(hotel.options[2].charge)
+    $('#halfBoardWithACLuxuryRoomTripleCharge').val(hotel.options[3].charge)
+    $('#hotelRemarks').val(hotel.remarks)
+
+    hotel.hotelImages.map((value, index) => {
+        let data=`
+               <div class="col-2 border" style="margin: .5vw; min-width: 100px">
+                <img class="file-upload-image" src="data:image/jpg;base64, ${value.image}"  style="width: 10vw; height: 5vw; "/>
+                  <div class="image-title-wrap">
+                   <button type="button" onclick="removeUploadHotelImage(this)" class="remove-image">Remove <span class="image-title">Image</span></button>
+                   </div>
+                 </div>`
+        $('#hotelImageUpload').before(data)
+    })
+
     $('#newHotelContainer').show()
+    $('#btnCreateHotel').hide()
+    $('#hotelListContainer').hide()
     $('#header-title').text("Edit Hotel")
 }
+$('#btnDeleteHotel').click(function () {
+    $('#conformation-alert').modal('show')
+    $('#model-body').empty();
+    $('#model-body').append("Conform Delete Hotel");
+})
+$('#conformation-ok-btn').click(function () {
+    if ($('#model-body').text().endsWith("Hotel")) {
+        // let token = localStorage.getItem('token');
+        let params = {
+            id: nowUpdatingHotel.id,
+        }
+        $.ajax({
+            url: 'http://localhost:8094/travel/api/v1/hotel' + '?' + $.param(params),
+            type: 'DELETE',
+            processData: false,
+            contentType: false,
+            cache: false,
+            // headers: {
+            //     "Authorization": `Bearer ${token}`
+            // },
+            success: function (data) {
+                showToast("Success", "Hotel \"" + nowUpdatingHotel.name + "\"' Delete Successfully !")
+                showHotelList()
+                $('#conformation-alert').modal('hide');
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
+})

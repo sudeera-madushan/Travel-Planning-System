@@ -3,6 +3,7 @@ package lk.ijse.travel.hotelservice.dto;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
 public class HotelOptionDTO {
     private String id,name;
     private BigDecimal charge;
-    private List<HotelDTO> hotel;
+    private List<HotelDTO> hotel=new ArrayList<>();
 
     public HotelOptionDTO(String name, BigDecimal charge, List<HotelDTO> hotel) {
         this.name = name;

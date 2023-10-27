@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,9 +32,9 @@ public class Converter {
         hotelImages.forEach(hotelImage -> hotelImage.setHotel(null));
         options.forEach(roomType -> roomType.setHotel(null));
         entity.setHotelImages(hotelImages);
-        entity.setOptions(null);
+        entity.setOptions(options);
         HotelDTO dto = modelMapper.map(entity, HotelDTO.class);
-        dto.setOptionList(options.stream().map(d-> new HotelOptionDTO(d.getId(),d.getOption().getName(),d.getCharge())).toList());
+        dto.setOptions(options.stream().map(d-> new HotelOptionDTO(d.getId(),d.getOption().getName(),d.getCharge())).toList());
         return dto;
     }
     public HotelOptionDTO getRoomTypeDTO(Option entity){return modelMapper.map(entity, HotelOptionDTO.class);}

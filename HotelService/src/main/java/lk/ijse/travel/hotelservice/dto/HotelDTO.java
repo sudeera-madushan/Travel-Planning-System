@@ -23,5 +23,6 @@ public class HotelDTO {
     private BigDecimal cancellationFee;
     private String packageCategoryId;
     private List<HotelImageDTO> hotelImages = new ArrayList<>();
-    private List<HotelOptionDTO> optionList;
+    private List<HotelOptionDTO> options =new ArrayList<>();
+    private String remarks;
 }

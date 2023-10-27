@@ -58,4 +58,8 @@ public class HotelController {
         return hotelService.getAllHotels();
     }
 
+    @DeleteMapping
+    public Response<String> deleteHotel(@RequestParam String id ){
+        return hotelService.deleteHotelById(id);
+    }
 }
