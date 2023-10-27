@@ -4,11 +4,14 @@ import lk.ijse.travel.hotelservice.bo.HotelService;
 import lk.ijse.travel.hotelservice.bo.util.Converter;
 import lk.ijse.travel.hotelservice.dto.HotelDTO;
 import lk.ijse.travel.hotelservice.dto.HotelImageDTO;
+import lk.ijse.travel.hotelservice.dto.HotelOptionDTO;
 import lk.ijse.travel.hotelservice.dto.Response;
 import lk.ijse.travel.hotelservice.entity.Hotel;
 import lk.ijse.travel.hotelservice.entity.HotelImage;
+import lk.ijse.travel.hotelservice.entity.HotelOption;
 import lk.ijse.travel.hotelservice.persistence.HotelImageRepo;
 import lk.ijse.travel.hotelservice.persistence.HotelRepo;
+import lk.ijse.travel.hotelservice.persistence.OptionRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,13 +29,26 @@ import java.util.List;
 public class HotelServiceImpl implements HotelService {
     private final HotelRepo hotelRepo;
     private final HotelImageRepo hotelImageRepo;
+    private final OptionRepo optionRepo;
     private final Converter converter;
 //    @Transactional
     @Override
     public Response<HotelDTO> saveHotel(HotelDTO dto) {
         List<HotelImageDTO> hotelImages = dto.getHotelImages();
+        List<HotelOptionDTO> optionList = dto.getOptionList();
         dto.setHotelImages(new ArrayList<>());
-        Hotel hotel = hotelRepo.save(converter.getHotelEntity(dto));
+        Hotel entity = converter.getHotelEntity(dto);
+        entity.setOptions(new ArrayList<>());
+        for (HotelOptionDTO option : optionList) {
+            entity.getOptions().add(new HotelOption(
+                    entity,
+                    optionRepo.findHotelOptionByNameIgnoreCase(
+                            option.getName()
+                    ),
+                    option.getCharge()
+                    ));
+        }
+        Hotel hotel = hotelRepo.save(entity);
         for (HotelImage hotelImage : hotelImages.stream().map(converter::getHotelImageEntity).toList()) {
             hotelImage.setHotel(hotel);
             hotel.getHotelImages().add(hotelImageRepo.save(hotelImage));

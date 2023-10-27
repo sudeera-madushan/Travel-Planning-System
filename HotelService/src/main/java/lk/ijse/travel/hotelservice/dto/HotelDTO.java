@@ -19,7 +19,6 @@ import java.util.List;
 public class HotelDTO {
     private String id,name,category,location,email,mapLocation,contactNoOne, contactNoTwo;
     private boolean petIsAllowed;
-    private BigDecimal hotelFee;
     private boolean cancellationCriteriaIsFree;
     private BigDecimal cancellationFee;
     private String packageCategoryId;

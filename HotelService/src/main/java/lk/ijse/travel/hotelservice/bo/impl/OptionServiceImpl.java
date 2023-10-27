@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @Project : Next Travel Pvt. Ltd
  */
 @Service
-public class RoomTypeServiceImpl implements RoomTypeService {
+public class OptionServiceImpl implements RoomTypeService {
     @Autowired
     private OptionRepo roomTypeRepo;
     @Autowired

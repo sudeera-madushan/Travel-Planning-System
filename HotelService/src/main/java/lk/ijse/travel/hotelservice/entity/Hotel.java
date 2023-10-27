@@ -29,8 +29,6 @@ public class Hotel extends SuperEntity{
     private String contactNoTwo;
     @Column(name = "pet_is_allowed")
     private boolean petIsAllowed;
-    @Column(name = "hotel_fee")
-    private BigDecimal hotelFee;
     @Column(name = "cancellation_criteria_is_free")
     private boolean cancellationCriteriaIsFree;
     @Column(name = "cancellation_fee")
@@ -39,11 +37,7 @@ public class Hotel extends SuperEntity{
     private String packageCategoryId;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<HotelImage> hotelImages = new ArrayList<>();
-    @ManyToMany
-    @JoinTable(name = "options",
-            joinColumns = @JoinColumn(name = "hotel_id"),
-            inverseJoinColumns = @JoinColumn(name = "option_id")
-    )
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<HotelOption> options= new ArrayList<>();
 
 }

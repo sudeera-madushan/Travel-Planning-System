@@ -34,8 +34,7 @@ public class HotelController {
     @PostMapping
     public Response<HotelDTO> save(
             @RequestPart HotelDTO hotel,
-            @RequestPart List<MultipartFile> images,
-            @RequestPart List<MultipartFile> roomType
+            @RequestPart List<MultipartFile> images
             ) {
         ArrayList<HotelImageDTO> imageDTOArrayList = new ArrayList<>();
             try {

@@ -5,10 +5,10 @@
  */
 let hotelList=[];
 $(document).ready(function() {
-    // $("#newHotelContainer").hide()
-    $("#hotelListContainer").hide()
+    $("#newHotelContainer").hide()
+    // $("#hotelListContainer").hide()
     // $("#newVehicleContainer").hide()
-    // getAllHotels()
+    getAllHotels()
 });
 
 $('#btnCreateHotel').click(function () {
@@ -23,32 +23,42 @@ $('#btnCreateHotel').click(function () {
         //         imageData:$('#hotelImageContainer').children().eq(i).children('img').eq(0).attr('src')}})
     }
 
-    for (let i = 1; i < $('#hotelRoomContainer').children().length; i++) {
-            roomArr.unshift({
-                type: $('#hotelRoomContainer').children().eq(i).children().eq(0).val()
-                // imageData: $('#hotelRoomContainer').children().eq(i).children().eq(1).children().eq(0).attr('src')
-            });
-        formData.append("roomType",base64ToFile($('#hotelRoomContainer').children().eq(i).children().eq(1).children().eq(0).attr('src')))
-    }
+    // for (let i = 1; i < $('#hotelRoomContainer').children().length; i++) {
+    //         roomArr.unshift({
+    //             type: $('#hotelRoomContainer').children().eq(i).children().eq(0).val()
+    //             // imageData: $('#hotelRoomContainer').children().eq(i).children().eq(1).children().eq(0).attr('src')
+    //         });
+    //     formData.append("roomType",base64ToFile($('#hotelRoomContainer').children().eq(i).children().eq(1).children().eq(0).attr('src')))
+    // }
 
     let hotel = {
         id: null,
         name: $('#hotelName').val(),
         category: $('#hotelCategory').find("option:selected").text(),
         location: $('#hotelLocation').val(),
-        // location: $("input[name='fuel-type']:checked").val(),
-        // email: $('#vehicleType').find("option:selected").text(),
         email: $('#hotelEmail').val(),
-        // mapLocation: $('#isAutoGear').is(":checked")?"AUTO":"MANUAL",
         mapLocation: $('#hotelLocationMap').val(),
         contactNoOne: $('#hotelContactOne').val(),
         contactNoTwo: $('#hotelContactTwo').val(),
         petIsAllowed: $('#petIsAllowed').is(":checked"),
-        hotelFee: parseFloat($('#hotelFee').val()),
         cancellationCriteriaIsFree: $('#cancellationCriteriaIsFree').is(":checked"),
         cancellationFee: parseFloat($('#cancellationFee').val()),
         packageCategoryId: "",
-        roomTypes: roomArr
+        optionList: [
+            {
+            name:"Full Board with A/C Luxury Room Double",
+            charge:parseFloat($('#fullBoardWithACLuxuryRoomDoubleCharge').val())
+            },{
+            name:"Half Board with A/C Luxury Room Double",
+            charge:parseFloat($('#halfBoardWithACLuxuryRoomDoubleCharge').val())
+            },{
+            name:"Full Board with A/C Luxury Room Triple",
+            charge:parseFloat($('#fullBoardWithACLuxuryRoomTripleCharge').val())
+            },{
+            name:"Half Board with A/C Luxury Room Triple",
+            charge:parseFloat($('#halfBoardWithACLuxuryRoomTripleCharge').val())
+            },
+        ]
     };
     const json = JSON.stringify(hotel);
     const blob = new Blob([json], {

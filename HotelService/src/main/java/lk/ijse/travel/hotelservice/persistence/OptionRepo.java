@@ -1,6 +1,6 @@
 package lk.ijse.travel.hotelservice.persistence;
 
-import lk.ijse.travel.hotelservice.entity.HotelOption;
+import lk.ijse.travel.hotelservice.entity.Option;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +10,6 @@ import org.springframework.stereotype.Repository;
  * @Project : Next Travel Pvt. Ltd
  */
 @Repository
-public interface OptionRepo extends CrudRepository<HotelOption,String> {
+public interface OptionRepo extends CrudRepository<Option,String> {
+    Option findHotelOptionByNameIgnoreCase(String name);
 }
