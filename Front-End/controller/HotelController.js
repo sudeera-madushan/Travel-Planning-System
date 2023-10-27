@@ -4,18 +4,42 @@
  * project : Front-End
  */
 let hotelList=[];
+let nowUpdatingHotel;
 $(document).ready(function() {
     $("#newHotelContainer").hide()
     $("#hotelListContainer").hide()
     // $("#newVehicleContainer").hide()
-    getAllHotels()
+
+    showHotelList()
 });
 $('#btnNewHotel').click(function () {
     showCreateHotel();
 })
 
+let showHotelList=() => {
+
+    $('#header-title').empty()
+    $("#header-title").append("Hotel List")
+    $("#hotelListContainer").show();
+    $("#newHotelContainer").hide()
+    hideNav();
+    getAllHotels();
+
+}
+
+$('#btnHotelList').click(function () {
+    showHotelList();
+})
 let showCreateHotel=() => {
-    $("#newHotelContainer").show()
+    $('#header-title').empty()
+    $("#header-title").append("Create Hotel")
+    $("#newHotelContainer").show();
+    $("#hotelListContainer").hide();
+    $('#btnCreateHotel').show();
+    $('#btnUpdateHotel').hide();
+    $('#btnDeleteHotel').hide();
+    $('#btnCancelUpdateHotel').hide();
+    hideNav();
 }
 $('#btnCreateHotel').click(function () {
     const formData = new FormData();
@@ -111,6 +135,7 @@ const loadDataToHotelTable = () => {
               <p class="fw-bold mb-1">${value.name}</p>
               <p class="text-muted mb-0" style="font-size: 12px">${value.location}
                 <a href="${value.mapLocation}" class="bg-info badge " target="_blank">map</a>
+                <a href="mailto:"${value.email}" class="bg-success badge " target="_blank">email</a>
               </p>
             </div>
           </div>
@@ -140,7 +165,7 @@ const loadDataToHotelTable = () => {
            <p class="mb-0 mt-0" style="font-size: 12px">Falf :${value.optionList[3].charge}</p>
         </td>
         <td>
-          <button type="button" class="btn btn-link badge bg-secondary btn-sm btn-rounded">
+          <button type="button" class="btn btn-link badge bg-secondary btn-sm btn-rounded" onclick="">
             Edit
           </button>
         </td>
@@ -173,3 +198,39 @@ $('#cancellationCriteriaIsFree').click(function () {
 
     $("#cancellationFeeEnabel").prop("disabled", $('#cancellationCriteriaIsFree').is(":checked"));
 })
+
+$('#hotel-table-body').on('click','button',function () {
+    let hotelId = event.target.parentElement.parentElement.children[0].id;
+    console.log(hotelId)
+    hotelList.map((value, index) => {
+        if (value.id === hotelId) {
+            loadEditeHotel(value)
+        }
+    })
+})
+let loadEditeHotel=(hotel)=> {
+    nowUpdatingHotel = hotel;
+    $('#hotelName').val(hotel.name);
+    $('#hotelLocation').val(hotel.location)
+    $('#hotelLocationMap').val(hotel.mapLocation)
+    $('#hotelEmail').val(hotel.email)
+    console.log(hotel.category==="4 Star")
+    $('#hotelCategory').val(
+        hotel.category==="2 Star"?"2 Star":
+            hotel.category==="3 Star"?"3 Star":
+                hotel.category==='4 Star'?'4 Star':
+                    hotel.category==="5 Star"?"5 Star":"Select"
+    )
+    if (hotel.petIsAllowed){
+        $('#petIsAllowed').prop('checked', true)
+    }else {
+        $('#petIsAllowed').prop('checked', false)
+    }
+    if (hotel.cancellationCriteriaIsFree){
+        $('#cancellationCriteriaIsFree').prop('checked', true)
+    }else {
+        $('#cancellationCriteriaIsFree').prop('checked', false)
+    }
+    $('#newHotelContainer').show()
+    $('#header-title').text("Edit Hotel")
+}
