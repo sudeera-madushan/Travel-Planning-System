@@ -64,10 +64,10 @@ $(document).ready(function() {
     $("#login").hide();
 
     // $("#guide-header").hide();
-    // let token = localStorage.getItem('token');
-    // let params = {
-    //     token: token
-    // }
+    let token = localStorage.getItem('token');
+    let params = {
+        token: token
+    }
     // if (token){
     //     $.ajax({
     //         type: "GET",
