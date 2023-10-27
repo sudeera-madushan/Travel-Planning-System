@@ -30,4 +30,10 @@ public class HotelOptionDTO {
         this.name = name;
         this.charge = charge;
     }
+
+    public HotelOptionDTO(String id, String name, BigDecimal charge) {
+        this.id = id;
+        this.name = name;
+        this.charge = charge;
+    }
 }

@@ -6,11 +6,17 @@
 let hotelList=[];
 $(document).ready(function() {
     $("#newHotelContainer").hide()
-    // $("#hotelListContainer").hide()
+    $("#hotelListContainer").hide()
     // $("#newVehicleContainer").hide()
     getAllHotels()
 });
+$('#btnNewHotel').click(function () {
+    showCreateHotel();
+})
 
+let showCreateHotel=() => {
+    $("#newHotelContainer").show()
+}
 $('#btnCreateHotel').click(function () {
     const formData = new FormData();
     let imageArr=[];
@@ -126,7 +132,14 @@ const loadDataToHotelTable = () => {
         }
         data=data+`</td>
         <td>
-          <button type="button" class="btn bg-success  badge ">Rooms</button>
+           <p class="mb-0 mt-0" style="font-size: 12px">Full :${value.optionList[0].charge}</p>
+           <p class="mb-0 mt-0" style="font-size: 12px">Half :${value.optionList[1].charge}</p>
+        </td>
+        <td>
+           <p class="mb-0 mt-0" style="font-size: 12px">Full :${value.optionList[2].charge}</p>
+           <p class="mb-0 mt-0" style="font-size: 12px">Falf :${value.optionList[3].charge}</p>
+        </td>
+        <td>
           <button type="button" class="btn btn-link badge bg-secondary btn-sm btn-rounded">
             Edit
           </button>
