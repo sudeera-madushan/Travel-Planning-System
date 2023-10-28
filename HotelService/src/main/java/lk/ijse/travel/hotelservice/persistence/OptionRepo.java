@@ -4,6 +4,8 @@ import lk.ijse.travel.hotelservice.entity.Option;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @Author : Sudeera Madushan
  * @Date : 10/13/2023

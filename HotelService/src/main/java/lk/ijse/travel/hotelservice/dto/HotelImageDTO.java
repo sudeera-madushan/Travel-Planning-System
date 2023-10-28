@@ -28,4 +28,9 @@ public class HotelImageDTO{
     public HotelImageDTO(byte[] image) {
         this.image = image;
     }
+
+    public HotelImageDTO(String id, byte[] image) {
+        this.id = id;
+        this.image = image;
+    }
 }

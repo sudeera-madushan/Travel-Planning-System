@@ -41,9 +41,6 @@ public class HotelController {
                 for (MultipartFile image : images) {
                     imageDTOArrayList.add(new HotelImageDTO(image.getBytes()));
                 }
-//                for (int i = 0; i < roomType.size(); i++) {
-//                    hotel.getOptionList().get(i).setCharge(roomType.get(i).getBytes());
-//                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -62,4 +59,25 @@ public class HotelController {
     public Response<String> deleteHotel(@RequestParam String id ){
         return hotelService.deleteHotelById(id);
     }
+
+    @PutMapping
+    public Response<HotelDTO> updateHotel(
+            @RequestPart HotelDTO hotel,
+            @RequestPart List<MultipartFile> images
+    ) {
+        ArrayList<HotelImageDTO> imageDTOArrayList = new ArrayList<>();
+        try {
+            for (MultipartFile image : images) {
+                imageDTOArrayList.add(new HotelImageDTO(image.getBytes()));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        hotel.setHotelImages(imageDTOArrayList);
+        Response<HotelDTO> saved = hotelService.updateHotel(hotel);
+
+
+        return saved;
+    }
+
 }

@@ -17,4 +17,6 @@ public interface HotelService {
     Response<List<HotelDTO>> getAllHotels();
 
     Response<String> deleteHotelById(String id);
+
+    Response<HotelDTO> updateHotel(HotelDTO hotel);
 }

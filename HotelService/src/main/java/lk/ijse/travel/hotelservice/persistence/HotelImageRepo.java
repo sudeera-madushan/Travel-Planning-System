@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HotelImageRepo extends CrudRepository<HotelImage,String> {
     void deleteHotelImageByHotel(Hotel hotel);
+    void deleteAllByHotelId(String id);
 }
