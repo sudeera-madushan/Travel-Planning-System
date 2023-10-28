@@ -19,6 +19,6 @@ import java.util.List;
 @Table(name = "options")
 public class Option extends SuperEntity {
     private String name;
-    @OneToMany(mappedBy = "option", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "option", cascade = CascadeType.REMOVE)
     private List<HotelOption> hotelOptions= new ArrayList<>();
 }

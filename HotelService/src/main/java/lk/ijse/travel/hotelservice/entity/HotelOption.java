@@ -26,7 +26,7 @@ public class HotelOption extends SuperEntity{
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "hotel", referencedColumnName = "id")
     private Hotel hotel;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "options", referencedColumnName = "id")
     private Option option;
     private BigDecimal charge;

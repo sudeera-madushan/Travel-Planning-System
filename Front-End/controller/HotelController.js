@@ -39,6 +39,7 @@ let showCreateHotel=() => {
     $('#btnUpdateHotel').hide();
     $('#btnDeleteHotel').hide();
     $('#btnCancelUpdateHotel').hide();
+    clearHotelFields();
     hideNav();
 }
 $('#btnCreateHotel').click(function () {
@@ -94,8 +95,8 @@ $('#btnCreateHotel').click(function () {
         contentType: false,
         processData: false,
         success: function (data) {
-            showToast("Success","Vehicle \"" + data +"\"' Save Successfully !");
-            console.log(data)
+            showToast("Success","Vehicle \"" + data.object.name +"\"' Save Successfully !");
+            clearHotelFields();
         },
         error: function (error) {
             console.log(error)
@@ -105,10 +106,8 @@ $('#btnCreateHotel').click(function () {
 
 
 const loadDataToHotelTable = () => {
-
     $('#hotel-table-body').empty()
     hotelList.map((value, index) => {
-        console.log(value.name ,  value.hotelImages.length)
         let data=`
       <tr>
         <td id="${value.id}">
@@ -136,8 +135,7 @@ const loadDataToHotelTable = () => {
             !value.cancellationCriteriaIsFree?" "+value.cancellationFee:""}</td>
         <td>`
         for (let i = 1; i < value.hotelImages.length; i++) {
-            console.log()
-            data=data+`          <img src="data:image/jpg;base64, ${value.hotelImages[i].image}"
+            data=data+`<img src="data:image/jpg;base64, ${value.hotelImages[i].image}"
                alt="hotel image"
                style="width: 60px; height: 40px"/>`
 
@@ -170,7 +168,6 @@ let getAllHotels=()=> {
         //     "Authorization": `Bearer ${token}`
         // },
         success: function (data) {
-            console.log(data.object)
             hotelList = [];
             hotelList = data.object;
             loadDataToHotelTable()
@@ -182,13 +179,11 @@ let getAllHotels=()=> {
 }
 
 $('#cancellationCriteriaIsFree').click(function () {
-
     $("#cancellationFeeEnabel").prop("disabled", $('#cancellationCriteriaIsFree').is(":checked"));
 })
 
 $('#hotel-table-body').on('click','button',function () {
     let hotelId = event.target.parentElement.parentElement.children[0].id;
-    console.log(hotelId)
     hotelList.map((value, index) => {
         if (value.id === hotelId) {
             loadEditeHotel(value)
@@ -196,13 +191,11 @@ $('#hotel-table-body').on('click','button',function () {
     })
 })
 let loadEditeHotel=(hotel)=> {
-    console.log(hotel)
     nowUpdatingHotel = hotel;
     $('#hotelName').val(hotel.name);
     $('#hotelLocation').val(hotel.location)
     $('#hotelLocationMap').val(hotel.mapLocation)
     $('#hotelEmail').val(hotel.email)
-    console.log(hotel.category==="4 Star")
     $('#hotelCategory').val(
         hotel.category==="2 Star"?"1":
             hotel.category==="3 Star"?"2":
@@ -232,7 +225,6 @@ let loadEditeHotel=(hotel)=> {
     $('#hotelRemarks').val(hotel.remarks)
 
     hotel.hotelImages.map((value, index) => {
-        console.log(value.image)
         let data=`
                <div class="col-2 border" style="margin: .5vw; min-width: 100px">
                 <img class="file-upload-image" src="data:image/jpg;base64, ${value.image}"  style="width: 10vw; height: 5vw; "/>
@@ -245,6 +237,9 @@ let loadEditeHotel=(hotel)=> {
 
     $('#newHotelContainer').show()
     $('#btnCreateHotel').hide()
+    $('#btnUpdateHotel').show();
+    $('#btnDeleteHotel').show();
+    $('#btnCancelUpdateHotel').show();
     $('#hotelListContainer').hide()
     $('#header-title').text("Edit Hotel")
 }
@@ -271,6 +266,7 @@ $('#conformation-ok-btn').click(function () {
             success: function (data) {
                 showToast("Success", "Hotel \"" + nowUpdatingHotel.name + "\"' Delete Successfully !")
                 showHotelList()
+                clearHotelFields()
                 $('#conformation-alert').modal('hide');
             },
             error: function (error) {
@@ -282,20 +278,15 @@ $('#conformation-ok-btn').click(function () {
 
 $('#btnCancelUpdateHotel').click(function () {
     showHotelList();
+    clearHotelFields();
 })
 
 $('#btnUpdateHotel').click(function () {
     let images=[]
     const formData = new FormData();
     for (let i = 1; i < $('#hotelImageContainer').children().length-1; i++) {
-        console.log($('#hotelImageContainer').children().eq(i).children('img').eq(0).attr('src'));
         formData.append("images", base64ToFile($('#hotelImageContainer').children().eq(i).children('img').eq(0).attr('src')))
     }
-    // nowUpdatingHotel.hotelImages.map((value, index) => {
-    //     images.unshift({
-    //         id:value.id
-    //     })
-    // })
     let hotel = {
         id: nowUpdatingHotel.id,
         name: $('#hotelName').val(),
@@ -333,7 +324,6 @@ $('#btnUpdateHotel').click(function () {
     });
 
     formData.append("hotel", blob);
-    // formData.append('driver_license_image_front', $('#driverLicenseFrontImage')[0].files[0]);
 
 
     $.ajax({
@@ -345,11 +335,32 @@ $('#btnUpdateHotel').click(function () {
         contentType: false,
         processData: false,
         success: function (data) {
-            showToast("Success","Vehicle \"" + data +"\"' Update Successfully !");
-            console.log(data)
+            showToast("Success","Vehicle \"" + data.object.name +"\"' Update Successfully !");
+            clearHotelFields();
+            showHotelList();
         },
         error: function (error) {
             console.log(error)
         }
     });
 })
+
+let clearHotelFields=() => {
+    $('#hotelName').val("");
+    $('#hotelLocation').val("")
+    $('#hotelLocationMap').val("")
+    $('#hotelEmail').val("")
+    $('#hotelCategory').val("Select")
+    $('#petIsAllowed').prop('checked', false)
+    $('#hotelContactOne').val("")
+    $('#hotelContactTwo').val("")
+    $('#fullBoardWithACLuxuryRoomDoubleCharge').val("")
+    $('#halfBoardWithACLuxuryRoomDoubleCharge').val("")
+    $('#fullBoardWithACLuxuryRoomTripleCharge').val("")
+    $('#halfBoardWithACLuxuryRoomTripleCharge').val("")
+    $('#hotelRemarks').val("")
+    let length = $('#hotelImageContainer').children().length-1;
+    for (let i = 1; i < length; i++) {
+        $('#hotelImageContainer').children().eq(1).remove();
+    }
+}

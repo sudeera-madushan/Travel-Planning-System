@@ -16,4 +16,6 @@ import java.util.List;
 public interface HotelOptionRepo extends CrudRepository<HotelOption,String> {
     void deleteHotelOptionsByHotel_Id(String id);
     List<HotelOption> findAllByHotel_Id(String id);
+
+    void deleteAllByHotelId(String id);
 }

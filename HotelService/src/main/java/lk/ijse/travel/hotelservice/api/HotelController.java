@@ -34,20 +34,17 @@ public class HotelController {
     @PostMapping
     public Response<HotelDTO> save(
             @RequestPart HotelDTO hotel,
-            @RequestPart List<MultipartFile> images
-            ) {
+            @RequestPart List<MultipartFile> images) {
         ArrayList<HotelImageDTO> imageDTOArrayList = new ArrayList<>();
-            try {
-                for (MultipartFile image : images) {
-                    imageDTOArrayList.add(new HotelImageDTO(image.getBytes()));
-                }
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        try {
+            for (MultipartFile image : images) {
+                imageDTOArrayList.add(new HotelImageDTO(image.getBytes()));
             }
-            hotel.setHotelImages(imageDTOArrayList);
-        Response<HotelDTO> saved = hotelService.saveHotel(hotel);
-
-        return saved;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        hotel.setHotelImages(imageDTOArrayList);
+        return hotelService.saveHotel(hotel);
     }
 
     @GetMapping
@@ -74,10 +71,7 @@ public class HotelController {
             throw new RuntimeException(e);
         }
         hotel.setHotelImages(imageDTOArrayList);
-        Response<HotelDTO> saved = hotelService.updateHotel(hotel);
-
-
-        return saved;
+        return  hotelService.updateHotel(hotel);
     }
 
 }

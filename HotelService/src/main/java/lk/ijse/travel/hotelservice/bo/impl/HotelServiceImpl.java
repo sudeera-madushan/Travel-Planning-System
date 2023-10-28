@@ -37,7 +37,6 @@ public class HotelServiceImpl implements HotelService {
     private final HotelOptionRepo hotelOptionRepo;
     private final Converter converter;
 
-    //    @Transactional
     @Override
     public Response<HotelDTO> saveHotel(HotelDTO dto) {
         List<HotelImageDTO> hotelImages = dto.getHotelImages();
@@ -46,13 +45,14 @@ public class HotelServiceImpl implements HotelService {
         Hotel entity = converter.getHotelEntity(dto);
         entity.setOptions(new ArrayList<>());
         for (HotelOptionDTO option : optionList) {
-            entity.getOptions().add(new HotelOption(
+            entity.getOptions().add(
+                    hotelOptionRepo.save(new HotelOption(
                     entity,
                     optionRepo.findHotelOptionByNameIgnoreCase(
                             option.getName()
                     ),
                     option.getCharge()
-            ));
+            )));
         }
         Hotel hotel = hotelRepo.save(entity);
         for (HotelImage hotelImage : hotelImages.stream().map(converter::getHotelImageEntity).toList()) {
@@ -85,7 +85,7 @@ public class HotelServiceImpl implements HotelService {
     public Response<String> deleteHotelById(String id) {
         Optional<Hotel> hotel = hotelRepo.findById(id);
         if (hotel.isPresent()) {
-            hotelOptionRepo.deleteHotelOptionsByHotel_Id(id);
+            hotelOptionRepo.deleteAllByHotelId(id);
             hotelImageRepo.deleteHotelImageByHotel(hotel.get());
             hotelRepo.deleteById(id);
             return new Response<>(HttpStatus.OK, "Hotel Delete Successfully", id);
