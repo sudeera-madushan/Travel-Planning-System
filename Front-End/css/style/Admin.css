@@ -64,7 +64,9 @@ li > ul {
 .toast-header{
     background: rgba(0, 222, 126, 1);
 }
-
+#dashboard-menu{
+    margin-top: 1.5rem;
+}
 .dashboard-nav {
     min-width: 238px;
     position: fixed;

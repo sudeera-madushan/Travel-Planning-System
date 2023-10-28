@@ -32,6 +32,7 @@ body{
     background: var(--bg-color);
     color: var(--bg-color);
 }
+
 body::before{
     content: "XS";
     collapse: red;
@@ -107,7 +108,8 @@ header{
     transition: ease .40s;
     text-decoration: none;
 }
-.navbar a:hover{
+.navbar a:hover,
+.navbar a:focus {
     background: var(--bg-color);
     color: var(--text-color);
     box-shadow: 5px 10px 30px rgb(85 85 85 / 20%);
@@ -181,3 +183,17 @@ section{
 }
 
 
+.box-shadow{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.card:hover{
+    background: var(--bg-color);
+    transform: scale(1.02);
+    transition: 1s;
+
+}
+.card{
+    cursor: pointer;
+    transition: 1s;
+}

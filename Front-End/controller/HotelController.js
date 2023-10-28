@@ -8,9 +8,6 @@ let nowUpdatingHotel;
 $(document).ready(function() {
     $("#newHotelContainer").hide()
     $("#hotelListContainer").hide()
-    // $("#newVehicleContainer").hide()
-
-    showHotelList()
 });
 $('#btnNewHotel').click(function () {
     showCreateHotel();
@@ -18,6 +15,9 @@ $('#btnNewHotel').click(function () {
 
 let showHotelList=() => {
 
+    $('#guideSection').hide();
+    $('#vehicleSection').hide();
+    $('#hotel-Section').show();
     $('#header-title').empty()
     $("#header-title").append("Hotel List")
     $("#hotelListContainer").show();
@@ -31,6 +31,10 @@ $('#btnHotelList').click(function () {
     showHotelList();
 })
 let showCreateHotel=() => {
+
+    $('#hotel-Section').show();
+    $('#guideSection').hide();
+    $('#vehicleSection').hide();
     $('#header-title').empty()
     $("#header-title").append("Create Hotel")
     $("#newHotelContainer").show();
@@ -94,6 +98,9 @@ $('#btnCreateHotel').click(function () {
         data: formData,
         contentType: false,
         processData: false,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         success: function (data) {
             showToast("Success","Vehicle \"" + data.object.name +"\"' Save Successfully !");
             clearHotelFields();
@@ -164,9 +171,9 @@ let getAllHotels=()=> {
     $.ajax({
         url: 'http://localhost:8094/travel/api/v1/hotel',
         type: 'GET',
-        // headers: {
-        //     "Authorization": `Bearer ${token}`
-        // },
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         success: function (data) {
             hotelList = [];
             hotelList = data.object;
@@ -260,9 +267,9 @@ $('#conformation-ok-btn').click(function () {
             processData: false,
             contentType: false,
             cache: false,
-            // headers: {
-            //     "Authorization": `Bearer ${token}`
-            // },
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
             success: function (data) {
                 showToast("Success", "Hotel \"" + nowUpdatingHotel.name + "\"' Delete Successfully !")
                 showHotelList()
@@ -334,6 +341,9 @@ $('#btnUpdateHotel').click(function () {
         data: formData,
         contentType: false,
         processData: false,
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         success: function (data) {
             showToast("Success","Vehicle \"" + data.object.name +"\"' Update Successfully !");
             clearHotelFields();

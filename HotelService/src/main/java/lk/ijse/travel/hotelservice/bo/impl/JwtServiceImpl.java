@@ -101,6 +101,8 @@ public class JwtServiceImpl implements JwtService {
         List<GrantedAuthority> authorities=new ArrayList<>();
         try {
             Claims claims = getClaims(token);
+            String subject = (String) claims.get(Claims.SUBJECT);
+            System.out.println(claims);
             ArrayList<String> roles = (ArrayList<String>) claims.get("roles");
             for (String aRoleName : roles) {
                 authorities.add(new Auth(aRoleName));

@@ -13,6 +13,7 @@ $(document).ready(function() {
 
 $('#btnNewVehicle').click(function () {
     $('#guideSection').hide();
+    $('#hotel-Section').hide();
     $('#vehicleSection').show();
     $('#newVehicleContainer').show()
     $("#vehicleListContainer").hide()
@@ -84,6 +85,7 @@ $('#btnVehicleList').click(function () {
 });
 let showVehicleList= () => {
 
+    $('#hotel-Section').hide();
     $('#guideSection').hide();
     $('#vehicleSection').show();
     $('#vehicleListContainer').show()

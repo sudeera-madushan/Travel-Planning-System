@@ -39,12 +39,13 @@ let showNewGuide= () => {
     $('#btnDeleteGuide').hide();
     $('#btnCancelUpdateGuide').hide();
     $('#btnCreateGuide').show();
+    $('#hotel-Section').hide();
 }
 let showGuideList= () => {
     $('#vehicleSection').hide();
     $('#guideSection').show();
     getAllGuides();
-
+    $('#hotel-Section').hide();
     $('#header-title').empty()
     $("#header-title").append("Guide List")
     $('#new-guide').hide();

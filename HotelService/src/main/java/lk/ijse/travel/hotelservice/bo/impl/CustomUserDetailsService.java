@@ -16,11 +16,8 @@ import reactor.core.publisher.Mono;
 public class CustomUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
     @Autowired
     private WebClient.Builder webClientBuilder;
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(username+"Custome");
         WebClient userClient = webClientBuilder.baseUrl("http://localhost:8091/travel/api/v1/user").build();
         Mono<UserDetails> userDetailsMono = userClient.get()
                 .uri("/getUserByUsername?username=" + username)

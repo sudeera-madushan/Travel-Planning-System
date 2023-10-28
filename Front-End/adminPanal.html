@@ -66,7 +66,7 @@
         Sudeera
         </span>
       </p>
-      <div class=' nav_link'>
+      <div class=' nav_link ' id="dashboard-menu">
         <a href="#!" class="dashboard-nav-item text-light">
           <i class='bx bxs-dashboard'></i> Dashboard
         </a>
@@ -77,11 +77,11 @@
         <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
           <i class='bx bx-run'></i> <span class="ms-1 d-none d-sm-inline">Guide</span> </a>
         <ul class="collapse  nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-          <li class="w-100" id="btnNewGuide">
-            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline" >Create Guide</span></a>
+          <li class="w-100" id="btnNewGuide" style="margin-left: 28px">
+            <a href="#" class="nav-link">  <i class='bx bx-plus'></i><span class="d-none d-sm-inline" >Create Guide</span></a>
           </li>
           <li id="btnGuideList">
-            <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Guide List</span></a>
+            <a href="#" class="nav-link px-0"><i class='bx bx-list-ul'></i>  <span class="d-none d-sm-inline">Guide List</span></a>
           </li>
         </ul>
       </li>
@@ -916,7 +916,7 @@
     document.getElementById('body-pd').classList.remove('body-pd')
     document.getElementById('header').classList.remove('body-pd')
   }
-
+let token;
 </script>
 </body>
 </html>
