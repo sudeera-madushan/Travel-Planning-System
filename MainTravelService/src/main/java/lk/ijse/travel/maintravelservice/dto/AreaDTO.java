@@ -3,6 +3,7 @@ package lk.ijse.travel.maintravelservice.dto;
 import lk.ijse.travel.maintravelservice.entity.SuperEntity;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,12 +19,18 @@ import java.util.List;
 public class AreaDTO extends SuperEntity {
     private String id,areaLocation, description;
     private byte[] video;
-    private List<byte[]> images;
+    private List<byte[]> images=new ArrayList<>();
 
     public AreaDTO(String areaLocation, String description, byte[] video, List<byte[]> images) {
         this.areaLocation = areaLocation;
         this.description = description;
         this.video = video;
+        this.images = images;
+    }
+
+    public AreaDTO(String areaLocation, String description, List<byte[]> images) {
+        this.areaLocation = areaLocation;
+        this.description = description;
         this.images = images;
     }
 }

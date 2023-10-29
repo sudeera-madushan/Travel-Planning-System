@@ -3,6 +3,8 @@ package lk.ijse.travel.maintravelservice.api;
 import lk.ijse.travel.maintravelservice.bo.AreaService;
 import lk.ijse.travel.maintravelservice.dto.AreaDTO;
 import lk.ijse.travel.maintravelservice.dto.Response;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,16 +20,16 @@ import java.util.List;
  * @Project : Next Travel Pvt. Ltd
  */
 @RestController
-@RequestMapping("area")
+@RequestMapping("api/v1/area")
+@RequiredArgsConstructor
 public class AreaController {
-    @Autowired
-    private AreaService areaService;
+    private final AreaService areaService;
 
     @PostMapping
     private Response<AreaDTO> saveArea(
             @RequestPart String areaLocation,
             @RequestPart String description,
-            @RequestPart byte[] video,
+//            @RequestPart byte[] video,
             @RequestPart List<MultipartFile> images
 
     ){
@@ -39,11 +41,17 @@ public class AreaController {
                 throw new RuntimeException(e);
             }
         }
-        return areaService.saveArea(new AreaDTO(areaLocation,description,video,list));
+        return areaService.saveArea(new AreaDTO(areaLocation,description,list));
     }
 
+    @RequestMapping("get")
     @GetMapping
     private Response<AreaDTO> getArea(@RequestParam String id){
         return areaService.getArea(id);
+    }
+
+    @GetMapping
+    Response<List<AreaDTO>> getAllArea(){
+        return areaService.getAll();
     }
 }

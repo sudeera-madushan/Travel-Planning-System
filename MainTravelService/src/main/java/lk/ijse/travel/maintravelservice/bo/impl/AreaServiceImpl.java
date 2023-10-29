@@ -52,4 +52,16 @@ public class AreaServiceImpl implements AreaService {
         return new Response<>(HttpStatus.OK,"Area get successfully",
                 converter.getAreaDTO(areaRepo.findById(id).get()));
     }
+
+    @Override
+    public Response<List<AreaDTO>> getAll() {
+        List<AreaDTO> areas = areaRepo.findAll().stream().map(area -> converter.getAreaDTO(area)).toList();
+        areas.forEach(area -> area.setImages(
+                areaImageRepo.findAllByAreaId(area.getId()).stream().map(
+                        image -> Base64.getDecoder().decode(image.getImage())
+                ).toList()
+        ));
+        return new Response<>(HttpStatus.OK,"Get All Area successfully",
+                areas);
+    }
 }
