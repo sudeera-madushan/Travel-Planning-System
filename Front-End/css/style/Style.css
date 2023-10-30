@@ -196,6 +196,8 @@ section{
 .card{
     cursor: pointer;
     transition: 1s;
+    max-width: 21rem;
+    min-width: 20rem;
 }
 
 .card {

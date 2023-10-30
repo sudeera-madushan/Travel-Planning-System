@@ -29,12 +29,22 @@ let loadAreaCards=(data)=>{
 
     data.object.map((value, index) => {
         let data=``;
-        console.log(index,index%3===0);
-        if (index%3===0) {
-            data = `<div class="card-columns row">`;
-        }
-        in
-                
-              // </div>`
+        console.log(value);
+        // if (index%3===0) {
+        //     data = `<div class="card-columns row">`;
+        // }
+        data=` <div class="card col m-4 p-0" >
+                    <a href="#">
+                        <img class="card-img-top" src="data:image/jpg;base64, ${value.images.length>0?value.images[0]:""}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">${value.description}</h5>
+                            <p class="card-text">
+                          
+                            </p>
+                            <p class="card-text"><small class="text-muted"><i class="fas fa-eye"></i>1000<i class="far fa-user"></i>admin<i class="fas fa-calendar-alt"></i>Jan 20, 2018</small></p>
+                        </div>
+                    </a>
+                </div>`;
+        $('#areaCardContainer').append(data)
     })
 }
