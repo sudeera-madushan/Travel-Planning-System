@@ -17,20 +17,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AreaDTO extends SuperEntity {
-    private String id,areaLocation, description;
-    private byte[] video;
+    private String id,name, description,areaLocation;
+    private byte[] image;
     private List<byte[]> images=new ArrayList<>();
 
-    public AreaDTO(String areaLocation, String description, byte[] video, List<byte[]> images) {
-        this.areaLocation = areaLocation;
+    public AreaDTO(String name, String description, String areaLocation, byte[] image, List<byte[]> images) {
+        this.name = name;
         this.description = description;
-        this.video = video;
-        this.images = images;
-    }
-
-    public AreaDTO(String areaLocation, String description, List<byte[]> images) {
         this.areaLocation = areaLocation;
-        this.description = description;
+        this.image = image;
         this.images = images;
     }
 }

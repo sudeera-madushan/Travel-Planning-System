@@ -27,21 +27,22 @@ public class AreaController {
 
     @PostMapping
     private Response<AreaDTO> saveArea(
-            @RequestPart String areaLocation,
+            @RequestPart String name,
             @RequestPart String description,
-//            @RequestPart byte[] video,
+            @RequestPart String areaLocation,
+            @RequestPart byte[] image,
             @RequestPart List<MultipartFile> images
 
     ){
         ArrayList<byte[]> list = new ArrayList<>();
-        for (MultipartFile image : images) {
+        for (MultipartFile file : images) {
             try {
-                list.add(image.getBytes());
+                list.add(file.getBytes());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        return areaService.saveArea(new AreaDTO(areaLocation,description,list));
+        return areaService.saveArea(new AreaDTO(name,description,areaLocation,image,list));
     }
 
     @RequestMapping("get")

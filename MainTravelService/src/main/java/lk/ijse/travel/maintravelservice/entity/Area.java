@@ -18,10 +18,10 @@ import lombok.*;
 @NoArgsConstructor
 @Table(name = "area")
 public class Area extends SuperEntity{
-    @Column(name = "area_location")
+    private String name;
+    private String description;
+    @Column(name = "area_location" , columnDefinition = "TEXT")
     private String areaLocation;
     @Column(columnDefinition = "LONGTEXT")
-    private String video;
-    @Column(columnDefinition = "LONGTEXT")
-    private String description;
+    private String image;
 }

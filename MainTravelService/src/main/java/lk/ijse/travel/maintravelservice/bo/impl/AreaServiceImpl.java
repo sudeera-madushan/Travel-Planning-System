@@ -35,7 +35,6 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public Response<AreaDTO> saveArea(AreaDTO dto) {
         Area are = areaRepo.save(converter.getAreaEntity(dto));
-        System.out.println(are.toString());
          areaImageRepo.saveAll(dto.getImages()
                  .stream().map(image ->
                          new AreaImage(are.getId(),Base64.getEncoder().encodeToString(image))
