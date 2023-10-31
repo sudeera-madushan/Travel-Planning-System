@@ -2,6 +2,7 @@ package lk.ijse.travel.hotelservice.bo.impl;
 
 import lk.ijse.travel.hotelservice.bo.HotelService;
 import lk.ijse.travel.hotelservice.bo.util.Converter;
+import lk.ijse.travel.hotelservice.bo.util.DistanceMatrixCalculator;
 import lk.ijse.travel.hotelservice.dto.HotelDTO;
 import lk.ijse.travel.hotelservice.dto.HotelImageDTO;
 import lk.ijse.travel.hotelservice.dto.HotelOptionDTO;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -180,6 +182,28 @@ public class HotelServiceImpl implements HotelService {
         return new Response<>(HttpStatus.NOT_FOUND, "Hotel Not Found",dto);
 
     }
+
+    @Override
+    public Response<List<HotelDTO>> findNearestHotels(String id) {
+        Hotel hotel = hotelRepo.findById(id).get();
+        List<Hotel> hotels = hotelRepo.findAll();
+        List<Hotel> matchers = new ArrayList<>();
+        try {
+            for (Hotel a : hotels) {
+                if (!a.getId().equalsIgnoreCase(hotel.getId())) {
+                    double distance = DistanceMatrixCalculator.getDistance(hotel.getMapLocation(), a.getMapLocation());
+                    if (30 > distance) {
+                        matchers.add(a);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return new Response<>(HttpStatus.OK,"Get All Nearest Areas successfully",
+                matchers.stream().map(s -> converter.getHotelDTO(s)).toList());
+    }
+
     private static Hotel getHotel(HotelDTO dto, Optional<Hotel> optional) {
         Hotel hotel = optional.get();
         hotel.setName(dto.getName());

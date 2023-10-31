@@ -47,6 +47,7 @@ let showCreateHotel=() => {
     hideNav();
 }
 $('#btnCreateHotel').click(function () {
+    console.log(getIFrameSrc($('#hotelLocationMap').val()))
     const formData = new FormData();
     for (let i = 1; i < $('#hotelImageContainer').children().length-1; i++) {
         formData.append("images", base64ToFile($('#hotelImageContainer').children().eq(i).children('img').eq(0).attr('src')))
@@ -57,7 +58,7 @@ $('#btnCreateHotel').click(function () {
         category: $('#hotelCategory').find("option:selected").text(),
         location: $('#hotelLocation').val(),
         email: $('#hotelEmail').val(),
-        mapLocation: $('#hotelLocationMap').val(),
+        mapLocation: getIFrameSrc($('#hotelLocationMap').val()),
         contactNoOne: $('#hotelContactOne').val(),
         contactNoTwo: $('#hotelContactTwo').val(),
         petIsAllowed: $('#petIsAllowed').is(":checked"),
@@ -300,7 +301,7 @@ $('#btnUpdateHotel').click(function () {
         category: $('#hotelCategory').find("option:selected").text(),
         location: $('#hotelLocation').val(),
         email: $('#hotelEmail').val(),
-        mapLocation: $('#hotelLocationMap').val(),
+        mapLocation: getIFrameSrc($('#hotelLocationMap').val()),
         contactNoOne: $('#hotelContactOne').val(),
         contactNoTwo: $('#hotelContactTwo').val(),
         petIsAllowed: $('#petIsAllowed').is(":checked"),
@@ -372,5 +373,19 @@ let clearHotelFields=() => {
     let length = $('#hotelImageContainer').children().length-1;
     for (let i = 1; i < length; i++) {
         $('#hotelImageContainer').children().eq(1).remove();
+    }
+}
+
+let getIFrameSrc=(data)=>{
+    var srcRegex = /src="(.*?)"/;
+
+// Use the regular expression to extract the src attribute
+    var match = srcRegex.exec(data);
+
+    if (match && match[1]) {
+        return match[1];
+    } else {
+        console.log('src attribute not found');
+        return null;
     }
 }

@@ -88,4 +88,22 @@ public class AreaServiceImpl implements AreaService {
                 matchers.stream().map(s -> converter.getAreaDTO(s)).toList());
     }
 
+    @Override
+    public Response<List<AreaDTO>> findNearestPlacesBySrc(String src) {
+        List<Area> areas = areaRepo.findAll();
+        List<Area> matchers = new ArrayList<>();
+        try {
+            for (Area a : areas) {
+                    double distance = DistanceMatrixCalculator.getDistance(src, a.getAreaLocation());
+                    if (30 > distance) {
+                        matchers.add(a);
+                    }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return new Response<>(HttpStatus.OK,"Get All Nearest Areas successfully",
+                matchers.stream().map(s -> converter.getAreaDTO(s)).toList());
+    }
+
 }

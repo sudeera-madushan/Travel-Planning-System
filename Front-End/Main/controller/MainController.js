@@ -7,6 +7,8 @@
 $(document).ready(function() {
     $('#area-list-container').hide();
     $('#area-detail-page').hide();
+    $('#hotel-detail-page').hide();
+    // $('#hotel-list-container').hide();
     // getAllAreas();
     getAllHotel();
 
@@ -202,9 +204,9 @@ let getAllHotel=()=>{
 
 let loadHotelCards=(data)=>{
 
+    $('#hotelCardContainer').empty()
     data.object.map((value, index) => {
         console.log(value)
-        $('#hotelCardContainer').empty()
         let data=``;
         data=` <div class="card col m-4 p-0" id="${value.id}">
                     <a href="#">
@@ -228,5 +230,123 @@ let loadHotelCards=(data)=>{
                     </a>
                 </div>`;
         $('#hotelCardContainer').append(data)
+    })
+}
+$('#hotelCardContainer').on('click','.card',function () {
+    showMoreHotel($(this).attr('id'))
+    $('#hotel-list-container').hide();
+    $('#hotel-detail-page').show();
+})
+let showMoreHotel=(id) => {
+    let params = {
+        id: id
+    }
+    $.ajax({
+        url: 'http://localhost:8094/travel/api/v1/hotel/get' + '?' + $.param(params),
+        type: 'GET',
+        // headers: {
+        //     "Authorization": `Bearer ${token}`
+        // },
+        success: function (data) {
+            loadHotelDetails(data.object);
+            loadHotelDetailsNearestPlaces(data.object.mapLocation)
+            loadHotelDetailsNearestHotels(data.object)
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+    console.log(id);
+}
+let loadHotelDetails=(hotel)=>{
+    $('#hotelDetailsName').empty()
+    $('#hotelDetailsName').append(hotel.name)
+    $('#hotelDetailsDescription').empty()
+    $('#hotelDetailsDescription').append(hotel.remarks)
+    // $('#areaDetailsMapLocation').empty()
+    $('#hotelDetailsMapLocation').attr('src', hotel.mapLocation)
+
+    let data=`
+                   <ol class="carousel-indicators">`;
+    hotel.hotelImages.map((value, index) => {
+        data = data + `<li data-target="#carouselExampleIndicators" data-slide-to="${index}"
+                        class="${index === 0 ? 'active' : ''} bx bx-circle " ></li>`;
+    })
+    data=data+`</ol>
+                   <div class="carousel-inner">`;
+    hotel.hotelImages.map((value, index) => {
+        data=data+`
+                     <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                       <img class="d-block" src="data:image/jpg;base64, ${value.image}" width="800px" height="500px">
+                     </div>`;
+    })
+    data=data+`</div>`;
+    $('#hotel-carouselExampleIndicators').empty();
+    $('#hotel-carouselExampleIndicators').append(data);
+
+
+}
+
+let loadHotelDetailsNearestPlaces=(area)=>{
+    let params = {
+        src: area
+    }
+    $.ajax({
+        url: 'http://localhost:8095/travel/api/v1/area/src' + '?' + $.param(params),
+        type: 'GET',
+        // headers: {
+        //     "Authorization": `Bearer ${token}`
+        // },
+        success: function (data) {
+
+            $('#hotelDetailsNearPlace').empty();
+            data.object.map((value, index) => {
+
+                let code = `<div class="card bg-dark text-white mb-2" id="${value.id}">
+                                    <img class="card-img" src="data:image/jpg;base64, ${value.image}" alt="Card image">
+                                    <div class="card-img-overlay d-flex justify-content-center align-items-center " style="background: rgba(151, 12, 200, 0.25)">
+                                        <h5 class="card-title">${value.name}</h5>
+                                    </div>
+                                </div>`;
+
+                $('#hotelDetailsNearPlace').append(code);
+            })
+
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+}
+
+let loadHotelDetailsNearestHotels=(hotel)=>{
+    let params = {
+        id: hotel.id
+    }
+    $.ajax({
+        url: 'http://localhost:8094/travel/api/v1/hotel/nears' + '?' + $.param(params),
+        type: 'GET',
+        // headers: {
+        //     "Authorization": `Bearer ${token}`
+        // },
+        success: function (data) {
+
+            $('#hotelDetailsNearHotel').empty();
+            data.object.map((value, index) => {
+
+                let code = `<div class="card bg-dark text-white mb-2" id="${value.id}">
+                                    <img class="card-img" src="data:image/jpg;base64, ${value.hotelImages[0].image}" alt="Card image">
+                                    <div class="card-img-overlay d-flex justify-content-center align-items-center " style="background: rgba(151, 12, 200, 0.25)">
+                                        <h5 class="card-title">${value.name}</h5>
+                                    </div>
+                                </div>`;
+
+                $('#hotelDetailsNearHotel').append(code);
+            })
+
+        },
+        error: function (error) {
+            console.log(error)
+        }
     })
 }

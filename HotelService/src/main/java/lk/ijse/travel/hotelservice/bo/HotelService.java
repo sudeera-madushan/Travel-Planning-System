@@ -19,4 +19,6 @@ public interface HotelService {
     Response<String> deleteHotelById(String id);
 
     Response<HotelDTO> updateHotel(HotelDTO hotel);
+
+    Response<List<HotelDTO>> findNearestHotels(String id);
 }

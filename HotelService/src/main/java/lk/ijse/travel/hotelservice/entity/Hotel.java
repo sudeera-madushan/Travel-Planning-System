@@ -21,7 +21,7 @@ import java.util.List;
 public class Hotel extends SuperEntity{
     private String name,category,location;
     private String email;
-    @Column(name = "map_location")
+    @Column(name = "map_location", columnDefinition = "LONGTEXT")
     private String mapLocation;
     @Column(name = "contact_no_one")
     private String contactNoOne;
@@ -35,6 +35,7 @@ public class Hotel extends SuperEntity{
     private BigDecimal cancellationFee;
     @Column(name = "package_category_id")
     private String packageCategoryId;
+    @Column(columnDefinition = "LONGTEXT")
     private String remarks;
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
     private List<HotelImage> hotelImages = new ArrayList<>();

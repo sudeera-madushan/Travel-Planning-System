@@ -73,5 +73,9 @@ public class HotelController {
         hotel.setHotelImages(imageDTOArrayList);
         return  hotelService.updateHotel(hotel);
     }
-
+    @RequestMapping("nears")
+    @GetMapping
+    Response<List<HotelDTO>> findNearestPlaces(@RequestParam String id){
+        return hotelService.findNearestHotels(id);
+    }
 }

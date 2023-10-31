@@ -17,4 +17,6 @@ public interface AreaService {
     Response<List<AreaDTO>> getAll();
 
     Response<List<AreaDTO>> findNearestPlaces(String id);
+
+    Response<List<AreaDTO>> findNearestPlacesBySrc(String src);
 }

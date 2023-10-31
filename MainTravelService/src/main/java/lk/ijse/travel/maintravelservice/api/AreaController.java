@@ -61,4 +61,9 @@ public class AreaController {
     Response<List<AreaDTO>> findNearestPlaces(@RequestParam String id){
         return areaService.findNearestPlaces(id);
     }
+    @RequestMapping("src")
+    @GetMapping
+    Response<List<AreaDTO>> findNearestPlacesBySrc(@RequestParam String src){
+        return areaService.findNearestPlacesBySrc(src);
+    }
 }
