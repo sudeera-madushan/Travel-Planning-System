@@ -55,4 +55,10 @@ public class AreaController {
     Response<List<AreaDTO>> getAllArea(){
         return areaService.getAll();
     }
+
+    @RequestMapping("nears")
+    @GetMapping
+    Response<List<AreaDTO>> findNearestPlaces(@RequestParam String id){
+        return areaService.findNearestPlaces(id);
+    }
 }

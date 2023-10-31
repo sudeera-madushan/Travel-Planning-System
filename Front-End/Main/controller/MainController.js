@@ -85,6 +85,7 @@ let showMoreArea=(id) => {
         // },
         success: function (data) {
             loadAreaDetails(data.object);
+            loadAreaDetailsNearestPlaces(data.object)
         },
         error: function (error) {
             console.log(error)
@@ -107,6 +108,62 @@ let loadAreaDetails=(area)=>{
     $('#areaDetailsName').append(area.name)
     $('#areaDetailsDescription').empty()
     $('#areaDetailsDescription').append(area.description)
-    $('#areaDetailsMapLocation').empty()
-    $('#areaDetailsMapLocation').append(area.areaLocation)
+    // $('#areaDetailsMapLocation').empty()
+    $('#areaDetailsMapLocation').attr('src', area.areaLocation)
+    let params = {
+        id: area.id
+    }
+    $.ajax({
+        url: 'http://localhost:8095/travel/api/v1/areaImage/all' + '?' + $.param(params),
+        type: 'GET',
+        // headers: {
+        //     "Authorization": `Bearer ${token}`
+        // },
+        success: function (data) {
+            loadAreaDetailsImgList(data.object)
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+
+
+}
+let loadAreaDetailsNearestPlaces=(area)=>{
+    let params = {
+        id: area.id
+    }
+    $.ajax({
+        url: 'http://localhost:8095/travel/api/v1/area/nears' + '?' + $.param(params),
+        type: 'GET',
+        // headers: {
+        //     "Authorization": `Bearer ${token}`
+        // },
+        success: function (data) {
+            console.log(data.object)
+
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+}
+let loadAreaDetailsImgList=(arr) => {
+    let data=`
+                   <ol class="carousel-indicators">`;
+    arr.map((value, index) => {
+        data = data + `<li data-target="#carouselExampleIndicators" data-slide-to="${index}"
+                        class="${index === 0 ? 'active' : ''} bx bx-circle " ></li>`;
+    })
+        data=data+`</ol>
+                   <div class="carousel-inner">`;
+    arr.map((value, index) => {
+                     data=data+`
+                     <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                       <img class="d-block" src="data:image/jpg;base64, ${value.image}" width="800px" height="500px">
+                     </div>`;
+    })
+        data=data+`</div>`;
+    $('#carouselExampleIndicators').empty();
+    $('#carouselExampleIndicators').append(data);
 }

@@ -3,6 +3,7 @@ package lk.ijse.travel.maintravelservice.bo.impl;
 import lk.ijse.travel.maintravelservice.bo.AreaImageService;
 import lk.ijse.travel.maintravelservice.bo.AreaService;
 import lk.ijse.travel.maintravelservice.bo.util.Converter;
+import lk.ijse.travel.maintravelservice.bo.util.DistanceMatrixCalculator;
 import lk.ijse.travel.maintravelservice.bo.util.ImageConverter;
 import lk.ijse.travel.maintravelservice.dto.AreaDTO;
 import lk.ijse.travel.maintravelservice.dto.AreaImageDTO;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,4 +66,26 @@ public class AreaServiceImpl implements AreaService {
         return new Response<>(HttpStatus.OK,"Get All Area successfully",
                 areas);
     }
+
+    @Override
+    public Response<List<AreaDTO>> findNearestPlaces(String id) {
+        Area area = areaRepo.findById(id).get();
+        List<Area> areas = areaRepo.findAll();
+        List<Area> matchers = new ArrayList<>();
+        try {
+            for (Area a : areas) {
+                if (!a.getId().equalsIgnoreCase(area.getId())) {
+                    double distance = DistanceMatrixCalculator.getDistance(area.getAreaLocation(), a.getAreaLocation());
+                    if (30 > distance) {
+                        matchers.add(a);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return new Response<>(HttpStatus.OK,"Get All Nearest Areas successfully",
+                matchers.stream().map(s -> converter.getAreaDTO(s)).toList());
+    }
+
 }

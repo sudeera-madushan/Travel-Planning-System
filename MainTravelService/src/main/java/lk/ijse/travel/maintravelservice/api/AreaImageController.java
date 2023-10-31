@@ -17,12 +17,12 @@ import java.util.List;
  * @Project : Next Travel Pvt. Ltd
  */
 @RestController
-@RequestMapping("areaImage")
+@RequestMapping("api/v1/areaImage")
 public class AreaImageController {
     @Autowired
     private AreaImageService areaImageService;
-
-    @GetMapping("all")
+    @RequestMapping("all")
+    @GetMapping
     public Response<List<AreaImageDTO>> getAllImages(@RequestParam String id){
         return areaImageService.getAllByAreaId(id);
     }
