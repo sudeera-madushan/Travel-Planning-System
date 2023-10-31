@@ -140,7 +140,18 @@ let loadAreaDetailsNearestPlaces=(area)=>{
         //     "Authorization": `Bearer ${token}`
         // },
         success: function (data) {
-            console.log(data.object)
+            data.object.map((value, index) => {
+
+                let code = `<div class="card bg-dark text-white mb-2" id="${value.id}">
+                                    <img class="card-img" src="data:image/jpg;base64, ${value.image}" alt="Card image">
+                                    <div class="card-img-overlay d-flex justify-content-center align-items-center " style="background: rgba(151, 12, 200, 0.25)">
+                                        <h5 class="card-title">${value.name}</h5>
+                                    </div>
+                                </div>`;
+
+                $('#areaDetailsNearPlace').empty();
+                $('#areaDetailsNearPlace').append(code);
+            })
 
         },
         error: function (error) {
@@ -167,3 +178,7 @@ let loadAreaDetailsImgList=(arr) => {
     $('#carouselExampleIndicators').empty();
     $('#carouselExampleIndicators').append(data);
 }
+
+$('#areaDetailsNearPlace').on('click','.card',function () {
+    showMoreArea($(this).attr('id'));
+})
