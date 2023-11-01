@@ -17,18 +17,20 @@
 </head>
 <body>
     <!--Header section-->
-
     <header id="header">
         <a href="#" class="logo">Next Travel</a>
         <div class="bx bx-menu" id="menu-icon"></div>
 
-        <ul class="navbar">
-            <li><a href="#">Home</a>
-            <li><a href="#packages">Package</a>
-            <li><a href="#">Destination</a>
-            <li><a href="#">Contact</a>
-            </li>
+        <ul class="navbar pb-0">
+            <li><a href="#">Home</a></li>
+            <li><a href="#packages">Package</a></li>
+            <li><a href="#">Destination</a></li>
+            <li><a href="#">Contact</a></li>
         </ul>
+        <div class="header_img " style="position: absolute; right: 2rem; top: 1.2rem">
+            <a href="#" class="m-2 text-decoration-none" id="btnRegister">Register</a>or
+            <a href="#" class="m-2 text-decoration-none" id="btnLogin">Login</a>
+        </div>
     </header>
 
     <!--Home section-->
@@ -102,7 +104,127 @@
         </div>
     </section>
     </div>
-<section id="area-list-container" class="p-0 border border-1">
+    <!--Register Section-->
+    <section id="register-section" class="container-xxl">
+        <div class="container-xl register">
+            <div class="row">
+                <div class="col-md-3 register-left">
+                    <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                    <h3>Welcome</h3>
+                    <p>You are 30 seconds away from earning your own money!</p>
+                    <input type="submit" name="" value="Login"/><br/>
+                </div>
+                <div class="col-md-9 register-right">
+                    <div class="tab-content m-0" id="myTabContent">
+                        <div class="tab-pane fade show active " id="home-register" role="tabpanel" aria-labelledby="home-tab">
+                            <h3 class="register-heading">Register</h3>
+                            <div class="row register-form">
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <input type="text" id="registerFullName" class="form-control" placeholder="Full Name *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" id="registerUserName" class="form-control" placeholder="Username *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" id="registerPassword" class="form-control" placeholder="Password *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control " id="registerAge" placeholder="Age *" value="" />
+                                    </div>
+                                    <div class="form-group ms-4">
+                                        <div class="maxl">
+                                            <label class="radio inline">
+                                                <input type="radio" name="gender" id="registerGenderMale" value="male" checked>
+                                                <span class="text-dark-emphasis" > Male </span>
+                                            </label>
+                                            <label class="radio inline">
+                                                <input type="radio" name="gender" id="registerGenderFemail" value="female">
+                                                <span class="text-dark-emphasis">Female </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ms-4">
+                                        <div class="maxl">
+                                            <label class="radio inline">
+                                                <input type="radio" name="nicOrPassport" id="registerIsNic" value="NIC" checked>
+                                                <span class="text-dark-emphasis"> NIC </span>
+                                            </label>
+                                            <label class="radio inline">
+                                                <input type="radio" name="nicOrPassport" id="registerIsPassport" value="Passport">
+                                                <span class="text-dark-emphasis"> Passport </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="registerEmail" placeholder="Your Email *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" minlength="10" maxlength="10" id="registerContact" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                    <input type="password" id="registerPasswordConform" class="form-control"  placeholder="Confirm Password *" value="" />
+                                </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="registerNicPassportNo" placeholder="NIC/Passport NO *" value="" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="text" id="registerAddress" class="form-control" placeholder="Address *" value="" />
+                                    </div>
+                                </div>
+
+                                <div class="ms-2 mt-2 row">
+                                    <div class="col">
+                                        <div class="file-upload">
+                                            <label class="form-label file-upload-label" for="nicFrontImage">NIC/Passport Front</label>
+                                            <div class="image-upload-wrap" id="nicFrontImageWrap">
+                                                <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="nicFrontImage"/>
+                                                <div class="drag-text">
+                                                    <a href="">drag here</a>
+                                                </div>
+                                            </div>
+                                            <div class="file-upload-content" id="nicFrontFileUploadContent">
+                                                <img class="file-upload-image" src="#" alt="your image" id="nicFrontFileUploadImage"/>
+                                                <div class="image-title-wrap">
+                                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="nicFrontImageTitle">Image</span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="file-upload">
+                                            <label class="form-label file-upload-label" for="nicBackImage">NIC/Passport Back</label>
+                                            <div class="image-upload-wrap" id="nicBackImageWrap">
+                                                <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="nicBackImage"/>
+                                                <div class="drag-text">
+                                                    <a href="">drag here</a>
+                                                </div>
+                                            </div>
+                                            <div class="file-upload-content" id="nicBackFileUploadContent">
+                                                <img class="file-upload-image" src="#" alt="your image" id="nicBackFileUploadImage"/>
+                                                <div class="image-title-wrap">
+                                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="nicBackImageTitle">Image</span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="submit" class="btnRegister" id="btnRegisterUser" value="Register"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!--Area List Section-->
+    <section id="area-list-container" class="p-0 border border-1">
     <div class="container" >
         <div class="text-center">
             <h1>Bootstrap card tiled layout</h1>
@@ -324,19 +446,20 @@
 <script type="module" src="controller/MainController.js"></script>
 
 <script>
+    // $('#home-section').hide()
     $('#home-section').hide()
-    $('#header').show()
+    $('#register-section').show()
 
-    window.addEventListener('scroll', function() {
-        const header = document.querySelector('header');
-        const scrollPos = window.scrollY;
-
-        if (scrollPos > 100) {
-            header.style.backgroundColor = 'rgba(103, 1, 161, 0.51)';
-        } else {
-            header.style.backgroundColor = 'transparent';;
-        }
-    });
+    // window.addEventListener('scroll', function() {
+    //     const header = document.querySelector('header');
+    //     const scrollPos = window.scrollY;
+    //
+    //     if (scrollPos > 300) {
+    //         header.style.backgroundColor = 'rgba(103, 1, 161, 0.51)';
+    //     } else {
+    //         header.style.backgroundColor = 'rgba(82, 82, 82, 0.80)';
+    //     }
+    // });
 
     function getCurrentTime() {
         const now = new Date();
@@ -345,6 +468,29 @@
         const seconds = now.getSeconds().toString().padStart(2, '0');
         return `${hours}:${minutes}:${seconds}`;
     }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                let id='#' + input.id.split("Image")[0]
+                $(id+'ImageWrap').hide();
+                $(id+'FileUploadImage').attr('src', e.target.result);
+                $(id+'FileUploadContent').show();
+                $(id+'ImageTitle').html(input.files[0].name);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+
+        } else {
+            removeUpload();
+        }
+    }
+
+    function removeUpload() {
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+
 </script>
 </body>
 </html>

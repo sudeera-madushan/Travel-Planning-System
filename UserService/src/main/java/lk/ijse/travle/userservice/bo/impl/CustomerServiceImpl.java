@@ -5,6 +5,7 @@ import lk.ijse.travle.userservice.bo.UserService;
 import lk.ijse.travle.userservice.bo.util.Converter;
 import lk.ijse.travle.userservice.dto.Response;
 import lk.ijse.travle.userservice.dto.CustomerDTO;
+import lk.ijse.travle.userservice.dto.Type;
 import lk.ijse.travle.userservice.dto.UserDTO;
 import lk.ijse.travle.userservice.entity.Customer;
 import lk.ijse.travle.userservice.persistence.CustomerRepo;
@@ -33,6 +34,12 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public Response<CustomerDTO> save(CustomerDTO customer) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUsername(customer.getUsername());
+        userDTO.setPassword(customer.getPassword());
+        userDTO.getRole().add(Type.ROLE_USER);
+        Response<UserDTO> saveUser = userService.save(userDTO);
+        customer.setUserId(saveUser.getObject().getId());
         Customer customerEntity = converter.getCustomerEntity(customer);
         customerEntity.setUser(userRepo.findById(customer.getUserId()).get());
         Customer save = userDetailsRepo.save(customerEntity);

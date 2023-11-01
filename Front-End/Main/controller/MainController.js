@@ -3,16 +3,130 @@
  * date : 10/29/2023
  * project : Front-End
  */
-
+var regexFullName = /^[a-zA-Z0-9_ ]+$/;
+var regexEmail = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+var regexAddress = /^[a-zA-Z0-9\s\.,#-]+$/;
+var regexContact = /^(?:\+94|0)[1-9]\d{8}$/;
+var regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+var regexAge = /^(1[8-9]|[2-9]\d|\d{3,})$/;
+var regexNIC = /^\d{9}[vVxX]$|^\d{12}$/;
+var regexUsername = /^[a-zA-Z0-9_]{5,20}$/;
 $(document).ready(function() {
     $('#area-list-container').hide();
     $('#area-detail-page').hide();
     $('#hotel-detail-page').hide();
-    // $('#hotel-list-container').hide();
+    $('#hotel-list-container').hide();
     // getAllAreas();
-    getAllHotel();
+    // getAllHotel();
 
 });
+$('#btnRegister').click(function () {
+    $('#home-section').hide()
+    $('#register-section').show()
+})
+$('#btnRegisterUser').click(function (){
+    if (validFields([
+        {data:$("#registerFullName"),regex:regexFullName},
+        {data:$("#registerEmail"),regex:regexEmail},
+        {data:$("#registerUserName"),regex:regexUsername},
+        {data:$("#registerContact"),regex:regexContact},
+        {data:$("#registerPassword"),regex:regexPassword},
+        {data:$("#registerPasswordConform"),regex:regexPassword},
+        {data:$("#registerAge"),regex:regexAge},
+        {data:$("#registerNicPassportNo"),regex:regexNIC},
+        {data:$("#registerAddress"),regex:regexAddress}
+    ])){
+        if ($("#registerPassword").val()===$("#registerPasswordConform").val()){
+            if ($('#nicFrontFileUploadImage').attr('src')==='#'||$('#nicBackFileUploadImage').attr('src')==='#'){
+                $("#nicFrontImageWrap").removeClass('border-success')
+                $("#nicBackImageWrap").removeClass('border-success')
+                $('#nicFrontImageWrap').addClass('border-danger')
+                $('#nicBackImageWrap').addClass('border-danger')
+            }else {
+                $('#nicFrontImageWrap').removeClass('border-danger')
+                $('#nicBackImageWrap').removeClass('border-danger')
+                $("#nicFrontImageWrap").addClass('border-success')
+                $("#nicBackImageWrap").addClass('border-success')
+
+                registerUser();
+            }
+        }else {
+            $("#registerPassword").removeClass('border-success')
+            $("#registerPassword").addClass('border-danger')
+            $("#registerPasswordConform").removeClass('border-success')
+            $("#registerPasswordConform").addClass('border-danger')
+        }
+    }
+})
+let registerUser=()=>{
+    let user={
+        username:$('#registerUserName').val(),
+        password:$('#registerPassword').val(),
+        age:parseInt($('#registerAge').val()),
+        fullName:$('#registerFullName').val(),
+        gender:$('input[name="gender"]:checked').val(),
+        email:$('#registerEmail').val(),
+        contactNo:$('#registerContact').val(),
+        address:$('#registerAddress').val(),
+        nicOrPassportNo:$('#registerNicPassportNo').val(),
+    }
+    const json = JSON.stringify(user);
+    const blob = new Blob([json], {
+        type: 'application/json'
+    });
+
+    const formData = new FormData();
+    formData.append("customer", blob);
+    formData.append('nic_or_passport_image_front', base64ToFile($('#nicFrontFileUploadImage').attr('src')) );
+    formData.append('nic_or_passport_image_back', base64ToFile($('#nicBackFileUploadImage').attr('src')) );
+
+    console.log(77)
+    $.ajax({
+        url: 'http://localhost:8091/travel/api/v1/customer/save',
+        type: 'POST',
+        data: formData,
+        enctype: 'multipart/form-formData',
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (error) {
+            if (error.responseJSON.statusCode === 400) {
+                alert("Username Already entered");
+                $("#registerUserName").removeClass('border-success')
+                $("#registerUserName").addClass('border-danger')
+            }else {
+                console.log(error.responseJSON)
+            }
+        }
+    });
+}
+let base64ToFile= (imageDataUrl) => {
+    let dataUrlParts = imageDataUrl.split(",");
+    let contentType = dataUrlParts[0].split(":")[1].split(";")[0];
+    let byteCharacters = atob(dataUrlParts[1]);
+    let byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    let byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: contentType });
+}
+let validFields=(arr) => {
+    let data=[]
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].regex.test(arr[i].data.val())) {
+            arr[i].data.removeClass('border-danger')
+            arr[i].data.addClass('border-success')
+        }else {
+            arr[i].data.removeClass('border-success')
+            arr[i].data.addClass('border-danger')
+            return false;
+        }
+    }
+    return data;
+}
 $('#areaDetailImageSlidePrev').click(function () {
     console.log(this.parentElement.children[1])
     console.log($('.carousel-item.active').index())

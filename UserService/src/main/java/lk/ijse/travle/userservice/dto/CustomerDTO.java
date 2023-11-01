@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerDTO {
-    private String id;
+    private String id,username,password;
     private int age;
     private String fullName, gender, email, contactNo,address, nicOrPassportNo;
     private byte[] nicOrPassportImageFront;

@@ -79,7 +79,6 @@ $(document).ready(function() {
             },
             success:function(response) {
                 if (response.status === 202) {
-                    console.log(response.object);
                     response.object.map((value, index) => {
                         let row;
                         if (value === "ROLE_GUIDE") {

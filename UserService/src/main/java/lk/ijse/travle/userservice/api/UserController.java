@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  * @Date : 10/15/2023
  * @Project : Next Travel Pvt. Ltd
  */
-//@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/user")
 public class UserController {

@@ -42,7 +42,7 @@ public class SecurityConfiguration {
                  .cors(AbstractHttpConfigurer::disable)
                  .cors(cors -> cors.configurationSource(this::corsOriginConfigure))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/api/v1/auth","/api/v1/user","/user","/hotel/save").permitAll()
+                        .requestMatchers("/api/v1/auth","/api/v1/user","/user","/hotel/save","api/v1/customer/save").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/v1/user/admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET,"/customer/get").hasRole("ADMIN")
                         .requestMatchers("/api/v1/customer/delete").hasRole("ADMIN")

@@ -15,6 +15,7 @@ import java.util.List;
  * @Date : 10/8/2023
  * @Project : TravelPlanningSystem
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/auth")
 @RequiredArgsConstructor
