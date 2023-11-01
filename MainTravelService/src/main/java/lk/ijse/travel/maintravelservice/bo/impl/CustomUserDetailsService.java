@@ -20,8 +20,6 @@ public class CustomUserDetailsService implements org.springframework.security.co
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        System.out.println(username+"Custome");
-        // Make a request to your user-service to fetch user details using WebClient
         WebClient userClient = webClientBuilder.baseUrl("http://localhost:8091/travel/api/v1/user").build();
         Mono<UserDetails> userDetailsMono = userClient.get()
                 .uri("/getUserByUsername?username=" + username)

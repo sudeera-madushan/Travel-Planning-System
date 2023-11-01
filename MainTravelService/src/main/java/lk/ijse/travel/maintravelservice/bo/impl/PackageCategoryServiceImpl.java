@@ -38,4 +38,12 @@ public class PackageCategoryServiceImpl implements PackageCategoryService {
                         packageCategoryRepo.findById(id).get()
                 ));
     }
+
+    @Override
+    public Response<PackageCategoryDTO> getPackageCategoryByName(String name) {
+        return new Response<>(HttpStatus.OK,"Package Category get successfully",
+                converter.getPackageCategoryDTO(
+                        packageCategoryRepo.findPackageCategoryByCategoryIgnoreCase(name)
+                ));
+    }
 }

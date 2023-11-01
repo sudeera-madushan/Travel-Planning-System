@@ -11,18 +11,70 @@ var regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%
 var regexAge = /^(1[8-9]|[2-9]\d|\d{3,})$/;
 var regexNIC = /^\d{9}[vVxX]$|^\d{12}$/;
 var regexUsername = /^[a-zA-Z0-9_]{5,20}$/;
+let token;
 $(document).ready(function() {
     $('#area-list-container').hide();
     $('#area-detail-page').hide();
     $('#hotel-detail-page').hide();
     $('#hotel-list-container').hide();
+    $('#user-data').hide();
+
+    $('#register-section').hide();
+    // $('#home-section').hide()
+    $('#home-register').hide()
+    // $('#home-login').hide()
+    // $('#register-section').show()
     // getAllAreas();
     // getAllHotel();
 
+
+    autoLogin()
 });
 $('#btnRegister').click(function () {
     $('#home-section').hide()
     $('#register-section').show()
+    $('#home-register').show()
+    $('#home-login').hide()
+})
+$('#btnLogin').click(function () {
+    $('#home-section').hide()
+    $('#home-register').hide()
+    $('#home-login').show()
+    $('#register-section').show()
+})
+$('#btnLoginUser').click(function (){
+        var formData = {
+            username: $("#loginUserName").val(),
+            password: $("#loginPassword").val()
+        };
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8091/travel/api/v1/auth",
+            data: JSON.stringify(formData),
+            contentType: "application/json",
+            success: function(response) {
+                if (response.status === 200) {
+                    console.log(response)
+                    response.object.role.map((value, index) => {
+                        if (value === "ROLE_USER") {
+                            $('#home-section').show();
+                            $('#user-data').show();
+                            $('#user-register').hide();
+                            $('#usernameLabel').empty();
+                            $('#register-section').hide();
+                            localStorage.setItem('token', response.object.token);
+                        }
+                    });
+                }
+            },
+            error: function(err) {
+                $("#loginUserName").removeClass('border-success')
+                $("#loginPassword").removeClass('border-success')
+                $('#loginUserName').addClass('border-danger')
+                $('#loginPassword').addClass('border-danger')
+                alert("incorrect username or password !");
+            }
+        });
 })
 $('#btnRegisterUser').click(function (){
     if (validFields([
@@ -58,6 +110,37 @@ $('#btnRegisterUser').click(function (){
         }
     }
 })
+let autoLogin=()=>{
+    token= localStorage.getItem('token');
+    let params = {
+        token: token
+    }
+    if (token){
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8091/travel/api/v1/auth/log" + '?' + $.param(params),
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            success:function(response) {
+                if (response.status === 202) {
+                    response.object.map((value, index) => {
+                        if (value === "ROLE_USER") {
+                            $('#home-section').show();
+                            $('#user-data').show();
+                            $('#user-register').hide();
+                        }
+                    })
+                }else {
+                    $("#login").show();
+                }
+            },
+            error: function (error) {
+                $("#login").show();
+            }
+        });
+    }
+}
 let registerUser=()=>{
     let user={
         username:$('#registerUserName').val(),
@@ -80,7 +163,6 @@ let registerUser=()=>{
     formData.append('nic_or_passport_image_front', base64ToFile($('#nicFrontFileUploadImage').attr('src')) );
     formData.append('nic_or_passport_image_back', base64ToFile($('#nicBackFileUploadImage').attr('src')) );
 
-    console.log(77)
     $.ajax({
         url: 'http://localhost:8091/travel/api/v1/customer/save',
         type: 'POST',
@@ -89,13 +171,17 @@ let registerUser=()=>{
         contentType: false,
         processData: false,
         success: function (data) {
-            console.log(data);
+            $('#home-section').hide()
+            $('#home-register').hide()
+            $('#home-login').show()
+            $('#register-section').show()
         },
         error: function (error) {
             if (error.responseJSON.statusCode === 400) {
                 alert("Username Already entered");
                 $("#registerUserName").removeClass('border-success')
                 $("#registerUserName").addClass('border-danger')
+
             }else {
                 console.log(error.responseJSON)
             }
@@ -346,6 +432,37 @@ let loadHotelCards=(data)=>{
         $('#hotelCardContainer').append(data)
     })
 }
+$('#packages').on('click','.card',function () {
+    console.log($(this).attr('id'))
+    let name;
+    if ($(this).attr('id')==="regularPackage") {
+        name="Regular"
+    }else if ($(this).attr('id')==="midLevelPackage") {
+        name="Mid-level"
+    }else if ($(this).attr('id')==="luxuryPackage") {
+        name="Luxury"
+    }else if ($(this).attr('id')==="superLuxuryPackage") {
+        name="Super Luxury"
+    }
+    console.log(name)
+    let params = {
+        name:name
+    }
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8095/travel/api/v1/package/find" + '?' + $.param(params),
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        success:function(response) {
+            console.log(response.object)
+        },
+        error: function (error) {
+            $("#login").show();
+        }
+    });
+
+})
 $('#hotelCardContainer').on('click','.card',function () {
     showMoreHotel($(this).attr('id'))
     $('#hotel-list-container').hide();

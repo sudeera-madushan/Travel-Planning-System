@@ -27,9 +27,13 @@
             <li><a href="#">Destination</a></li>
             <li><a href="#">Contact</a></li>
         </ul>
-        <div class="header_img " style="position: absolute; right: 2rem; top: 1.2rem">
+        <div class="header_img" id="user-register" style="position: absolute; right: 2rem; top: 1.2rem">
             <a href="#" class="m-2 text-decoration-none" id="btnRegister">Register</a>or
             <a href="#" class="m-2 text-decoration-none" id="btnLogin">Login</a>
+        </div>
+        <div id="user-data" class="header_img" style="position: absolute; right: 2rem; top: 1rem; cursor: pointer">
+            <a id="usernameLabel" class="text-dark-emphasis text-decoration-none mb-5">sudeera</a>
+            <div class="bx bx-user fs-2" style="width: 2.5rem; height: 2.5rem"></div>
         </div>
     </header>
 
@@ -48,7 +52,7 @@
     </section>
     <section class="container-xxl mt-5 ">
         <div class="row mt-4" id="packages">
-            <div class="card col ms-5  rounded-4 box-shadow" style="width: 300px; height: 420px">
+            <div class="card col ms-5  rounded-4 box-shadow" style="width: 300px; height: 420px" id="regularPackage">
                 <img src="../style/img/regular.jpg" alt="" style="margin: 0 -13px 0 -13px" class="rounded-top-4">
                 <div class="card-body p-0 text-center">
                     <h2 class="card-title mt-1 text-primary fw-bold">Regular</h2>
@@ -62,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card col ms-4  rounded-4 box-shadow" style="width: 300px; height: 420px">
+            <div class="card col ms-4  rounded-4 box-shadow" style="width: 300px; height: 420px" id="midLevelPackage">
                 <img src="../style/img/mid-level.jpg" alt="" style="margin: 0 -13px 0 -13px" class="rounded-top-4">
                 <div class="card-body p-0 text-center">
                     <h2 class="card-title mt-1 text-primary fw-bold">Mid-level</h2>
@@ -75,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card col ms-4  rounded-4 box-shadow" style="width: 300px; height: 420px">
+            <div class="card col ms-4  rounded-4 box-shadow" style="width: 300px; height: 420px" id="luxuryPackage">
                 <img src="../style/img/luxury.jpg" alt="" style="margin: 0 -13px 0 -13px" class="rounded-top-4">
                 <div class="card-body p-0 text-center">
                     <h2 class="card-title mt-1 text-primary fw-bold">Luxury</h2>
@@ -88,7 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card col ms-4  rounded-4 box-shadow me-4 " style="width: 300px; height: 420px">
+            <div class="card col ms-4  rounded-4 box-shadow me-4 " style="width: 300px; height: 420px" id="superLuxuryPackage">
                 <img src="../style/img/super-luxury.jpg" alt="" style="margin: 0 -13px 0 -13px" class="rounded-top-4">
                 <div class="card-body p-0 text-center">
                     <h2 class="card-title mt-1 text-primary fw-bold">Super Luxury</h2>
@@ -111,8 +115,7 @@
                 <div class="col-md-3 register-left">
                     <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                     <h3>Welcome</h3>
-                    <p>You are 30 seconds away from earning your own money!</p>
-                    <input type="submit" name="" value="Login"/><br/>
+                    <p>Enjoy now !</p>
                 </div>
                 <div class="col-md-9 register-right">
                     <div class="tab-content m-0" id="myTabContent">
@@ -214,6 +217,23 @@
                                 </div>
 
                                 <input type="submit" class="btnRegister" id="btnRegisterUser" value="Register"/>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show active " id="home-login" style="height: 38rem" role="tabpanel" aria-labelledby="home-tab">
+                            <h3 class="register-heading mt-5">Login</h3>
+                            <div class="row register-form " style="margin-top: 8rem">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input type="text" id="loginUserName" class="form-control" placeholder="Username *" value="" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" id="loginPassword" class="form-control" placeholder="Password *" value="" />
+                                    </div>
+                                    <div class="form-group " style="margin-top: 17rem">
+                                        <input type="submit" class="btnRegister" id="btnLoginUser" value="Login"/>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -447,8 +467,6 @@
 
 <script>
     // $('#home-section').hide()
-    $('#home-section').hide()
-    $('#register-section').show()
 
     // window.addEventListener('scroll', function() {
     //     const header = document.querySelector('header');

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @Project : Next Travel Pvt. Ltd
  */
 @RestController
-@RequestMapping("package")
+@RequestMapping("api/v1/package")
 public class PackageCategoryController {
     @Autowired
     private PackageCategoryService packageCategoryService;
@@ -35,4 +35,11 @@ public class PackageCategoryController {
     public Response<PackageCategoryDTO> getPackageCategory(@RequestParam String id){
         return packageCategoryService.getPackageCategory(id);
     }
+    @RequestMapping("find")
+    @GetMapping
+    public Response<PackageCategoryDTO> getPackageCategoryByName(@RequestParam String name){
+        System.out.println(name);
+        return packageCategoryService.getPackageCategoryByName(name);
+    }
+
 }

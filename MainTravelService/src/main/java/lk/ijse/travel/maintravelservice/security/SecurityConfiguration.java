@@ -36,7 +36,8 @@ public class SecurityConfiguration {
                 .cors(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(this::corsOriginConfigure))
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("**").permitAll()
+                        .requestMatchers("").permitAll()
+                        .requestMatchers("/api/v1/package/**").hasRole("USER")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

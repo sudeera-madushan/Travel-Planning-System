@@ -11,4 +11,6 @@ import lk.ijse.travel.maintravelservice.dto.Response;
 public interface PackageCategoryService {
     Response<PackageCategoryDTO> savePackageCategory(PackageCategoryDTO dto);
     Response<PackageCategoryDTO> getPackageCategory(String id);
+
+    Response<PackageCategoryDTO> getPackageCategoryByName(String name);
 }
