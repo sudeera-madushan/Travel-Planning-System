@@ -4,6 +4,7 @@ import lk.ijse.travel.vehicleservice.bo.VehicleService;
 import lk.ijse.travel.vehicleservice.bo.util.Converter;
 import lk.ijse.travel.vehicleservice.dto.Response;
 import lk.ijse.travel.vehicleservice.dto.VehicleDTO;
+import lk.ijse.travel.vehicleservice.dto.VehicleImageDTO;
 import lk.ijse.travel.vehicleservice.entity.Vehicle;
 import lk.ijse.travel.vehicleservice.entity.VehicleImage;
 import lk.ijse.travel.vehicleservice.persistence.VehicleImageRepo;
@@ -43,8 +44,12 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Response<VehicleDTO> get(String id) {
+        VehicleDTO vehicleDTO = converter.getVehicleDTO(vehicleRepo.findById(id).get());
+        VehicleImageDTO image = vehicleDTO.getVehicleImage();
+        image.setVehicle(null);
+        vehicleDTO.setVehicleImage(image);
         return new Response<>(HttpStatus.OK,"Vehicle find Successfully",
-                converter.getVehicleDTO(vehicleRepo.findById(id).get()));
+                vehicleDTO);
     }
     @Override
     public Response<List<VehicleDTO>> getAll(){

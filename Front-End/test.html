@@ -1,59 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Directions with Options - Bing Maps Samples</title>
-    <!-- Add your meta tags and CSS styles as needed -->
-
-    <script>
-        var map, directionsManager;
-
-        function GetMap() {
-            map = new Microsoft.Maps.Map('#myMap', {});
-
-            Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
-                directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
-
-                const coordinates = [
-                    { latitude: 6.6775959, longitude: 79.92034269999999 }, // Galgamuwa
-                    { latitude: 6.9270786, longitude: 79.861243 },   // Colombo
-                ];
-
-                for (const coordinate of coordinates) {
-                    directionsManager.addWaypoint(new Microsoft.Maps.Directions.Waypoint({
-                        location: new Microsoft.Maps.Location(coordinate.latitude, coordinate.longitude)
-                    }));
-                }
-
-                // Set request options to calculate directions in kilometers and avoid highways.
-                directionsManager.setRequestOptions({
-                    distanceUnit: Microsoft.Maps.Directions.DistanceUnit.km,
-                    routeAvoidance: [Microsoft.Maps.Directions.RouteAvoidance.avoidLimitedAccessHighway]
-                });
-
-                // Customize the route line and waypoint titles as needed.
-
-                // Calculate directions.
-                directionsManager.calculateDirections({
-                    success: function (result) {
-                        if (result && result.routeSummary) {
-                            const distanceInKm = result.routeSummary.distance;
-                            console.log('Total Distance (km):', distanceInKm);
-                        }
-                    }
-                });
-            });
-        }
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Date Range Picker Example</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
 </head>
 <body>
-<div id="myMap" style="position: relative; width: 100%; min-width: 290px; height: 600px; background-color: gray;"></div>
+<input type="text" id="dateRangePicker" data-daterange="true">
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.js"></script>
 
 <script>
-    (async () => {
-        let script = document.createElement("script");
-        script.setAttribute("src", `https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AhTs1NKD6MM19FxIHxv3kseOeji1BrzSQfcutMcPm1xxa5delVftdkNjkOQRkZ0O`);
-        document.body.appendChild(script);
-    })();
+    $(document).ready(function() {
+        $('#dateRangePicker').daterangepicker();
+    });
 </script>
 </body>
 </html>

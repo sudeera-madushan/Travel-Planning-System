@@ -485,7 +485,7 @@
                                 <div class="col">
 
                                     <button type="button" class="btn btn-primary"  id="btnAddToTravelVehicle">
-                                        <i class='bx bx-cart-add fs-3'></i> <span> Add To Travel</span>
+                                        <i class='bx bx-cart-add fs-3'></i> <span> Choose </span>
                                         <!--                                    <i class='bx bx-check fs-3'></i> <span> Added</span>-->
                                     </button>
                                 </div>
@@ -500,7 +500,74 @@
             </div>
         </div>
     </section>
-
+    <!--Booking Planing Page-->
+    <section id="booking-planing-page" class="container-xxl p-5 mt-4 text-end">
+        <div class="row">
+            <h2 class="header text-primary fw-bolder text-center">Plan Your Travel</h2>
+        </div>
+        <div class="row border-secondary-subtle border rounded p-2 pt-4">
+            <h4 class="header text-primary">Places</h4>
+            <div class="col">
+                <div class="card border-primary mb-4" >
+                    <div class="card-body text-primary">
+                        <h5 class="card-title fs-6">Primary card title <button class="btn btn-danger btn-sm">Remove</button></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-secondary-subtle border rounded p-2 mt-2">
+            <h4 class="header text-primary">Hotels</h4>
+            <div class="col">
+                <div class="card border-primary mb-4" >
+                    <div class="card-body text-primary">
+                        <h5 class="card-title fs-6">Primary card title <button class="btn btn-danger btn-sm">Remove</button></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-secondary-subtle border rounded p-2 mt-2">
+            <div class="col">
+                <div class="md-form md-outline input-with-post-icon datepicker">
+                    <label for="bookingStartDate" class="text-primary">Start Date</label>
+                    <input placeholder="Select date" type="date" id="bookingStartDate" class="form-control m-0" min="2023-11-04">
+                </div>
+            </div>
+            <div class="col">
+                <div class="md-form md-outline input-with-post-icon datepicker">
+                    <label for="bookingEndDate" class="text-primary">End Date</label>
+                    <input placeholder="Select date" type="date" id="bookingEndDate" class="form-control m-0" min="2023-11-04">
+                </div>
+            </div>
+        </div>
+        <button class="btn-sm btn btn-success mt-2 " style="width: 10rem; height: 2rem" id="btnAddRoutPlanTravel">Add Route</button>
+        <div class="row border-secondary-subtle border rounded p-2 mt-2" >
+            <div class="col">
+                <div class="md-form md-outline input-with-post-icon datepicker">
+                    <label for="bookingStartDate" class="text-primary">Date</label>
+                    <input placeholder="Select date" type="date" class="form-control m-0" min="2023-11-04">
+                </div>
+            </div>
+            <div class="col-2">
+                <label for="bookingStartDate" class="text-primary">Go to</label>
+                <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <button class="btn-sm btn btn-primary" style="width: 5rem">add</button>
+            <div class="col">
+                <label for="bookingStartDate" class="text-primary">End</label>
+                <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+        </div>
+    </section>
     <script src="../css/bootstrap-5.3.2-dist/js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
@@ -510,6 +577,10 @@
 <script type="module" src="controller/MainController.js"></script>
 
 <script>
+    // dateInput.on("change", function() {
+    //     const selectedDate = dateInput.val();
+    //     console.log("Selected Date: " + selectedDate);
+    // });
     // $('#home-section').hide()
 
     // window.addEventListener('scroll', function() {

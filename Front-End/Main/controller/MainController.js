@@ -28,14 +28,29 @@ $(document).ready(function() {
     $('#register-section').hide();
     $('#home-section').hide()
     $('#home-register').hide()
+    $('#vehicle-detail-page').hide()
+    $('#vehicle-list-container').hide()
     // $('#home-login').hide()
     // $('#register-section').show()
     // getAllAreas();
     // getAllHotel();
-    getAllVehiclesByCategory()
+    // getAllVehiclesByCategory()
 
     // autoLogin()
+    const dateInput = $("#bookingStartDate");
+    const bookingEndDate = $("#bookingEndDate");
+    dateInput.on("change", function() {
+        let selectedDate = dateInput.val();
+        selectedDate=selectedDate+1;
+        if (!selectedDate<bookingEndDate.val()){
+            bookingEndDate.val(selectedDate+2)
+        }
+        console.log(selectedDate<bookingEndDate.val())
+    });
 });
+
+
+
 $('#btnRegister').click(function () {
     $('#home-section').hide()
     $('#register-section').show()
@@ -746,6 +761,8 @@ let loadVehicleDetails=(vehicle)=>{
                         class=" bx bx-circle " ></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="3"
                         class=" bx bx-circle " ></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="4"
+                        class=" bx bx-circle " ></li>
                         </ol>
                    <div class="carousel-inner">
                    <div class="carousel-item active">
@@ -786,3 +803,66 @@ let loadVehicleDetails=(vehicle)=>{
     // $btnAddToTravelHotel.append(`<i class='bx bx-cart-add fs-3'></i> <span> Add To Travel</span>`)
 
 }
+$('#btnAddToTravelVehicleCancel').click(function () {
+    $('#vehicle-detail-page').hide();
+    $('#vehicle-list-container').show();
+})
+
+$('#btnAddToTravelVehicle').click(function () {
+
+    $('#vehicle-detail-page').hide();
+    $('#area-list-container').show();
+    booking.vehicle=nowVehicle;
+})
+
+$('#btnAddRoutPlanTravel').click(function () {
+    let data=`<div class="row border-secondary-subtle border rounded p-2 mt-2">
+            <div class="col">
+                <div class="md-form md-outline input-with-post-icon datepicker">
+                    <label for="bookingStartDate" class="text-primary">Date</label>
+                    <input placeholder="Select date" type="date" class="form-control m-0" min="2023-11-04">
+                </div>
+            </div>
+            <div class="col">
+                <label for="bookingStartDate" class="text-primary">Go to</label>
+                <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <button class="btn-sm btn btn-primary" style="width: 5rem">add</button>
+            <div class="col">
+                <label for="bookingStartDate" class="text-primary">End</label>
+                <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+        </div>`
+    $('#booking-planing-page').append(data)
+})
+
+$('#booking-planing-page').on('click','button',() => {
+    if (event.target.classList.contains('btn-primary')){
+        console.log(77)
+        let data=`<div class="col-2">
+                <label for="bookingStartDate" class="text-primary">Go to</label>
+                <select class="form-select " aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>`;
+        let tempContainer = document.createElement('div');
+        tempContainer.innerHTML = data;
+
+        // Insert the new element before the clicked button's parent
+        event.target.parentElement.insertBefore(tempContainer.firstChild, event.target);
+
+    }
+})
