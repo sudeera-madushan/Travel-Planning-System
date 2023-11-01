@@ -204,6 +204,17 @@ public class HotelServiceImpl implements HotelService {
                 matchers.stream().map(s -> converter.getHotelDTO(s)).toList());
     }
 
+    @Override
+    public Response<List<HotelDTO>> getAllHotelsByPackageCategory(String id) {
+        return new Response<>(HttpStatus.OK, "Get All Hotels Successfully",
+                hotelRepo.findAllByPackageCategoryIdIgnoreCase(id).stream().map(
+                        entity -> {
+                            HotelDTO dto = converter.getHotelDTO(entity);
+                            return dto;
+                        }
+                ).toList());
+    }
+
     private static Hotel getHotel(HotelDTO dto, Optional<Hotel> optional) {
         Hotel hotel = optional.get();
         hotel.setName(dto.getName());

@@ -1,3 +1,5 @@
+import {Booking} from "../model/Booking.js";
+
 /**
  * author : Sudeera Madushan
  * date : 10/29/2023
@@ -12,6 +14,10 @@ var regexAge = /^(1[8-9]|[2-9]\d|\d{3,})$/;
 var regexNIC = /^\d{9}[vVxX]$|^\d{12}$/;
 var regexUsername = /^[a-zA-Z0-9_]{5,20}$/;
 let token;
+let booking;
+let nowArea;
+let nowHotel;
+let nowVehicle;
 $(document).ready(function() {
     $('#area-list-container').hide();
     $('#area-detail-page').hide();
@@ -20,15 +26,15 @@ $(document).ready(function() {
     $('#user-data').hide();
 
     $('#register-section').hide();
-    // $('#home-section').hide()
+    $('#home-section').hide()
     $('#home-register').hide()
     // $('#home-login').hide()
     // $('#register-section').show()
     // getAllAreas();
     // getAllHotel();
+    getAllVehiclesByCategory()
 
-
-    autoLogin()
+    // autoLogin()
 });
 $('#btnRegister').click(function () {
     $('#home-section').hide()
@@ -246,9 +252,8 @@ let getAllAreas=()=>{
         }
     })
 }
-
 let loadAreaCards=(data)=>{
-
+    $('#areaCardContainer').empty()
     data.object.map((value, index) => {
         let data=``;
         data=` <div class="card col m-4 p-0" id="${value.id}">
@@ -275,7 +280,6 @@ let loadAreaCards=(data)=>{
         $('#areaCardContainer').append(data)
     })
 }
-
 let showMoreArea=(id) => {
     let params = {
         id: id
@@ -283,10 +287,11 @@ let showMoreArea=(id) => {
     $.ajax({
         url: 'http://localhost:8095/travel/api/v1/area/get' + '?' + $.param(params),
         type: 'GET',
-        // headers: {
-        //     "Authorization": `Bearer ${token}`
-        // },
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         success: function (data) {
+            nowArea=data.object;
             loadAreaDetails(data.object);
             loadAreaDetailsNearestPlaces(data.object)
         },
@@ -301,11 +306,6 @@ $('#areaCardContainer').on('click','.card',function () {
     $('#area-list-container').hide();
     $('#area-detail-page').show();
 })
-// $('#areaDetailImageSlidePrev').click(function () {
-// $('.carousel').carousel('next')
-//
-// })
-
 let loadAreaDetails=(area)=>{
     $('#areaDetailsName').empty()
     $('#areaDetailsName').append(area.name)
@@ -313,15 +313,17 @@ let loadAreaDetails=(area)=>{
     $('#areaDetailsDescription').append(area.description)
     // $('#areaDetailsMapLocation').empty()
     $('#areaDetailsMapLocation').attr('src', area.areaLocation)
+
+
     let params = {
         id: area.id
     }
     $.ajax({
         url: 'http://localhost:8095/travel/api/v1/areaImage/all' + '?' + $.param(params),
         type: 'GET',
-        // headers: {
-        //     "Authorization": `Bearer ${token}`
-        // },
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         success: function (data) {
             loadAreaDetailsImgList(data.object)
         },
@@ -330,7 +332,20 @@ let loadAreaDetails=(area)=>{
         }
     })
 
+    let $btnAddToTravelPlace = $('#btnAddToTravelPlace');
+    for (let i = 0; i < booking.areaList.length; i++) {
+        console.log(nowArea.id===booking.areaList[i].area.id)
+        if (nowArea.id===booking.areaList[i].area.id){
+            $btnAddToTravelPlace.prop("disabled",true);
+            $btnAddToTravelPlace.empty()
+            $btnAddToTravelPlace.append(`<i class='bx bx-check fs-3'></i> <span> Added</span>`)
+            return;
+        }
 
+    }
+    $btnAddToTravelPlace.prop("disabled",false);
+    $btnAddToTravelPlace.empty()
+    $btnAddToTravelPlace.append(`<i class='bx bx-cart-add fs-3'></i> <span> Add To Travel</span>`)
 }
 let loadAreaDetailsNearestPlaces=(area)=>{
     let params = {
@@ -339,9 +354,9 @@ let loadAreaDetailsNearestPlaces=(area)=>{
     $.ajax({
         url: 'http://localhost:8095/travel/api/v1/area/nears' + '?' + $.param(params),
         type: 'GET',
-        // headers: {
-        //     "Authorization": `Bearer ${token}`
-        // },
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         success: function (data) {
             data.object.map((value, index) => {
 
@@ -381,14 +396,15 @@ let loadAreaDetailsImgList=(arr) => {
     $('#carouselExampleIndicators').empty();
     $('#carouselExampleIndicators').append(data);
 }
-
 $('#areaDetailsNearPlace').on('click','.card',function () {
     showMoreArea($(this).attr('id'));
 })
-
 let getAllHotel=()=>{
+    let params = {
+        id: booking.packageCategoryId
+    }
     $.ajax({
-        url: 'http://localhost:8094/travel/api/v1/hotel',
+        url: 'http://localhost:8094/travel/api/v1/hotel/category' + '?' + $.param(params),
         type: 'GET',
         // headers: {
         //     "Authorization": `Bearer ${token}`
@@ -401,7 +417,6 @@ let getAllHotel=()=>{
         }
     })
 }
-
 let loadHotelCards=(data)=>{
 
     $('#hotelCardContainer').empty()
@@ -433,7 +448,6 @@ let loadHotelCards=(data)=>{
     })
 }
 $('#packages').on('click','.card',function () {
-    console.log($(this).attr('id'))
     let name;
     if ($(this).attr('id')==="regularPackage") {
         name="Regular"
@@ -444,7 +458,6 @@ $('#packages').on('click','.card',function () {
     }else if ($(this).attr('id')==="superLuxuryPackage") {
         name="Super Luxury"
     }
-    console.log(name)
     let params = {
         name:name
     }
@@ -455,10 +468,17 @@ $('#packages').on('click','.card',function () {
             "Authorization": `Bearer ${token}`
         },
         success:function(response) {
-            console.log(response.object)
+            console.log(response.object.id);
+            booking=new Booking()
+            booking.areaList=[];
+            booking.hotelList=[];
+            booking.packageCategoryId=response.object.id;
+            $('#area-list-container').show();
+            $('#home-section').hide()
+            getAllAreas();
         },
         error: function (error) {
-            $("#login").show();
+            console.log(error)
         }
     });
 
@@ -479,6 +499,7 @@ let showMoreHotel=(id) => {
         //     "Authorization": `Bearer ${token}`
         // },
         success: function (data) {
+            nowHotel=data.object;
             loadHotelDetails(data.object);
             loadHotelDetailsNearestPlaces(data.object.mapLocation)
             loadHotelDetailsNearestHotels(data.object)
@@ -515,6 +536,21 @@ let loadHotelDetails=(hotel)=>{
     $('#hotel-carouselExampleIndicators').empty();
     $('#hotel-carouselExampleIndicators').append(data);
 
+    let $btnAddToTravelHotel = $('#btnAddToTravelHotel');
+    console.log(booking)
+    for (let i = 0; i < booking.hotelList.length; i++) {
+        console.log(nowHotel.id===booking.hotelList[i].hotel.id)
+        if (nowHotel.id===booking.hotelList[i].hotel.id){
+            $btnAddToTravelHotel.prop("disabled",true);
+            $btnAddToTravelHotel.empty()
+            $btnAddToTravelHotel.append(`<i class='bx bx-check fs-3'></i> <span> Added</span>`)
+            return;
+        }
+
+    }
+    $btnAddToTravelHotel.prop("disabled",false);
+    $btnAddToTravelHotel.empty()
+    $btnAddToTravelHotel.append(`<i class='bx bx-cart-add fs-3'></i> <span> Add To Travel</span>`)
 
 }
 
@@ -525,9 +561,9 @@ let loadHotelDetailsNearestPlaces=(area)=>{
     $.ajax({
         url: 'http://localhost:8095/travel/api/v1/area/src' + '?' + $.param(params),
         type: 'GET',
-        // headers: {
-        //     "Authorization": `Bearer ${token}`
-        // },
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
         success: function (data) {
 
             $('#hotelDetailsNearPlace').empty();
@@ -580,4 +616,173 @@ let loadHotelDetailsNearestHotels=(hotel)=>{
             console.log(error)
         }
     })
+}
+
+$('#btnAddToTravelPlace').click(function () {
+
+    $('#area-detail-page').hide();
+    $('#area-list-container').show();
+    booking.areaList.unshift({index:booking.areaList.length,area:nowArea})
+})
+$('#btnAddToTravelPlaceCancel').click(function () {
+    $('#area-detail-page').hide();
+    $('#area-list-container').show();
+})
+
+
+$('#btnNextToHotelList').click(function () {
+    if (booking.areaList.length>0) {
+        $('#area-list-container').hide();
+        $('#hotel-list-container').show();
+        getAllHotel();
+    }else {
+        alert("Please select place first !");
+    }
+})
+
+$('#btnAddToTravelHotel').click(function () {
+
+    $('#hotel-detail-page').hide();
+    $('#hotel-list-container').show();
+    booking.hotelList.unshift({index:booking.areaList.length+booking.hotelList.length,hotel:nowHotel})
+})
+$('#btnAddToTravelHotelCancel').click(function () {
+    $('#hotel-detail-page').hide();
+    $('#hotel-list-container').show();
+})
+
+let getAllVehiclesByCategory=()=>{
+    let params = {
+        id: "6529a319cb7d004ca5a58f39"
+    }
+    $.ajax({
+        url: 'http://localhost:8093/travel/api/v1/vehicle/category' + '?' + $.param(params),
+        type: 'GET',
+        // headers: {
+        //     "Authorization": `Bearer ${token}`
+        // },
+        success: function (data) {
+            loadVehicleCards(data);
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+}
+
+let loadVehicleCards=(data)=>{
+
+    $('#vehicleListContainer').empty()
+    data.object.map((value, index) => {
+        console.log(value)
+        let data=``;
+        data=` <div class="card col m-4 p-0" id="${value.id}">
+                    <a href="#">
+                        <img class="card-img-top" src="data:image/jpg;base64, ${value.vehicleImage.frontView}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">${value.brand}</h5>
+<!--                            <p class="card-text">-->
+<!--                          -->
+<!--                            </p>-->
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <i class="fas fa-eye"></i>
+                                    1000
+                                    <i class="bx bx-user"></i>
+                                    admin
+                                    <i class="fas fa-calendar-alt"></i>
+                                    Read More
+                                </small>
+                            </p>
+                        </div>
+                    </a>
+                </div>`;
+        $('#vehicleCardContainer').append(data)
+    })
+}
+$('#vehicleCardContainer').on('click','.card',function () {
+    showMoreVehicle($(this).attr('id'))
+    $('#vehicle-list-container').hide();
+    $('#vehicle-detail-page').show();
+})
+let showMoreVehicle=(id) => {
+    let params = {
+        id: id
+    }
+    $.ajax({
+        url: 'http://localhost:8093/travel/api/v1/vehicle/get' + '?' + $.param(params),
+        type: 'GET',
+        // headers: {
+        //     "Authorization": `Bearer ${token}`
+        // },
+        success: function (data) {
+            nowVehicle=data.object;
+            loadVehicleDetails(data.object);
+            // loadHotelDetailsNearestPlaces(data.object.mapLocation)
+            // loadHotelDetailsNearestHotels(data.object)
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+    console.log(id);
+}
+let loadVehicleDetails=(vehicle)=>{
+    console.log(999)
+    $('#vehicleDetailsName').empty()
+    $('#vehicleDetailsName').append(vehicle.name)
+    $('#vehicleDetailsDescription').empty()
+    $('#vehicleDetailsDescription').append(vehicle.remarks)
+    // $('#areaDetailsMapLocation').empty()
+    // $('#hotelDetailsMapLocation').attr('src', vehicle.mapLocation)
+
+    let data=`
+                   <ol class="carousel-indicators">
+                   <li data-target="#carouselExampleIndicators" data-slide-to="0"
+                        class="active bx bx-circle " ></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"
+                        class="bx bx-circle " ></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"
+                        class=" bx bx-circle " ></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="3"
+                        class=" bx bx-circle " ></li>
+                        </ol>
+                   <div class="carousel-inner">
+                   <div class="carousel-item active">
+                       <img class="d-block" src="data:image/jpg;base64, ${vehicle.vehicleImage.frontView}" width="800px" height="500px">
+                     </div>
+                   <div class="carousel-item">
+                       <img class="d-block" src="data:image/jpg;base64, ${vehicle.vehicleImage.rearView}" width="800px" height="500px">
+                     </div>
+                   <div class="carousel-item">
+                       <img class="d-block" src="data:image/jpg;base64, ${vehicle.vehicleImage.sideView}" width="800px" height="500px">
+                     </div>
+                   <div class="carousel-item">
+                       <img class="d-block" src="data:image/jpg;base64, ${vehicle.vehicleImage.frontInterior}" width="800px" height="500px">
+                     </div>
+                   <div class="carousel-item">
+                       <img class="d-block" src="data:image/jpg;base64, ${vehicle.vehicleImage.rearInterior}" width="800px" height="500px">
+                     </div>
+                     </div>`;
+
+
+    $('#vehicle-carouselExampleIndicators').empty();
+    $('#vehicle-carouselExampleIndicators').append(data);
+
+    // let $btnAddToTravelHotel = $('#btnAddToTravelHotel');
+    // console.log(booking)
+    // for (let i = 0; i < booking.hotelList.length; i++) {
+    //     console.log(nowHotel.id===booking.hotelList[i].hotel.id)
+    //     if (nowHotel.id===booking.hotelList[i].hotel.id){
+    //         $btnAddToTravelHotel.prop("disabled",true);
+    //         $btnAddToTravelHotel.empty()
+    //         $btnAddToTravelHotel.append(`<i class='bx bx-check fs-3'></i> <span> Added</span>`)
+    //         return;
+    //     }
+    //
+    // }
+    // $btnAddToTravelHotel.prop("disabled",false);
+    // $btnAddToTravelHotel.empty()
+    // $btnAddToTravelHotel.append(`<i class='bx bx-cart-add fs-3'></i> <span> Add To Travel</span>`)
+
 }

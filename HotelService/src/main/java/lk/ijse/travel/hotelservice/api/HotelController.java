@@ -52,6 +52,12 @@ public class HotelController {
         return hotelService.getAllHotels();
     }
 
+    @RequestMapping("category")
+    @GetMapping
+    public Response<List<HotelDTO>> getAllHotelsByPackageCategory(@RequestParam String id) {
+        return hotelService.getAllHotelsByPackageCategory(id);
+    }
+
     @DeleteMapping
     public Response<String> deleteHotel(@RequestParam String id ){
         return hotelService.deleteHotelById(id);

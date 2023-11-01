@@ -24,7 +24,7 @@ public class VehicleController {
     private VehicleService vehicleService;
     @RequestMapping("get")
     @GetMapping
-    public Response<VehicleDTO> getUserDetails(@RequestParam String id) {
+    public Response<VehicleDTO> getVehicleByID(@RequestParam String id) {
         return vehicleService.get(id);
     }
     @RequestMapping("save")
@@ -65,5 +65,11 @@ public class VehicleController {
     public Response<String> deleteVehicle(@RequestParam String id ,
                                           @RequestParam String imageId){
         return vehicleService.deleteVehicle(id,imageId);
+    }
+
+    @RequestMapping("category")
+    @GetMapping
+    public Response<List<VehicleDTO>> getAllVehicleByPackageCategory(@RequestParam String id){
+        return vehicleService.getAllByPackageCategory(id);
     }
 }

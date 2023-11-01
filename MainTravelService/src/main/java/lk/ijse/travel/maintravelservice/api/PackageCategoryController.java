@@ -38,7 +38,6 @@ public class PackageCategoryController {
     @RequestMapping("find")
     @GetMapping
     public Response<PackageCategoryDTO> getPackageCategoryByName(@RequestParam String name){
-        System.out.println(name);
         return packageCategoryService.getPackageCategoryByName(name);
     }
 

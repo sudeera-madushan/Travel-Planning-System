@@ -16,4 +16,6 @@ public interface VehicleService {
     Response<List<VehicleDTO>> getAll();
 
     Response<String> deleteVehicle(String id,String imageId);
+
+    Response<List<VehicleDTO>> getAllByPackageCategory(String id);
 }

@@ -21,4 +21,6 @@ public interface HotelService {
     Response<HotelDTO> updateHotel(HotelDTO hotel);
 
     Response<List<HotelDTO>> findNearestHotels(String id);
+
+    Response<List<HotelDTO>> getAllHotelsByPackageCategory(String id);
 }

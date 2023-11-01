@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -37,7 +38,10 @@ public class SecurityConfiguration {
                 .cors(cors -> cors.configurationSource(this::corsOriginConfigure))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("").permitAll()
+                        .requestMatchers(HttpMethod.GET,"api/v1/area").permitAll()
                         .requestMatchers("/api/v1/package/**").hasRole("USER")
+                        .requestMatchers("/api/v1/area/get","/api/v1/area/src","/api/v1/area/nears").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET,"api/v1/areaImage").hasRole("USER")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

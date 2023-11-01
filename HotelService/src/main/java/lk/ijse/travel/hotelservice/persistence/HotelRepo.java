@@ -15,4 +15,5 @@ import java.util.List;
 @Repository
 public interface HotelRepo extends CrudRepository<Hotel,String> {
     List<Hotel> findAll();
+    List<Hotel> findAllByPackageCategoryIdIgnoreCase(String package_category_id);
 }

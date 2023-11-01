@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface VehicleRepo extends CrudRepository<Vehicle,String> {
     List<Vehicle> findAll();
+    List<Vehicle> findAllByPackageCategoryIdIgnoreCase(String packageCategoryId);
 }
