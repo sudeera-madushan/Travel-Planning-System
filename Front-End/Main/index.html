@@ -549,13 +549,13 @@
             <div class="col">
                 <div class="md-form md-outline input-with-post-icon datepicker">
                     <label for="bookingStartDate" class="text-primary">Start Date</label>
-                    <input placeholder="Select date" type="date" id="bookingStartDate" class="form-control m-0" min="2023-11-04">
+                    <input placeholder="Select date" type="date" id="bookingStartDate" class="form-control m-0" >
                 </div>
             </div>
             <div class="col">
                 <div class="md-form md-outline input-with-post-icon datepicker">
                     <label for="bookingEndDate" class="text-primary">End Date</label>
-                    <input placeholder="Select date" type="date" id="bookingEndDate" class="form-control m-0" min="2023-11-04">
+                    <input placeholder="Select date" type="date" id="bookingEndDate" class="form-control m-0" >
                 </div>
             </div>
         </div>
@@ -564,7 +564,7 @@
             <div class="col">
                 <div class="md-form md-outline input-with-post-icon datepicker">
                     <label for="bookingStartDate" class="text-primary">Date</label>
-                    <input placeholder="Select date" type="date" class="form-control m-0" min="2023-11-04">
+                    <input placeholder="Select date" type="date" class="form-control m-0">
                 </div>
             </div>
             <div class="col">
@@ -610,10 +610,13 @@
                 </select>
             </div>
             <div class="col">
-                <label for="hotelChargeTravelPlan" class="text-primary">Charge</label>
-                <input class="form-control m-0" type="text" readonly id="hotelChargeTravelPlan">
+                <label for="hotelChargeTravelPlan" class="text-primary" >Charge</label>
+                <input class="form-control m-0" type="text" readonly id="hotelChargeTravelPlan" >
             </div>
         </div>
+        <label class="col-form-label text-dark text-start me-5" id="lblTotalCost">Total Cost :</label>
+        <label class="col-form-label text-dark text-start me-5" id="lblTotalDistance">Total Km :</label>
+        <button class="btn-sm btn btn-warning mt-2 " style="width: 10rem; height: 3rem;" id="btnCheckPlanTravel"><i class='bx bx-badge-check fs-2'></i>Check</button>
         <button class="btn-sm btn btn-danger mt-2 " style="width: 10rem; height: 3rem;" id="btnBookNowPlanTravel"><i class='bx bx-run fs-2'></i>Book Now</button>
         <div class="row">
             <div class="col-3">

@@ -3,7 +3,9 @@ package lk.ijse.travel.maintravelservice.dto;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author : Sudeera Madushan
@@ -22,6 +24,8 @@ public class BookingDTO {
     private boolean needGuide,withPets;
     private BigDecimal packageValue,paidValue;
     private String remarks,areaId,guideId,vehicleId,customerId,packageCategoryId;
+    private List<AreaDTO> areaList=new ArrayList<>();
+    private List<DatesDTO> dates=new ArrayList<>();
 
     public BookingDTO(Date startDate, Date endDate, int countOfDays, int countOfNights, int noOfChildren,
                       int totalHeadCount, boolean needGuide, boolean withPets, BigDecimal packageValue,

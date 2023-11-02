@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping("booking")
+@RequestMapping("api/v1/booking")
 public class BookingController {
     @Autowired
     private BookingService bookingService;
@@ -26,4 +26,13 @@ public class BookingController {
     public Response<BookingDTO> getBooking(@RequestParam String id){
         return bookingService.getBooking(id);
     }
+
+    @RequestMapping("distance")
+    @GetMapping
+    public Response<BookingDTO> getTravelDistance(@RequestBody BookingDTO dto){
+        System.out.println(dto);
+        return null;
+    }
+
+
 }

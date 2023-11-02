@@ -40,15 +40,40 @@ $(document).ready(function() {
 
     // getAllHotel()
     autoLogin()
-    const dateInput = $("#bookingStartDate");
-    const bookingEndDate = $("#bookingEndDate");
-    dateInput.on("change", function() {
-        let selectedDate = dateInput.val();
-        selectedDate=selectedDate+1;
-        if (!selectedDate<bookingEndDate.val()){
-            bookingEndDate.val(selectedDate+2)
+    $('#bookingStartDate').on("change",function () {
+        let currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + 1);
+        let startDate=new Date($('#bookingStartDate').val())
+        if (currentDate>startDate){
+            startDate.setDate(currentDate.getDate() + 1);
+            $('#bookingStartDate').val(startDate.toISOString().split('T')[0])
         }
-        console.log(selectedDate<bookingEndDate.val())
+        startDate=new Date($('#bookingStartDate').val())
+        let date = new Date($('#bookingEndDate').val());
+        date.setDate(date.getDate()+1)
+        if (startDate>date){
+            startDate.getDate(startDate.getDate() + 1)
+            $('#bookingEndDate').val(startDate.toISOString().split('T')[0])
+        }
+
+        setTravelDates();
+    });
+    $('#bookingEndDate').on("change",function (){
+        let currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + 1);
+        let startDate=new Date($('#bookingStartDate').val())
+        if (currentDate>startDate){
+            startDate.setDate(currentDate.getDate() + 1);
+            $('#bookingStartDate').val(startDate.toISOString().split('T')[0])
+        }
+        startDate=new Date($('#bookingStartDate').val())
+        let date = new Date($('#bookingEndDate').val());
+        startDate.setDate(startDate.getDate()+1)
+        if (startDate>date){
+            startDate.getDate(startDate.getDate() + 1)
+            $('#bookingEndDate').val(startDate.toISOString().split('T')[0])
+        }
+        setTravelDates();
     });
 });
 
@@ -494,6 +519,7 @@ $('#packages').on('click','.card',function () {
             booking.packageCategoryId=response.object.id;
             $('#area-list-container').show();
             $('#home-section').hide()
+            setTravelDates();
             getAllAreas();
         },
         error: function (error) {
@@ -837,6 +863,7 @@ $('#btnAddToTravelVehicle').click(function () {
 
     $('#vehicle-detail-page').hide();
     $('#booking-planing-page').show();
+    $('#booking-planing-page-2').show();
     booking.vehicle=nowVehicle;
     loadTravelPlaningDetails();
 })
@@ -846,7 +873,7 @@ $('#btnAddRoutPlanTravel').click(function () {
             <div class="col">
                 <div class="md-form md-outline input-with-post-icon datepicker">
                     <label for="bookingStartDate" class="text-primary">Date</label>
-                    <input placeholder="Select date" type="date" class="form-control m-0" min="2023-11-04">
+                    <input placeholder="Select date" type="date" class="form-control m-0">
                 </div>
             </div>
             <div class="col">
@@ -870,11 +897,12 @@ $('#btnAddRoutPlanTravel').click(function () {
             </div>
         </div>`
     $('#booking-planing-page').append(data)
+    initDatePicker($('#booking-planing-page .row:last-child'));
+    setPlaningSelectFields()
 })
 
 $('#booking-planing-page').on('click','button',() => {
     if (event.target.classList.contains('btn-primary')){
-        console.log(77)
         let data=`<div class="col-2">
                 <label for="bookingStartDate" class="text-primary">Go to</label>
                 <select class="form-select " aria-label="Default select example">
@@ -889,13 +917,34 @@ $('#booking-planing-page').on('click','button',() => {
 
         // Insert the new element before the clicked button's parent
         event.target.parentElement.insertBefore(tempContainer.firstChild, event.target);
-
+        setPlaningSelectFields()
     }
 })
 
 
 $('#btnBookNowPlanTravel').click(function () {
-    $('#btnBookNowPlanTravel').prop("disabled",true);
+    let children = $('#booking-planing-page').children();
+    for (let i = 6; i < children.length; i++) {
+        let date = new Date(children.eq(i).children().eq(0).children().eq(0).children().eq(1).val());
+        booking.dates.map((value, index) => {
+            let bDate=new Date(value.date)
+            console.log(date+" "+bDate)
+            if (date.getDate()===bDate.getDate()){
+                for (let x = 1; x < children.eq(i).children().length-2; x++) {
+                    let s = children.eq(i).children().eq(x).find(":selected").val();
+                    value.routes.unshift({
+                        type:s.split("/")[1],
+                        id:s.split("/")[0],
+                    })
+                    console.log(value)
+                }
+            }
+
+            value.end=children.eq(i).children().eq(0).children().eq(0).children().eq(1).find(":selected").val()
+        })
+    }
+    console.log(booking);
+    // $('#btnBookNowPlanTravel').prop("disabled",true);
 })
 $('#btnSubmitSlitPlanTravel').click(function () {
     $('#btnSubmitSlitPlanTravel').prop("disabled",true);
@@ -910,17 +959,28 @@ $('#btnNextToVehicleList').click(function () {
         alert("Please select Hotel first !");
     }
 })
+$('#hotelDetailOptionTravelPlan').on('change', function() {
+    $('#hotelDetailOptionTravelPlan').val()
+    booking.options.map((value, index) => {
 
+    })
+})
 let loadTravelPlaningDetails=() => {
     $('#statesTravelPlaning').empty()
     $('#statesTravelPlaning').append("Draft")
+    $('#hotelPassengersTravelPlan').val(booking.totalHeadCount)
+    $('#hotelChildrenTravelPlan').val(booking.noOfChildren)
     $('#travelPlanPlacesContainer').empty()
     $('#travelPlanHotelsContainer').empty()
     $('#travelPlanPlacesContainer').append(`<h4 class="header text-primary">Places</h4>`);
     $('#travelPlanHotelsContainer').append(`<h4 class="header text-primary">Hotels</h4>`);
-
+    let options = booking.hotelList[0].hotel.options;
+    $('#hotelDetailOptionTravelPlan').empty();
+    $('#hotelDetailOptionTravelPlan').append(`<option value="${options.id}">${options.name}</option>`)
+    $('#hotelChargeTravelPlan').val(options.charge)
+    // booking.hotelList[0].hotel.options.map((value, index) => {
+    // })
     booking.areaList.map((value, index) => {
-        console.log(value.area)
         let data=`<div class="col">
                 <div class="card border-primary mb-4" >
                     <div class="card-body text-primary">
@@ -931,7 +991,6 @@ let loadTravelPlaningDetails=() => {
         $('#travelPlanPlacesContainer').append(data)
     })
     booking.hotelList.map((value, index) => {
-        console.log(value)
         let data=`<div class="col">
                 <div class="card border-primary mb-4" >
                     <div class="card-body text-primary">
@@ -942,7 +1001,8 @@ let loadTravelPlaningDetails=() => {
         $('#travelPlanHotelsContainer').append(data)
     })
     setPlaningSelectFields()
-    $('#hotelDetailOption').append(`<option value="${value.id}">${value.name}</option>`)
+
+    setDate()
 }
 
 let setPlaningSelectFields=() =>{
@@ -963,12 +1023,134 @@ let setPlaningSelectFields=() =>{
     })
     let data=``
     optionArr.map((value, index) => {
-        data=data+`<option value="${value.id+"-"+value.type}">${value.name}</option>`
+        data=data+`<option value="${value.id+"/"+value.type}">${value.name}</option>`
+    })
+    const $selectElements = $("#planingSection select");
+    $selectElements.each(function(index, element) {
+        if (element.id !== "hotelDetailOptionTravelPlan") {
+            $(element).empty();
+            $(element).append(data);
+        }
+    });
+}
+
+let setDate=() =>{
+    var currentDate = new Date();
+
+    currentDate.setDate(currentDate.getDate() + 1);
+    var twoDaysLater = currentDate.toISOString().split('T')[0];
+    $('#bookingStartDate').val(twoDaysLater);
+    currentDate.setDate(currentDate.getDate() + 1);
+    var nextDay = currentDate.toISOString().split('T')[0];
+    $('#bookingEndDate').val(nextDay);
+
+}
+
+let setTravelDates=() =>{
+    let dates=[];
+    let start = new Date($('#bookingStartDate').val());
+    let end = new Date($('#bookingEndDate').val());
+    let ok=true;
+    dates.unshift({
+        date:start.toISOString().split('T')[0],
+        routes:[],
+        end:null,
+        ok:false
+    })
+    while (ok){
+        start.setDate(start.getDate()+1);
+        if (end > start) {
+            dates.unshift({
+                date:start.toISOString().split('T')[0],
+                routes:[],
+                end:null,
+                ok:false
+            })
+        }else {
+            ok=false;
+        }
+    }
+    booking.dates=dates;
+}
+let checkDate=() =>{
+    let date = new Date(event.target.value);
+    booking.dates.forEach((value, index) => {
+        let temp = new Date(value.date);
+        if (temp === date) {
+            if (!value.ok){
+                value.ok=false;
+            }else {
+
+            }
+        }
     })
 
-    const $selectElements = $("#planingSection select")
-    $selectElements.map((value, index) => {
-        $(value).empty();
-        $(value).append(data)
-    })
 }
+
+$("input[placeholder='Select date'][type='date'].form-control.m-0").on('change', function() {
+    if (event.target.id!=='bookingStartDate') {
+        if (event.target.id!=='bookingEndDate') {
+            checkDate()
+        }
+    }
+});
+
+function initDatePicker($element) {
+    $element.find("input[type='date']").on('change', function() {
+        checkDate()
+    });
+}
+
+$('#btnCheckPlanTravel').click(function () {
+    let children = $('#booking-planing-page').children();
+    for (let i = 6; i < children.length; i++) {
+        let date = new Date(children.eq(i).children().eq(0).children().eq(0).children().eq(1).val());
+        booking.dates.map((value, index) => {
+            let bDate = new Date(value.date)
+            if (date.getDate() === bDate.getDate()) {
+                for (let x = 1; x < children.eq(i).children().length - 2; x++) {
+                    let s = children.eq(i).children().eq(x).find(":selected").val();
+                    value.routes.unshift({
+                        type: s.split("/")[1],
+                        id: s.split("/")[0],
+                    })
+
+                }
+            }
+            let val = children.eq(i).children().eq(children.eq(i).children().length-1).children().eq(1).val();
+            value.end = {
+                type: val.split("/")[1],
+                id: val.split("/")[0],
+            }
+        })
+    }
+    booking.dates.map((value, index) => {
+
+    })
+    let dto={
+        startDate:$('#bookingStartDate').val(),
+        endDate:$('#bookingEndDate').val(),
+        countOfDays:booking.dates.length,
+        noOfChildren:$('#hotelChildrenTravelPlan').val(),
+        totalHeadCount:$('#hotelPassengersTravelPlan').val(),
+        areaList:booking.areaList,
+        dates:booking.dates,
+
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8095/travel/api/v1/booking/distance",
+        data: JSON.stringify(dto),
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        contentType: "application/json",
+        success: function(response) {
+            console.log(response)
+        },
+        error: function(err) {
+            console.log(err)
+        }
+    });
+})
