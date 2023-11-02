@@ -5,6 +5,7 @@ import lk.ijse.travel.hotelservice.dto.HotelDTO;
 import lk.ijse.travel.hotelservice.dto.HotelImageDTO;
 import lk.ijse.travel.hotelservice.dto.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,9 +25,16 @@ public class HotelController {
     @Autowired
     private HotelService hotelService;
     @RequestMapping("get")
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Response<HotelDTO> getHotel(@RequestParam String id) {
         return hotelService.getHotel(id);
+    }
+    @RequestMapping("getBy")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public Response<HotelDTO> getHotelBy(@RequestParam String id) {
+        Response<HotelDTO> hotel = hotelService.getHotel(id);
+        hotel.getObject().setHotelImages(null);
+        return hotel;
     }
 
 

@@ -106,4 +106,9 @@ public class AreaServiceImpl implements AreaService {
                 matchers.stream().map(s -> converter.getAreaDTO(s)).toList());
     }
 
+    @Override
+    public AreaDTO findById(String id) {
+        return converter.getAreaDTO(areaRepo.findById(id).get());
+    }
+
 }

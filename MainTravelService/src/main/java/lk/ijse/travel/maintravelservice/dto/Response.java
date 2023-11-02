@@ -1,5 +1,7 @@
 package lk.ijse.travel.maintravelservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,18 @@ public class Response<T> {
     public Response(HttpStatus httpStatus, String description, T object) {
         this.status = httpStatus.value();
         this.message = httpStatus.getReasonPhrase();
+        this.description = description;
+        this.object = object;
+    }
+    @JsonCreator
+    public Response(
+            @JsonProperty("status") Integer status,
+            @JsonProperty("message") String message,
+            @JsonProperty("description") String description,
+            @JsonProperty("object") T object
+    ) {
+        this.status = status;
+        this.message = message;
         this.description = description;
         this.object = object;
     }

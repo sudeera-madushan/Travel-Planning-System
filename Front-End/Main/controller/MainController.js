@@ -519,7 +519,7 @@ $('#packages').on('click','.card',function () {
             booking.packageCategoryId=response.object.id;
             $('#area-list-container').show();
             $('#home-section').hide()
-            setTravelDates();
+            // setTravelDates();
             getAllAreas();
         },
         error: function (error) {
@@ -1137,10 +1137,12 @@ $('#btnCheckPlanTravel').click(function () {
         dates:booking.dates,
 
     }
-
+    let params = {
+        token: token
+    }
     $.ajax({
         type: "POST",
-        url: "http://localhost:8095/travel/api/v1/booking/distance",
+        url: "http://localhost:8095/travel/api/v1/booking/distance"+ '?' + $.param(params),
         data: JSON.stringify(dto),
         headers: {
             "Authorization": `Bearer ${token}`
