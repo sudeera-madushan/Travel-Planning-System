@@ -14,4 +14,5 @@ import java.util.List;
 public interface VehicleRepo extends CrudRepository<Vehicle,String> {
     List<Vehicle> findAll();
     List<Vehicle> findAllByPackageCategoryIdIgnoreCase(String packageCategoryId);
+    List<Vehicle> findAllByPackageCategoryIdIgnoreCaseAndSeatCapacityIsGreaterThanEqual(String packageCategoryId,int seatCapacity);
 }

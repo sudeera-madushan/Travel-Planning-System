@@ -69,4 +69,13 @@ public class VehicleServiceImpl implements VehicleService {
         return new Response<>(HttpStatus.OK,"Get All Vehicle by category successfully",
                 converter.getAllVehicleDTO(vehicleRepo.findAllByPackageCategoryIdIgnoreCase(id)));
     }
+
+    @Override
+    public Response<List<VehicleDTO>> getAllByPackageCategoryAndSeat(String id, int seat) {
+        return new Response<>(HttpStatus.OK,"Get All Vehicle by category & Seat successfully",
+                converter.getAllVehicleDTO(
+                        vehicleRepo.
+                                findAllByPackageCategoryIdIgnoreCaseAndSeatCapacityIsGreaterThanEqual(
+                                        id,seat)));
+    }
 }

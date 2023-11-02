@@ -26,17 +26,20 @@ $(document).ready(function() {
     $('#user-data').hide();
 
     $('#register-section').hide();
-    $('#home-section').hide()
+    // $('#home-section').hide()
     $('#home-register').hide()
     $('#vehicle-detail-page').hide()
     $('#vehicle-list-container').hide()
+    $('#booking-planing-page').hide()
+    $('#booking-planing-page-2').hide()
     // $('#home-login').hide()
     // $('#register-section').show()
     // getAllAreas();
     // getAllHotel();
     // getAllVehiclesByCategory()
 
-    // autoLogin()
+    // getAllHotel()
+    autoLogin()
     const dateInput = $("#bookingStartDate");
     const bookingEndDate = $("#bookingEndDate");
     dateInput.on("change", function() {
@@ -416,7 +419,8 @@ $('#areaDetailsNearPlace').on('click','.card',function () {
 })
 let getAllHotel=()=>{
     let params = {
-        id: booking.packageCategoryId
+        // id: booking.packageCategoryId
+        id: "6529a319cb7d004ca5a58f39"
     }
     $.ajax({
         url: 'http://localhost:8094/travel/api/v1/hotel/category' + '?' + $.param(params),
@@ -552,7 +556,18 @@ let loadHotelDetails=(hotel)=>{
     $('#hotel-carouselExampleIndicators').append(data);
 
     let $btnAddToTravelHotel = $('#btnAddToTravelHotel');
-    console.log(booking)
+    $('#hotelDetailOption').empty()
+    $('#hotelOptionsList').empty()
+    let table=`<table class="table"><tr>`;
+    let tData=`<tbody><tr>`;
+    hotel.options.map((value, index) => {
+        $('#hotelDetailOption').append(`<option value="${value.id}">${value.name}</option>`)
+        table=table+`<th scope="col">${value.name}</th>`
+        tData=tData+`<td>${value.charge}</td>`
+    })
+    table=table+`</tr>`+tData+`</tr></tbody>`;
+    $('#hotelOptionsList').append(table)
+
     for (let i = 0; i < booking.hotelList.length; i++) {
         console.log(nowHotel.id===booking.hotelList[i].hotel.id)
         if (nowHotel.id===booking.hotelList[i].hotel.id){
@@ -659,6 +674,15 @@ $('#btnAddToTravelHotel').click(function () {
 
     $('#hotel-detail-page').hide();
     $('#hotel-list-container').show();
+    let optionList=nowHotel.options;
+    nowHotel.options=[];
+    optionList.map((value, index) => {
+        if ($('#hotelDetailOption').val() === value.id) {
+            nowHotel.options=value;
+        }
+    })
+    booking.totalHeadCount=parseInt($('#hotelPassengers').val())
+    booking.noOfChildren=parseInt($('#hotelChildren').val())
     booking.hotelList.unshift({index:booking.areaList.length+booking.hotelList.length,hotel:nowHotel})
 })
 $('#btnAddToTravelHotelCancel').click(function () {
@@ -668,10 +692,11 @@ $('#btnAddToTravelHotelCancel').click(function () {
 
 let getAllVehiclesByCategory=()=>{
     let params = {
-        id: "6529a319cb7d004ca5a58f39"
+        id: booking.packageCategoryId,
+        seat: booking.totalHeadCount
     }
     $.ajax({
-        url: 'http://localhost:8093/travel/api/v1/vehicle/category' + '?' + $.param(params),
+        url: 'http://localhost:8093/travel/api/v1/vehicle/cate&seat' + '?' + $.param(params),
         type: 'GET',
         // headers: {
         //     "Authorization": `Bearer ${token}`
@@ -811,8 +836,9 @@ $('#btnAddToTravelVehicleCancel').click(function () {
 $('#btnAddToTravelVehicle').click(function () {
 
     $('#vehicle-detail-page').hide();
-    $('#area-list-container').show();
+    $('#booking-planing-page').show();
     booking.vehicle=nowVehicle;
+    loadTravelPlaningDetails();
 })
 
 $('#btnAddRoutPlanTravel').click(function () {
@@ -866,3 +892,83 @@ $('#booking-planing-page').on('click','button',() => {
 
     }
 })
+
+
+$('#btnBookNowPlanTravel').click(function () {
+    $('#btnBookNowPlanTravel').prop("disabled",true);
+})
+$('#btnSubmitSlitPlanTravel').click(function () {
+    $('#btnSubmitSlitPlanTravel').prop("disabled",true);
+})
+
+$('#btnNextToVehicleList').click(function () {
+    if (booking.hotelList.length>0) {
+        $('#hotel-list-container').hide();
+        $('#vehicle-list-container').show();
+        getAllVehiclesByCategory();
+    }else {
+        alert("Please select Hotel first !");
+    }
+})
+
+let loadTravelPlaningDetails=() => {
+    $('#statesTravelPlaning').empty()
+    $('#statesTravelPlaning').append("Draft")
+    $('#travelPlanPlacesContainer').empty()
+    $('#travelPlanHotelsContainer').empty()
+    $('#travelPlanPlacesContainer').append(`<h4 class="header text-primary">Places</h4>`);
+    $('#travelPlanHotelsContainer').append(`<h4 class="header text-primary">Hotels</h4>`);
+
+    booking.areaList.map((value, index) => {
+        console.log(value.area)
+        let data=`<div class="col">
+                <div class="card border-primary mb-4" >
+                    <div class="card-body text-primary">
+                        <h5 class="card-title fs-6">${value.area.name}<button class="btn btn-danger btn-sm">Remove</button></h5>
+                    </div>
+                </div>
+            </div>`
+        $('#travelPlanPlacesContainer').append(data)
+    })
+    booking.hotelList.map((value, index) => {
+        console.log(value)
+        let data=`<div class="col">
+                <div class="card border-primary mb-4" >
+                    <div class="card-body text-primary">
+                        <h5 class="card-title fs-6">${value.hotel.name}<button class="btn btn-danger btn-sm">Remove</button></h5>
+                    </div>
+                </div>
+            </div>`
+        $('#travelPlanHotelsContainer').append(data)
+    })
+    setPlaningSelectFields()
+    $('#hotelDetailOption').append(`<option value="${value.id}">${value.name}</option>`)
+}
+
+let setPlaningSelectFields=() =>{
+    let optionArr=[];
+    booking.areaList.map((value, index) => {
+        optionArr.unshift({
+            id:value.area.id,
+            name:value.area.name,
+            type:"AREA",
+        })
+    })
+    booking.hotelList.map((value, index) => {
+        optionArr.unshift({
+            id:value.hotel.id,
+            name:value.hotel.name,
+            type:"HOTEL",
+        })
+    })
+    let data=``
+    optionArr.map((value, index) => {
+        data=data+`<option value="${value.id+"-"+value.type}">${value.name}</option>`
+    })
+
+    const $selectElements = $("#planingSection select")
+    $selectElements.map((value, index) => {
+        $(value).empty();
+        $(value).append(data)
+    })
+}

@@ -327,7 +327,7 @@
             <div class="text-end">
                 <button type="button" class="btn btn-primary"  id="btnNextToVehicleList" style="margin-top: 5rem;
              margin-right: 2rem;font-size: 25px; font-weight: bold">
-                    <span> Next Add Hotel </span>
+                    <span> Next Select Vehicle </span>
                 </button>
             </div>
             <div class="container-xxl" >
@@ -392,10 +392,11 @@
                                 <div id="hotel-carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 
                                 </div>
-                                <h3 class="text-primary fs-1 mt-1"><a id="hotelDetailsName">All photographs are accurate</a></h3>
-                                <p id="hotelDetailsDescription">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                <h3 class="text-primary fs-1 mt-1"><a id="hotelDetailsName"></a></h3>
+                                <p id="hotelDetailsDescription"></p>
                             </div>
                         </div>
+                        <div class="img-post" id="hotelOptionsList"></div>
                         <div class="img-post" id="hotelDetailsNearHotel"></div>
                     </div>
                     <div class="col-lg-4 col-md-12 right-box">
@@ -410,6 +411,24 @@
                                         <i class='bx bx-cart-add fs-3'></i> <span> Add To Travel</span>
                                         <!--                                    <i class='bx bx-check fs-3'></i> <span> Added</span>-->
                                     </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="hotelDetailOption" class="text-primary">Option</label>
+                                <select class="form-select ms-2 me-5 " aria-label="hotelOption" id="hotelDetailOption">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select></div>
+                            <div class="row">
+                                <div class="col">
+                                <label for="hotelPassengers" class="text-primary">Total Passengers</label>
+                                <input type="number" class="form-control m-0" id="hotelPassengers"/>
+                                </div>
+                                <div class="col">
+                                <label for="hotelChildren" class="text-primary">Children</label>
+                                <input type="number" class="form-control m-0" id="hotelChildren"/>
                                 </div>
                             </div>
                             <div class="header">
@@ -434,7 +453,6 @@
                                 <h2>Near Places</h2>
                             </div>
                             <div class="body widget" id="hotelDetailsNearPlace">
-
                             </div>
                         </div>
                     </div>
@@ -501,11 +519,13 @@
         </div>
     </section>
     <!--Booking Planing Page-->
-    <section id="booking-planing-page" class="container-xxl p-5 mt-4 text-end">
+    <section id="planingSection" class="container-xxl">
+    <section id="booking-planing-page" class="container-xxl pb-4 ps-5 pe-5 pt-5 mt-4 text-end">
+        <h4 class="text-dark-emphasis mt-2 position-absolute">States : <span class="badge bg-primary" id="statesTravelPlaning">Pending</span></h4>
         <div class="row">
             <h2 class="header text-primary fw-bolder text-center">Plan Your Travel</h2>
         </div>
-        <div class="row border-secondary-subtle border rounded p-2 pt-4">
+        <div class="row border-secondary-subtle border rounded p-2 pt-4" id="travelPlanPlacesContainer">
             <h4 class="header text-primary">Places</h4>
             <div class="col">
                 <div class="card border-primary mb-4" >
@@ -515,7 +535,7 @@
                 </div>
             </div>
         </div>
-        <div class="row border-secondary-subtle border rounded p-2 mt-2">
+        <div class="row border-secondary-subtle border rounded p-2 mt-2" id="travelPlanHotelsContainer">
             <h4 class="header text-primary">Hotels</h4>
             <div class="col">
                 <div class="card border-primary mb-4" >
@@ -547,7 +567,7 @@
                     <input placeholder="Select date" type="date" class="form-control m-0" min="2023-11-04">
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col">
                 <label for="bookingStartDate" class="text-primary">Go to</label>
                 <select class="form-select " aria-label="Default select example">
                     <option selected>Open this select menu</option>
@@ -566,7 +586,59 @@
                     <option value="3">Three</option>
                 </select>
             </div>
+
         </div>
+    </section>
+    <section id="booking-planing-page-2" class="container-xxl pt-0 ps-5 pe-5 text-end">
+
+        <div class="row border-secondary-subtle border rounded p-2 mt-2" >
+            <div class="col">
+                <label for="hotelPassengersTravelPlan" class="text-primary">Passengers</label>
+                <input type="number" class="form-control m-0" id="hotelPassengersTravelPlan"/>
+            </div>
+            <div class="col">
+                <label for="hotelChildrenTravelPlan" class="text-primary">Children</label>
+                <input type="number" class="form-control m-0" id="hotelChildrenTravelPlan"/>
+            </div>
+            <div class="col">
+                <label for="hotelDetailOption" class="text-primary">Option</label>
+                <select class="form-select ms-2 me-5 " aria-label="hotelOption" id="hotelDetailOptionTravelPlan">
+                    <option selected>Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+            </div>
+            <div class="col">
+                <label for="hotelChargeTravelPlan" class="text-primary">Charge</label>
+                <input class="form-control m-0" type="text" readonly id="hotelChargeTravelPlan">
+            </div>
+        </div>
+        <button class="btn-sm btn btn-danger mt-2 " style="width: 10rem; height: 3rem;" id="btnBookNowPlanTravel"><i class='bx bx-run fs-2'></i>Book Now</button>
+        <div class="row">
+            <div class="col-3">
+                <div class="file-upload">
+                    <label class="form-label file-upload-label" for="vehicleRearInteriorImage">Payment Slit</label>
+                    <div class="image-upload-wrap" id="vehicleRearInteriorImageWrap">
+                        <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" id="vehicleRearInteriorImage"/>
+                        <div class="drag-text">
+                            <a href="">drag here</a>
+                        </div>
+                    </div>
+                    <div class="file-upload-content" id="vehicleRearInteriorFileUploadContent">
+                        <img class="file-upload-image" src="#" alt="your image" id="vehicleRearInteriorFileUploadImage"/>
+                        <div class="image-title-wrap">
+                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title" id="vehicleRearInteriorImageTitle">Image</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-7"></div>
+            <div class="col-2">
+                <button class="btn-sm btn btn-primary mt-5 " style="width: 10rem; height: 3rem;" id="btnSubmitSlitPlanTravel"><i class='bx bx-upload fs-2'></i>Submit</button>
+            </div>
+        </div>
+    </section>
     </section>
     <script src="../css/bootstrap-5.3.2-dist/js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

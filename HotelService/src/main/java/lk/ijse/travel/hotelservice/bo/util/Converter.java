@@ -28,13 +28,13 @@ public class Converter {
     }
     public HotelDTO getHotelDTO(Hotel entity){
         List<HotelImage> hotelImages = entity.getHotelImages();
-//        List<HotelOption> options = entity.getOptions();
+        List<HotelOption> options = entity.getOptions();
         hotelImages.forEach(hotelImage -> hotelImage.setHotel(null));
 //        options.forEach(roomType -> roomType.setHotel(null));
         entity.setHotelImages(hotelImages);
 //        entity.setOptions(options);
         HotelDTO dto = modelMapper.map(entity, HotelDTO.class);
-//        dto.setOptions(options.stream().map(d-> new HotelOptionDTO(d.getId(),d.getOption().getName(),d.getCharge())).toList());
+        dto.setOptions(options.stream().map(d-> new HotelOptionDTO(d.getId(),d.getOption().getName(),d.getCharge())).toList());
         return dto;
     }
     public HotelOptionDTO getRoomTypeDTO(Option entity){return modelMapper.map(entity, HotelOptionDTO.class);}

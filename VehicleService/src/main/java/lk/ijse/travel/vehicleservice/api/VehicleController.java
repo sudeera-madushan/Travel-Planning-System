@@ -72,4 +72,9 @@ public class VehicleController {
     public Response<List<VehicleDTO>> getAllVehicleByPackageCategory(@RequestParam String id){
         return vehicleService.getAllByPackageCategory(id);
     }
+    @RequestMapping("cate&seat")
+    @GetMapping
+    public Response<List<VehicleDTO>> getAllVehicleByPackageCategoryAndSeat(@RequestParam String id,@RequestParam int seat){
+        return vehicleService.getAllByPackageCategoryAndSeat(id,seat);
+    }
 }

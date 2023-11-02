@@ -18,4 +18,6 @@ public interface VehicleService {
     Response<String> deleteVehicle(String id,String imageId);
 
     Response<List<VehicleDTO>> getAllByPackageCategory(String id);
+
+    Response<List<VehicleDTO>> getAllByPackageCategoryAndSeat(String id, int seat);
 }
