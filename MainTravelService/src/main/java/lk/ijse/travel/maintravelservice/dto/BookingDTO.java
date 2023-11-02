@@ -26,6 +26,7 @@ public class BookingDTO {
     private String remarks,areaId,guideId,vehicleId,customerId,packageCategoryId;
     private List<AreaDTO> areaList=new ArrayList<>();
     private List<DatesDTO> dates=new ArrayList<>();
+    private VehicleDTO vehicle;
 
     public BookingDTO(Date startDate, Date endDate, int countOfDays, int countOfNights, int noOfChildren,
                       int totalHeadCount, boolean needGuide, boolean withPets, BigDecimal packageValue,

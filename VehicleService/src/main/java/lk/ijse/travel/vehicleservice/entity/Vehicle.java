@@ -3,6 +3,8 @@ package lk.ijse.travel.vehicleservice.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 /**
  * @Author : Sudeera Madushan
  * @Date : 10/13/2023
@@ -41,6 +43,9 @@ public class Vehicle extends SuperEntity{
 //    @OneToOne(mappedBy = "vehicle")
 //    @JoinColumn(name = "vehicle_image_id")
 //    private VehicleImage vehicleImage;
+
+    private BigDecimal feeForDay;
+    private BigDecimal feeForKm;
 
     @OneToOne
     @JoinColumn(name = "vehicle_image_id")

@@ -1,4 +1,4 @@
-package lk.ijse.travel.vehicleservice.dto;
+package lk.ijse.travel.maintravelservice.dto;
 
 import lombok.*;
 
@@ -19,7 +19,6 @@ public class VehicleDTO {
     private boolean isHybrid;
     private int fuelUsage, seatCapacity;
     private byte[] driverLicenseImageFront, driverLicenseImageBack;
-    private VehicleImageDTO vehicleImage;
     private BigDecimal feeForDay;
     private BigDecimal feeForKm;
 

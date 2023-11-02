@@ -1070,6 +1070,7 @@ let setTravelDates=() =>{
             ok=false;
         }
     }
+    dates.reverse();
     booking.dates=dates;
 }
 let checkDate=() =>{
@@ -1102,12 +1103,15 @@ function initDatePicker($element) {
 }
 
 $('#btnCheckPlanTravel').click(function () {
+    setTravelDates()
     let children = $('#booking-planing-page').children();
     for (let i = 6; i < children.length; i++) {
         let date = new Date(children.eq(i).children().eq(0).children().eq(0).children().eq(1).val());
         booking.dates.map((value, index) => {
             let bDate = new Date(value.date)
+            console.log(date.getDate()+"--"+bDate.getDate())
             if (date.getDate() === bDate.getDate()) {
+                console.log("OOOO")
                 for (let x = 1; x < children.eq(i).children().length - 2; x++) {
                     let s = children.eq(i).children().eq(x).find(":selected").val();
                     value.routes.unshift({
@@ -1124,9 +1128,7 @@ $('#btnCheckPlanTravel').click(function () {
             }
         })
     }
-    booking.dates.map((value, index) => {
 
-    })
     let dto={
         startDate:$('#bookingStartDate').val(),
         endDate:$('#bookingEndDate').val(),
@@ -1135,6 +1137,7 @@ $('#btnCheckPlanTravel').click(function () {
         totalHeadCount:$('#hotelPassengersTravelPlan').val(),
         areaList:booking.areaList,
         dates:booking.dates,
+        vehicle:booking.vehicle,
 
     }
     let params = {
@@ -1149,7 +1152,15 @@ $('#btnCheckPlanTravel').click(function () {
         },
         contentType: "application/json",
         success: function(response) {
-            console.log(response)
+            let distance= response.object[0].toFixed(2);
+            $('#lblTotalDistance').empty()
+            $('#lblTotalDistance').append("Total Distance : "+distance+"km")
+            let cost= response.object[1].toFixed(2);
+            let total=response.object[1]+parseFloat($('#hotelChargeTravelPlan').val());
+            $('#lblVehicleCost').empty()
+            $('#lblVehicleCost').append("Vehicle Cost : Rs"+cost);
+            $('#lblTotalCost').empty()
+            $('#lblTotalCost').append("Total Cost : Rs"+total.toFixed(2));
         },
         error: function(err) {
             console.log(err)
