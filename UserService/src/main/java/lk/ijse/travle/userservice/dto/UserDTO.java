@@ -2,6 +2,7 @@ package lk.ijse.travle.userservice.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -19,10 +20,17 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
+
+
     String id;
     @NotBlank
-    @Size(min = 6,max = 16)
-    String username,password;
+    @NotNull(message = "Username can't be null")
+    @Size(min = 6, message = "Username least 6 characters")
+    private String username;
+    @NotNull(message = "Password can't be null")
+    @Size(min = 6, message = "Password least 6 characters")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
+    private String password;
     private List<Type> role=new ArrayList<>();
 
     public UserDTO(String username, String password) {

@@ -1,5 +1,6 @@
 package lk.ijse.travel.maintravelservice.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lk.ijse.travel.maintravelservice.entity.SuperEntity;
 import lombok.*;
 
@@ -17,7 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AreaDTO extends SuperEntity {
-    private String id,name, description,areaLocation;
+    private String id;
+    @NotNull
+    private String name, description,areaLocation;
     private byte[] image;
     private List<byte[]> images=new ArrayList<>();
 

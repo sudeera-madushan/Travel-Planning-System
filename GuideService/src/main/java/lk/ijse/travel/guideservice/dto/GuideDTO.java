@@ -1,5 +1,7 @@
 package lk.ijse.travel.guideservice.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -15,10 +17,18 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GuideDTO {
-    String id;
-    String name,address,gender,contact;
-    int age,experience;
-    byte[] image, nicImageFront, nicImageBack, guideIdImageFront, guideIdImageBack;
-    BigDecimal manDayValue;
-    String remarks;
+    private String id;
+    @NotNull
+    private String name,address,gender,contact;
+    @NotNull
+    @Min(20)
+    private int age;
+    @NotNull
+    private int experience;
+    @NotNull
+    private byte[] image, nicImageFront, nicImageBack, guideIdImageFront, guideIdImageBack;
+    @NotNull
+    @Min(1000)
+    private BigDecimal manDayValue;
+    private String remarks;
 }

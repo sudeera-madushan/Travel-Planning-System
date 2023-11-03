@@ -1,6 +1,7 @@
 package lk.ijse.travle.userservice.api;
 
 
+import jakarta.validation.Valid;
 import lk.ijse.travle.userservice.bo.AuthenticationService;
 import lk.ijse.travle.userservice.dto.Response;
 import lk.ijse.travle.userservice.dto.Token;
@@ -23,7 +24,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     @ResponseBody
     @PostMapping
-    public Response<Token> authenticate(@RequestBody UserDTO user){
+    public Response<Token> authenticate(@Valid @RequestBody UserDTO user){
         return authenticationService.authenticate(user);
     }
 

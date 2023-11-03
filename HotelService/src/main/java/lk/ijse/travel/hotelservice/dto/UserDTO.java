@@ -1,5 +1,8 @@
 package lk.ijse.travel.hotelservice.dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 /**
@@ -13,13 +16,16 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    String id;
-    String username,password;
+    private String id;
+    @NotNull(message = "Username can't be null")
+    @Size(min = 6, message = "Username least 6 characters")
+    private String username;
+
+    @NotNull(message = "Password can't be null")
+    @Size(min = 6, message = "Password least 6 characters")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
+    private String password;
     private Type role;
 
-    public UserDTO(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 }
 

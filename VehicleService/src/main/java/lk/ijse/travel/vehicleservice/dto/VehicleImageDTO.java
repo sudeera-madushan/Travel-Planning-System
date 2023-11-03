@@ -14,6 +14,7 @@ import lombok.*;
 @NoArgsConstructor
 public class VehicleImageDTO{
     private String id;
+    @NonNull
     private byte[] frontView, rearView, sideView, frontInterior, rearInterior;
     private VehicleDTO vehicle;
 }

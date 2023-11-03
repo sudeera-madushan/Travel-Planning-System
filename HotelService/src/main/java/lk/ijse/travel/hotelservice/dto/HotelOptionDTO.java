@@ -1,5 +1,6 @@
 package lk.ijse.travel.hotelservice.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -18,19 +19,10 @@ import java.util.List;
 @NoArgsConstructor
 public class HotelOptionDTO {
     private String id,name;
+    @NotNull
     private BigDecimal charge;
+    @NotNull
     private List<HotelDTO> hotel=new ArrayList<>();
-
-    public HotelOptionDTO(String name, BigDecimal charge, List<HotelDTO> hotel) {
-        this.name = name;
-        this.charge = charge;
-        this.hotel = hotel;
-    }
-
-    public HotelOptionDTO(String name, BigDecimal charge) {
-        this.name = name;
-        this.charge = charge;
-    }
 
     public HotelOptionDTO(String id, String name, BigDecimal charge) {
         this.id = id;

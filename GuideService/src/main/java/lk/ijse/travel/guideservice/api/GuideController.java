@@ -1,5 +1,6 @@
 package lk.ijse.travel.guideservice.api;
 
+import jakarta.validation.Valid;
 import lk.ijse.travel.guideservice.bo.GuideService;
 import lk.ijse.travel.guideservice.dto.GuideDTO;
 import lk.ijse.travel.guideservice.dto.Response;
@@ -35,7 +36,7 @@ public class GuideController {
     @ResponseBody
     @PostMapping
     public Response<GuideDTO> save(
-            @RequestPart GuideDTO guide,
+            @Valid @RequestPart GuideDTO guide,
             @RequestPart MultipartFile image,
             @RequestPart MultipartFile nic_image_front,
             @RequestPart MultipartFile nic_image_back,
@@ -59,7 +60,6 @@ public class GuideController {
         return "null";
     }
 
-//    @RequestMapping("all")
     @ResponseBody
     @GetMapping
     public Response<List<GuideDTO>> getAllGuides(){
@@ -76,7 +76,7 @@ public class GuideController {
     @ResponseBody
     @PatchMapping
     public Response<GuideDTO> updateGuide(
-            @RequestPart GuideDTO guide,
+            @Valid @RequestPart GuideDTO guide,
             @RequestPart MultipartFile image,
             @RequestPart MultipartFile nic_image_front,
             @RequestPart MultipartFile nic_image_back,

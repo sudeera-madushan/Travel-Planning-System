@@ -1,5 +1,6 @@
 package lk.ijse.travel.hotelservice.api;
 
+import jakarta.validation.Valid;
 import lk.ijse.travel.hotelservice.bo.HotelService;
 import lk.ijse.travel.hotelservice.bo.RoomTypeService;
 import lk.ijse.travel.hotelservice.dto.Response;
@@ -18,11 +19,9 @@ import org.springframework.web.bind.annotation.*;
 public class OptionController {
     @Autowired
     private RoomTypeService roomTypeService;
-    @Autowired
-    private HotelService hotelService;
     @PostMapping("save")
     public Response<HotelOptionDTO> saveRoomType(
-            @RequestPart HotelOptionDTO option){
+            @Valid @RequestPart HotelOptionDTO option){
         return roomTypeService.saveRoomType(option);
     }
     @GetMapping

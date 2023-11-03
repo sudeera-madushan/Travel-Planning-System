@@ -1,5 +1,6 @@
 package lk.ijse.travel.hotelservice.api;
 
+import jakarta.validation.Valid;
 import lk.ijse.travel.hotelservice.bo.HotelService;
 import lk.ijse.travel.hotelservice.dto.HotelDTO;
 import lk.ijse.travel.hotelservice.dto.HotelImageDTO;
@@ -41,7 +42,7 @@ public class HotelController {
     @RequestMapping("save")
     @PostMapping
     public Response<HotelDTO> save(
-            @RequestPart HotelDTO hotel,
+            @Valid @RequestPart HotelDTO hotel,
             @RequestPart List<MultipartFile> images) {
         ArrayList<HotelImageDTO> imageDTOArrayList = new ArrayList<>();
         try {
@@ -73,7 +74,7 @@ public class HotelController {
 
     @PutMapping
     public Response<HotelDTO> updateHotel(
-            @RequestPart HotelDTO hotel,
+            @Valid @RequestPart HotelDTO hotel,
             @RequestPart List<MultipartFile> images
     ) {
         ArrayList<HotelImageDTO> imageDTOArrayList = new ArrayList<>();

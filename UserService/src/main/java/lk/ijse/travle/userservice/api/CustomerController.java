@@ -1,5 +1,6 @@
 package lk.ijse.travle.userservice.api;
 
+import jakarta.validation.Valid;
 import lk.ijse.travle.userservice.bo.AuthenticationService;
 import lk.ijse.travle.userservice.bo.CustomerService;
 import lk.ijse.travle.userservice.bo.JwtService;
@@ -47,7 +48,7 @@ public class CustomerController {
     @ResponseBody
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Response<CustomerDTO> save(
-            @RequestPart CustomerDTO customer,
+            @Valid @RequestPart CustomerDTO customer,
             @RequestPart MultipartFile nic_or_passport_image_front,
             @RequestPart MultipartFile nic_or_passport_image_back
     ) {

@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import lk.ijse.travel.hotelservice.entity.Hotel;
 import lk.ijse.travel.hotelservice.entity.SuperEntity;
 import lombok.AllArgsConstructor;
@@ -23,14 +24,11 @@ import lombok.Setter;
 public class HotelImageDTO{
     private String id;
     private byte[] image;
+    @NotNull
     private HotelDTO hotel;
 
     public HotelImageDTO(byte[] image) {
         this.image = image;
     }
 
-    public HotelImageDTO(String id, byte[] image) {
-        this.id = id;
-        this.image = image;
-    }
 }

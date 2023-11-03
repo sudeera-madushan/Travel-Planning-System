@@ -1,5 +1,6 @@
 package lk.ijse.travel.vehicleservice.api;
 
+import jakarta.validation.Valid;
 import lk.ijse.travel.vehicleservice.bo.VehicleService;
 import lk.ijse.travel.vehicleservice.dto.Response;
 import lk.ijse.travel.vehicleservice.dto.VehicleDTO;
@@ -40,7 +41,7 @@ public class VehicleController {
     @ResponseBody
     @PostMapping
     public Response<VehicleDTO> save(
-            @RequestPart VehicleDTO vehicle,
+            @Valid @RequestPart VehicleDTO vehicle,
             @RequestPart MultipartFile driver_license_image_front,
             @RequestPart MultipartFile driver_license_image_back,
             @RequestPart MultipartFile front_view,
