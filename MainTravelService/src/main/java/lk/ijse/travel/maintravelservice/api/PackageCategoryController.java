@@ -41,4 +41,10 @@ public class PackageCategoryController {
         return packageCategoryService.getPackageCategoryByName(name);
     }
 
+    @RequestMapping("getByCategory")
+    @GetMapping
+    public Response<String> getPackageCategoryByVehicleCategory(@RequestParam String category){
+        return packageCategoryService.getPackageCategoryByVehicleCategory(category);
+    }
+
 }

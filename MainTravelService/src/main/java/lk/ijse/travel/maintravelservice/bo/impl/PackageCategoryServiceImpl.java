@@ -46,4 +46,11 @@ public class PackageCategoryServiceImpl implements PackageCategoryService {
                         packageCategoryRepo.findPackageCategoryByCategoryIgnoreCase(name)
                 ));
     }
+
+    @Override
+    public Response<String> getPackageCategoryByVehicleCategory(String category) {
+        return new Response<>(HttpStatus.OK,"Package Category get successfully",
+                        packageCategoryRepo.findPackageCategoryByVehicleCategoryIgnoreCase(category).getId()
+                );
+    }
 }

@@ -114,8 +114,35 @@
         </ul>
       </li>
     </ul>
-
-    <a href="#" class="nav_link ps-4">
+    <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="guide-menu">
+      <li>
+        <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
+          <i class='bx bx-home'></i> <span class="ms-1 d-none d-sm-inline">Main Travel</span> </a>
+        <ul class="collapse  nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
+          <li class="w-100" id="btnCreatePlace" style="margin-left: 28px">
+            <a href="#" class="nav-link">  <i class='bx bx-plus'></i><span class="d-none d-sm-inline" >Create Place</span></a>
+          </li>
+          <li id="btnPlaceList">
+            <a href="#" class="nav-link px-0"><i class='bx bx-list-ul'></i>  <span class="d-none d-sm-inline">Place List</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="guide-menu">
+      <li>
+        <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
+          <i class='bx bx-user'></i> <span class="ms-1 d-none d-sm-inline">User</span> </a>
+        <ul class="collapse  nav flex-column ms-1" id="submenu5" data-bs-parent="#menu">
+          <li class="w-100" id="btnCreateUser" style="margin-left: 28px">
+            <a href="#" class="nav-link">  <i class='bx bx-plus'></i><span class="d-none d-sm-inline" >Create User</span></a>
+          </li>
+          <li id="btnUserList">
+            <a href="#" class="nav-link px-0"><i class='bx bx-list-ul'></i>  <span class="d-none d-sm-inline">User List</span></a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <a href="#" class="nav_link ps-4" id="logout">
       <i class='bx bx-log-out nav_icon '></i>
       <span class="nav_name">SignOut</span> </a>
   </nav>
@@ -386,10 +413,24 @@
                 <input type="number" id="vehicle-fuel-usage" class="form-control" />
               </div>
             </div>
+          </div>
+          <div class="row mb-2">
             <div class="col">
               <div class="form-outline">
-                <label class="form-label" for="age">Seat Capacity</label>
+                <label class="form-label" for="vehicle-seat-capacity">Seat Capacity</label>
                 <input type="number" id="vehicle-seat-capacity" class="form-control" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="vehicle-fee-for-day">Fee For Day (100Km)</label>
+                <input type="number" id="vehicle-fee-for-day" class="form-control" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-outline">
+                <label class="form-label" for="vehicle-fee-for-km">Fee For (1Km)</label>
+                <input type="number" id="vehicle-fee-for-km" class="form-control" />
               </div>
             </div>
           </div>
@@ -578,7 +619,7 @@
         <th>Driver</th>
         <th>Contact</th>
         <th>License</th>
-        <th>Remarks</th>
+        <th>Fee</th>
         <th>Action</th>
       </tr>
       </thead>
@@ -773,6 +814,83 @@
       </tr>
       </thead>
       <tbody id="hotel-table-body">
+      </tbody>
+    </table>
+  </section>
+</section>
+<section class="user-section" id="user-Section">
+  <section class="container text-end" id="newUserContainer">
+    <div class="row mb-3">
+      <div class="col-11">
+        <form>
+          <div class="form-outline mb-2 mt-2">
+            <label class="form-label" for="hotelName">UserName</label>
+            <input type="text" id="userUsername" class="form-control" />
+          </div>
+
+          <div class="form-outline mb-2 mt-2">
+            <label class="form-label" for="hotelLocation">Password</label>
+            <input type="text" id="userPassword" class="form-control" />
+          </div>
+
+          <div class="row mt-4 mb-4">
+            <div class="col-1">
+              Roles :
+            </div>
+            <div class="col">
+              <div class="form-check d-flex justify-content-center mb-2">
+                <input class="form-check-input me-2" type="checkbox" value="" id="userRoleHotelAdmin" />
+                <label class="form-check-label" for="userRoleHotelAdmin"> Hotel Admin</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-check d-flex justify-content-center mb-2">
+                <input class="form-check-input me-2" type="checkbox" value="" id="userRoleVehicleAdmin" />
+                <label class="form-check-label" for="userRoleVehicleAdmin"> Vehicle Admin</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-check d-flex justify-content-center mb-2">
+                <input class="form-check-input me-2" type="checkbox" value="" id="userRoleGuideAdmin" />
+                <label class="form-check-label" for="userRoleGuideAdmin"> Guide Admin</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-check d-flex justify-content-center mb-2">
+                <input class="form-check-input me-2" type="checkbox" value="" id="userRoleMainTravelAdmin" />
+                <label class="form-check-label" for="userRoleMainTravelAdmin"> Main Travel Admin</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-check d-flex justify-content-center mb-2">
+                <input class="form-check-input me-2" type="checkbox" value="" id="userRoleUserAdmin" />
+                <label class="form-check-label" for="userRoleUserAdmin"> User Admin</label>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="btnCancelUpdateUser" class="btn btn-light btn-block mb-2">Cancel</button>
+          <button type="button" id="btnDeleteUser" class="btn btn-danger btn-block mb-2">Delete</button>
+          <button type="button" id="btnUpdateUser" class="btn btn-success btn-block mb-2">Update</button>
+          <button type="button" id="btnCreateUserOk" class="btn btn-primary btn-block mb-2">Create</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section id="userListContainer">
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+      <tr>
+        <th>Username</th>
+        <th>Hotel Admin</th>
+        <th>Vehicle Admin</th>
+        <th>Guide Admin</th>
+        <th>Main Travel Admin</th>
+        <th>User Admin</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody id="user-table-body">
       </tbody>
     </table>
   </section>

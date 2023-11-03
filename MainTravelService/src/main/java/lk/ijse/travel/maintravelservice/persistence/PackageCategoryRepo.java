@@ -12,4 +12,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PackageCategoryRepo extends CrudRepository<PackageCategory,String> {
     PackageCategory findPackageCategoryByCategoryIgnoreCase(String category);
+    PackageCategory findPackageCategoryByVehicleCategoryIgnoreCase(String category);
 }

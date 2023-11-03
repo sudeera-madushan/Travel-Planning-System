@@ -107,8 +107,6 @@ public class BookingController {
     private ResponseHotel getHotel(String id, String token) {
         WebClient webClient = WebClient.create("http://localhost:8094/travel/api/v1/hotel/getBy?id=" + id);
         Mono<Response<ResponseHotel>> orderMono = webClient.get().retrieve().bodyToMono(new ParameterizedTypeReference<Response<ResponseHotel>>() {});
-
-
         return orderMono.block().getObject();
     }
 

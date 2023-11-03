@@ -29,6 +29,8 @@ public class Vehicle extends SuperEntity{
     private String driverName;
     @Column(name = "driver_contact")
     private String driverContact;
+    @Column(columnDefinition = "LONGTEXT")
+    @Lob
     private String remarks;
     @Column(name = "is_hybrid")
     private boolean isHybrid;

@@ -40,6 +40,8 @@ $('#btnCreateVehicle').click(function () {
         isHybrid: $('#isHybrid').is(":checked"),
         fuelUsage: parseFloat($('#vehicle-fuel-usage').val()),
         seatCapacity: parseInt($('#vehicle-seat-capacity').val()),
+        feeForDay: parseInt($('#vehicle-fee-for-day').val()),
+        feeForKm: parseInt($('#vehicle-fee-for-km').val()),
         packageCategoryId: "",
     };
     const json = JSON.stringify(vehicle);
@@ -161,7 +163,7 @@ let loadDataToVehicleTable=() => {
                alt=""
                style="width: 60px; height: 40px"/>
         </td>
-        <td><label style="font-size: 12px">${value.remarks}</label></td>
+        <td><label style="font-size: 12px">Day Rs:${value.feeForDay} <br/> 1Km Rs:${value.feeForDay}</label></td>
         <td>
           <button type="button" class="btn btn-link badge bg-dark-subtle btn-sm btn-rounded">
             Edit
@@ -181,6 +183,8 @@ let clearVehicleFields= () => {
     $('#vehicle-driver-name').val("");
     $('#vehicle-driver-contact').val("");
     $('#vehicle-remarks').val("");
+    $('#vehicle-fee-for-km').val("");
+    $('#vehicle-fee-for-day').val("");
     removeUpload();
 }
 
@@ -222,6 +226,8 @@ let loadEditeVehicle=(vehicle)=>{
     $('#vehicle-driver-name').val(vehicle.driverName);
     $('#vehicle-driver-contact').val(vehicle.driverContact);
     $('#vehicle-remarks').val(vehicle.remarks);
+    $('#vehicle-fee-for-day').val(vehicle.feeForDay);
+    $('#vehicle-fee-for-km').val(vehicle.feeForKm);
 
     $('#driverLicenseFrontImageWrap').hide();
     $('#driverLicenseFrontFileUploadImage').attr('src', "data:image/jpg;base64,"+ vehicle.driverLicenseImageFront);
@@ -279,6 +285,8 @@ $('#btnUpdateVehicle').click(function () {
         isHybrid: $('#isHybrid').is(":checked"),
         fuelUsage: parseFloat($('#vehicle-fuel-usage').val()),
         seatCapacity: parseInt($('#vehicle-seat-capacity').val()),
+        feeForDay: parseInt($('#vehicle-fee-for-day').val()),
+        feeForKm: parseInt($('#vehicle-fee-for-km').val()),
         packageCategoryId: "",
     };
     const json = JSON.stringify(vehicle);

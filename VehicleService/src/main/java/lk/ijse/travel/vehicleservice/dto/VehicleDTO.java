@@ -25,7 +25,6 @@ public class VehicleDTO {
     private boolean isHybrid;
     @NotNull
     private int fuelUsage, seatCapacity;
-    @NotNull
     private byte[] driverLicenseImageFront, driverLicenseImageBack;
     private VehicleImageDTO vehicleImage;
     @NotNull
