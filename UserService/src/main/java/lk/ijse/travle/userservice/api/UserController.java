@@ -8,6 +8,8 @@ import lk.ijse.travle.userservice.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @Author : Sudeera Madushan
  * @Date : 10/15/2023
@@ -33,6 +35,11 @@ public class UserController {
     @PostMapping("admin")
     private Response<UserDTO> saveAdmin(@RequestBody UserDTO user){
         return userService.save(user);
+    }
+
+    @GetMapping("all")
+    private Response<List<UserDTO>> getAll(){
+        return userService.getAllUsers();
     }
 
 }

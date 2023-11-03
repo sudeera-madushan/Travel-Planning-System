@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -66,6 +67,13 @@ public class UserServiceImpl implements UserService {
         roleRepo.saveAll(roles);
         return new Response<>(HttpStatus.CREATED,"Role list added successfully",
                 "Role list added successfully");
+    }
+
+    @Override
+    public Response<List<UserDTO>> getAllUsers() {
+        return new Response<>(HttpStatus.OK,"Get All Users Successfully",
+                userRepo.findAll()
+                        .stream().map(user -> converter.getUserDTO(user)).toList());
     }
 
 //    public UserDTO findUserById(int id){

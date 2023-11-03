@@ -114,10 +114,10 @@
         </ul>
       </li>
     </ul>
-    <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="guide-menu">
+    <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="main-travel-menu">
       <li>
         <a href="#submenu4" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
-          <i class='bx bx-home'></i> <span class="ms-1 d-none d-sm-inline">Main Travel</span> </a>
+          <i class='bx bx-home'></i><span class="ms-1 d-none d-sm-inline">Main Travel</span> </a>
         <ul class="collapse  nav flex-column ms-1" id="submenu4" data-bs-parent="#menu">
           <li class="w-100" id="btnCreatePlace" style="margin-left: 28px">
             <a href="#" class="nav-link">  <i class='bx bx-plus'></i><span class="d-none d-sm-inline" >Create Place</span></a>
@@ -128,7 +128,7 @@
         </ul>
       </li>
     </ul>
-    <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="guide-menu">
+    <ul class="dashboard-nav-dropdown nav_link nav nav-pills flex-column mb-sm-auto mb-0 align-items-center  dashboard-nav-item align-items-sm-start " id="user-menu">
       <li>
         <a href="#submenu5" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-light">
           <i class='bx bx-user'></i> <span class="ms-1 d-none d-sm-inline">User</span> </a>
@@ -895,13 +895,68 @@
     </table>
   </section>
 </section>
+<section class="hotel-section" id="place-Section">
+  <section class="container" id="newPlaceContainer">
+    <div class="row mb-3">
+      <div class="col-11">
+        <form>
+          <div class="form-outline mb-2 mt-2">
+            <label class="form-label" for="hotelName">Place Name</label>
+            <input type="text" id="placeName" class="form-control" />
+          </div>
 
+          <div class="form-outline mb-2 mt-2">
+            <label class="form-label" for="hotelLocation">Map Location</label>
+            <input type="text" id="areaLocation" class="form-control" />
+          </div>
+          <div class="row mb-4 mt-3 border rounded" id="placeImageContainer">
+            <label class="form-label file-upload-label mt-2" for="placeImageChooserImage">Images</label>
+            <div class="col-2 mt-1 mb-1" id="placeImageUpload">
+              <div class="file-upload">
+                <div class="image-upload-wrap" id="placeImageChooserImageWrap">
+                  <input class="file-upload-input" type='file' onchange="readURLPlaceImages(this);" accept="image/*" id="placeImageChooserImage"/>
+                  <div class="drag-text">
+                    <a href="">drag here</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-outline mb-2">
+            <label class="form-label" for="remarks">Description</label>
+            <textarea class="form-control" id="placeDescription" rows="4"></textarea>
+          </div>
+          <button type="button" id="btnCreatePlaceOk" class="btn btn-primary btn-block mb-2">Create</button>
+          <button type="button" id="btnUpdatePlace" class="btn btn-success btn-block mb-2">Update</button>
+          <button type="button" id="btnDeletePlace" class="btn btn-danger btn-block mb-2">Delete</button>
+          <button type="button" id="btnCancelUpdatePlace" class="btn btn-light btn-block mb-2">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section id="placeListContainer">
+    <table class="table align-middle mb-0 bg-white">
+      <thead class="bg-light">
+      <tr>
+        <th>Name</th>
+        <th>Images</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody id="place-table-body">
+      </tbody>
+    </table>
+  </section>
+</section>
 <script src="css/bootstrap-5.3.2-dist/js/bootstrap.min.js"></script>
 <script src="lib/jquery.js"></script>
 <script type="module" src="controller/GuideController.js"></script>
 <script type="module" src="controller/MainController.js"></script>
 <script type="module" src="controller/VehicleController.js"></script>
 <script type="module" src="controller/HotelController.js"></script>
+<script type="module" src="controller/UserController.js"></script>
+<script type="module" src="controller/MainTravelController.js"></script>
 <script  type="module" src="model/Guide.js"></script>
 <script>
 
@@ -976,6 +1031,26 @@
                    </div>
                  </div>`
         $('#hotelImageUpload').before(data)
+      }
+
+      reader.readAsDataURL(input.files[0]);
+
+    } else {
+      removeUpload();
+    }
+  }
+  function readURLPlaceImages(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        let data=`
+               <div class="col-2 border" style="margin: .5vw; min-width: 100px">
+                <img class="file-upload-image" src="${e.target.result}"  style="width: 10vw; height: 5vw; "/>
+                  <div class="image-title-wrap">
+                   <button type="button" onclick="removeUploadHotelImage(this)" class="remove-image">Remove <span class="image-title">Image</span></button>
+                   </div>
+                 </div>`
+        $('#placeImageUpload').before(data)
       }
 
       reader.readAsDataURL(input.files[0]);

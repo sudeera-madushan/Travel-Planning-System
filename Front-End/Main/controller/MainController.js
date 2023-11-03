@@ -299,7 +299,7 @@ let loadAreaCards=(data)=>{
     $('#areaCardContainer').empty()
     data.object.map((value, index) => {
         let data=``;
-        data=` <div class="card col m-4 p-0" id="${value.id}">
+        data=` <div class="card col m-4 p-0" id="${value.id}" style="min-width: 20rem;">
                     <a href="#">
                         <img class="card-img-top" src="data:image/jpg;base64, ${value.image}" alt="Card image cap">
                         <div class="card-body">

@@ -47,7 +47,7 @@ let showCreateHotel=() => {
     hideNav();
 }
 $('#btnCreateHotel').click(function () {
-    console.log(getIFrameSrc($('#hotelLocationMap').val()))
+
     const formData = new FormData();
     for (let i = 1; i < $('#hotelImageContainer').children().length-1; i++) {
         formData.append("images", base64ToFile($('#hotelImageContainer').children().eq(i).children('img').eq(0).attr('src')))
