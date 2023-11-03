@@ -10,7 +10,29 @@ $(document).ready(function() {
     $("#newUserContainer").hide()
     $("#userListContainer").hide()
 });
+$('#btnUserList').click(function (){
+    $('#newUserContainer').hide()
+    $('#userListContainer').show()
+    $('#placeListContainer').hide()
+    $('#newPlaceContainer').hide()
 
+
+    $('#hotel-Section').hide();
+    $('#guideSection').hide();
+    $('#vehicleSection').hide();
+    $('#header-title').text("User List")
+    getAllPlaces();
+})
+$('#btnCreateUser').click(function (){
+    $('#userListContainer').hide()
+    $('#newUserContainer').show()
+    $('#placeListContainer').hide()
+    $('#newPlaceContainer').hide()
+    $('#hotel-Section').hide();
+    $('#guideSection').hide();
+    $('#vehicleSection').hide();
+    $('#header-title').text("Create User")
+})
 const clearUserFields = () => {
     $('#userUsername').val("")
     $('#userPassword').val("")

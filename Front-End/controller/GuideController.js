@@ -29,6 +29,10 @@ let showHome= () => {
 }
 
 let showNewGuide= () => {
+    $('#placeListContainer').hide()
+    $('#newPlaceContainer').hide()
+    $('#newUserContainer').hide()
+    $('#userListContainer').hide()
     $('#vehicleSection').hide();
     $('#guideSection').show();
     $('#header-title').empty()
@@ -42,6 +46,10 @@ let showNewGuide= () => {
     $('#hotel-Section').hide();
 }
 let showGuideList= () => {
+    $('#placeListContainer').hide()
+    $('#newPlaceContainer').hide()
+    $('#newUserContainer').hide()
+    $('#userListContainer').hide()
     $('#vehicleSection').hide();
     $('#guideSection').show();
     getAllGuides();

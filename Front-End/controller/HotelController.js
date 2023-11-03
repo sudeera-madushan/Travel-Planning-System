@@ -15,6 +15,10 @@ $('#btnNewHotel').click(function () {
 
 let showHotelList=() => {
 
+    $('#placeListContainer').hide()
+    $('#newPlaceContainer').hide()
+    $('#newUserContainer').hide()
+    $('#userListContainer').hide()
     $('#guideSection').hide();
     $('#vehicleSection').hide();
     $('#hotel-Section').show();
@@ -32,6 +36,10 @@ $('#btnHotelList').click(function () {
 })
 let showCreateHotel=() => {
 
+    $('#placeListContainer').hide()
+    $('#newPlaceContainer').hide()
+    $('#newUserContainer').hide()
+    $('#userListContainer').hide()
     $('#hotel-Section').show();
     $('#guideSection').hide();
     $('#vehicleSection').hide();

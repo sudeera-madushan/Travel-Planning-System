@@ -4,10 +4,31 @@
  * project : Front-End
  */
 let placeList=[]
-
+$(document).ready(function() {
+    $("#placeListContainer").hide();
+    $("#newPlaceContainer").hide();
+})
 $('#btnPlaceList').click(function (){
-    console.log("ok")
+    $('#newPlaceContainer').hide()
+    $('#placeListContainer').show()
+    $('#newUserContainer').hide()
+    $('#userListContainer').hide()
+    $('#hotel-Section').hide();
+    $('#guideSection').hide();
+    $('#vehicleSection').hide();
+
+    $('#header-title').text("Places List")
     getAllPlaces();
+})
+$('#btnCreatePlace').click(function (){
+    $('#placeListContainer').hide()
+    $('#newPlaceContainer').show()
+    $('#newUserContainer').hide()
+    $('#userListContainer').hide()
+    $('#hotel-Section').hide();
+    $('#guideSection').hide();
+    $('#vehicleSection').hide();
+    $('#header-title').text("Create Place")
 })
 const showPlaceList = () => {
     getAllPlaces()
@@ -20,6 +41,7 @@ let getAllPlaces=()=>{
         //     "Authorization": `Bearer ${token}`
         // },
         success: function (data) {
+            placeList=[];
             placeList=data.object
             loadPlacesTable();
         },
@@ -29,7 +51,7 @@ let getAllPlaces=()=>{
     })
 }
 const loadPlacesTable = () => {
-    $('#hotel-table-body').empty()
+    $('#place-table-body').empty()
     placeList.map((value, index) => {
     let data=`
       <tr>

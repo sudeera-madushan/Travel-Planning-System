@@ -71,6 +71,7 @@ $(document).ready(function() {
     $("#vehicle-menu").hide();
     $("#hotel-menu").hide();
     $("#user-menu").hide();
+    $("#main-travel-menu").hide();
     // $("#body-pd").hide();
     $("#login").hide();
 
@@ -99,25 +100,14 @@ $(document).ready(function() {
                         if (value === "ROLE_HOTEL") {
                             $('#hotel-menu').show()
                         }
-                        if (value === "ROLE_USER") {
-                            row =`
-         <a href="#" class="nav_link ">
-          <i class='bx bx-user nav_icon'></i>
-          <span class="nav_name">USER</span>
-        </a>`
-                        }
                         if (value === "ROLE_ADMIN") {
-                            row =`
-         <a href="#" class="nav_link ">
-          <i class='bx bx-user nav_icon'></i>
-          <span class="nav_name">ADMIN</span>
-        </a>`
+                            $('#user-menu').show()
                         }
-                        $('#nav-list').append(row);
-
+                        if (value === "ROLE_BOOKING") {
+                            $('#main-travel-menu').show()
+                        }
                     })
                     $("#navbar").show();
-
                     $("#body-pd").show();
                     $('#dashboard-btn-home').addClass('navbar-a-focus')
                     $("#login").hide();

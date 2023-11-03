@@ -12,6 +12,10 @@ $(document).ready(function() {
 });
 
 $('#btnNewVehicle').click(function () {
+    $('#placeListContainer').hide()
+    $('#newPlaceContainer').hide()
+    $('#newUserContainer').hide()
+    $('#userListContainer').hide()
     $('#guideSection').hide();
     $('#hotel-Section').hide();
     $('#vehicleSection').show();
@@ -87,6 +91,10 @@ $('#btnVehicleList').click(function () {
 });
 let showVehicleList= () => {
 
+    $('#placeListContainer').hide()
+    $('#newPlaceContainer').hide()
+    $('#newUserContainer').hide()
+    $('#userListContainer').hide()
     $('#hotel-Section').hide();
     $('#guideSection').hide();
     $('#vehicleSection').show();
