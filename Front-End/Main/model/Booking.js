@@ -5,7 +5,7 @@
  */
 
 export class Booking {
-    constructor(packageId, packageCategoryId,areaList,hotelList,vehicle,noOfChildren,totalHeadCount,dates) {
+    constructor(packageId, packageCategoryId,areaList,hotelList,vehicle,noOfChildren,totalHeadCount,dates,packageValue,customerId) {
         this._name = name;
         this._packageCategoryId = packageCategoryId;
         this._areaList = areaList;
@@ -14,6 +14,24 @@ export class Booking {
         this._noOfChildren =noOfChildren;
         this._totalHeadCount =totalHeadCount;
         this._dates=dates;
+        this._packageValue=packageValue;
+        this._customerId=customerId;
+    }
+
+    get customerId() {
+        return this._customerId;
+    }
+
+    set customerId(value) {
+        this._customerId = value;
+    }
+
+    get packageValue() {
+        return this._packageValue;
+    }
+
+    set packageValue(value) {
+        this._packageValue = value;
     }
 
     get dates() {

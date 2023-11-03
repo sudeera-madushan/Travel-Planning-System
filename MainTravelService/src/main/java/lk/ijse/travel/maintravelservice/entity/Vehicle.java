@@ -1,5 +1,6 @@
-package lk.ijse.travel.maintravelservice.dto;
+package lk.ijse.travel.maintravelservice.entity;
 
+import jakarta.persistence.Entity;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -14,12 +15,11 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class VehicleDTO {
-    private String id,brand,category, fuelType, vehicleType, transmissionType, driverName, driverContact,remarks;
+public class Vehicle {
+    private String brand,category, fuelType, vehicleType, transmissionType, driverName, driverContact;
     private boolean isHybrid;
     private int fuelUsage, seatCapacity;
     private BigDecimal feeForDay;
     private BigDecimal feeForKm;
-
 
 }

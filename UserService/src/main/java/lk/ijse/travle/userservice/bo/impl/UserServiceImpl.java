@@ -8,6 +8,7 @@ import lk.ijse.travle.userservice.dto.UserDTO;
 import lk.ijse.travle.userservice.entity.security.Auth;
 import lk.ijse.travle.userservice.entity.security.Role;
 import lk.ijse.travle.userservice.entity.security.User;
+import lk.ijse.travle.userservice.exeption.NotFoundException;
 import lk.ijse.travle.userservice.persistence.RoleRepo;
 import lk.ijse.travle.userservice.persistence.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserNameByUserName(String username) {
-        return null;
+        return userRepo.findByUsernameIgnoreCase(username).get();
     }
 
     @Override

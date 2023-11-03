@@ -923,27 +923,81 @@ $('#booking-planing-page').on('click','button',() => {
 
 
 $('#btnBookNowPlanTravel').click(function () {
+    let params = {
+        token: token
+    }
+    if (token) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8091/travel/api/v1/customer/token" + '?' + $.param(params),
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            success: function (response) {
+                booking.customerId=response.object.id;
+            },
+            error: function (error) {
+                $("#login").show();
+            }
+        });
+    }
+
+    setTravelDates()
     let children = $('#booking-planing-page').children();
     for (let i = 6; i < children.length; i++) {
         let date = new Date(children.eq(i).children().eq(0).children().eq(0).children().eq(1).val());
         booking.dates.map((value, index) => {
-            let bDate=new Date(value.date)
-            console.log(date+" "+bDate)
-            if (date.getDate()===bDate.getDate()){
-                for (let x = 1; x < children.eq(i).children().length-2; x++) {
+            let bDate = new Date(value.date)
+            if (date.getDate() === bDate.getDate()) {
+                for (let x = 1; x < children.eq(i).children().length - 2; x++) {
                     let s = children.eq(i).children().eq(x).find(":selected").val();
                     value.routes.unshift({
-                        type:s.split("/")[1],
-                        id:s.split("/")[0],
+                        type: s.split("/")[1],
+                        id: s.split("/")[0],
                     })
-                    console.log(value)
+
                 }
             }
-
-            value.end=children.eq(i).children().eq(0).children().eq(0).children().eq(1).find(":selected").val()
+            let val = children.eq(i).children().eq(children.eq(i).children().length-1).children().eq(1).val();
+            value.end = {
+                type: val.split("/")[1],
+                id: val.split("/")[0],
+            }
         })
     }
-    console.log(booking);
+
+    let dto={
+        startDate:$('#bookingStartDate').val(),
+        endDate:$('#bookingEndDate').val(),
+        countOfDays:booking.dates.length,
+        noOfChildren:$('#hotelChildrenTravelPlan').val(),
+        totalHeadCount:$('#hotelPassengersTravelPlan').val(),
+        areaList:booking.areaList,
+        dates:booking.dates,
+        needGuide:false,
+        guideId:null,
+        withPets:false,
+        packageValue:booking.packageValue,
+        paidValue:0,
+        customerId:booking.customerId,
+        packageCategoryId:booking.packageCategoryId,
+        vehicle:booking.vehicle.id
+    }
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8095/travel/api/v1/booking/save",
+        data: JSON.stringify(dto),
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        contentType: "application/json",
+        success: function(response) {
+            console.log(response)
+        },
+        error: function(err) {
+            console.log(err)
+        }
+    });
     // $('#btnBookNowPlanTravel').prop("disabled",true);
 })
 $('#btnSubmitSlitPlanTravel').click(function () {
@@ -1128,7 +1182,7 @@ $('#btnCheckPlanTravel').click(function () {
             }
         })
     }
-
+    console.log(booking.vehicle);
     let dto={
         startDate:$('#bookingStartDate').val(),
         endDate:$('#bookingEndDate').val(),
@@ -1137,7 +1191,7 @@ $('#btnCheckPlanTravel').click(function () {
         totalHeadCount:$('#hotelPassengersTravelPlan').val(),
         areaList:booking.areaList,
         dates:booking.dates,
-        vehicle:booking.vehicle,
+        vehicleId:booking.vehicle.id,
 
     }
     let params = {
@@ -1161,6 +1215,7 @@ $('#btnCheckPlanTravel').click(function () {
             $('#lblVehicleCost').append("Vehicle Cost : Rs"+cost);
             $('#lblTotalCost').empty()
             $('#lblTotalCost').append("Total Cost : Rs"+total.toFixed(2));
+            booking.packageValue=total;
         },
         error: function(err) {
             console.log(err)

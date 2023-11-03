@@ -8,6 +8,7 @@ import lk.ijse.travle.userservice.dto.CustomerDTO;
 import lk.ijse.travle.userservice.dto.Type;
 import lk.ijse.travle.userservice.dto.UserDTO;
 import lk.ijse.travle.userservice.entity.Customer;
+import lk.ijse.travle.userservice.entity.security.User;
 import lk.ijse.travle.userservice.persistence.CustomerRepo;
 import lk.ijse.travle.userservice.persistence.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,11 @@ public class CustomerServiceImpl implements CustomerService {
     public Response<CustomerDTO> get(String id) {
         return new Response<>(HttpStatus.OK,"User find successfully",
                 converter.getCustomerDTO(userDetailsRepo.findById(id).get()));
+    }
+
+    @Override
+    public Response<CustomerDTO> findByUserId(User user) {
+        return new Response<>(HttpStatus.OK,"User find successfully",
+                converter.getCustomerDTO(userDetailsRepo.findCustomerByUser(user)));
     }
 }

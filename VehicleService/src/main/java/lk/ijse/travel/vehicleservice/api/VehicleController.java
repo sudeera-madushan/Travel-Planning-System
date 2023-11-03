@@ -24,8 +24,17 @@ public class VehicleController {
     private VehicleService vehicleService;
     @RequestMapping("get")
     @GetMapping
-    public Response<VehicleDTO> getVehicleByID(@RequestParam String id) {
+    public Response<VehicleDTO> getVehicle(@RequestParam String id) {
         return vehicleService.get(id);
+    }
+    @RequestMapping("getBy")
+    @GetMapping
+    public Response<VehicleDTO> getVehicleByID(@RequestParam String id) {
+        Response<VehicleDTO> response = vehicleService.get(id);
+        response.getObject().setVehicleImage(null);
+        response.getObject().setDriverLicenseImageFront(null);
+        response.getObject().setDriverLicenseImageBack(null);
+        return response;
     }
     @RequestMapping("save")
     @ResponseBody

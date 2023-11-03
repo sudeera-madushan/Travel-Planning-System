@@ -23,14 +23,14 @@ public class BookingDTO {
     private int countOfDays,countOfNights,noOfChildren,totalHeadCount;
     private boolean needGuide,withPets;
     private BigDecimal packageValue,paidValue;
-    private String remarks,areaId,guideId,vehicleId,customerId,packageCategoryId;
+    private String remarks,guideId,customerId,packageCategoryId;
     private List<AreaDTO> areaList=new ArrayList<>();
     private List<DatesDTO> dates=new ArrayList<>();
-    private VehicleDTO vehicle;
+    private String vehicleId;
 
     public BookingDTO(Date startDate, Date endDate, int countOfDays, int countOfNights, int noOfChildren,
                       int totalHeadCount, boolean needGuide, boolean withPets, BigDecimal packageValue,
-                      BigDecimal paidValue, String remarks, String areaId, String guideId, String vehicleId,
+                      BigDecimal paidValue, String remarks, String guideId,
                       String customerId, String packageCategoryId) {
         this.startDate = startDate;
         this.endDate = endDate;
@@ -43,9 +43,7 @@ public class BookingDTO {
         this.packageValue = packageValue;
         this.paidValue = paidValue;
         this.remarks = remarks;
-        this.areaId = areaId;
         this.guideId = guideId;
-        this.vehicleId = vehicleId;
         this.customerId = customerId;
         this.packageCategoryId = packageCategoryId;
     }

@@ -1,7 +1,12 @@
 package lk.ijse.travle.userservice.api;
 
+import lk.ijse.travle.userservice.bo.AuthenticationService;
 import lk.ijse.travle.userservice.bo.CustomerService;
+import lk.ijse.travle.userservice.bo.JwtService;
+import lk.ijse.travle.userservice.bo.UserService;
 import lk.ijse.travle.userservice.dto.*;
+import lk.ijse.travle.userservice.entity.security.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,13 +24,23 @@ import java.io.IOException;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/customer")
+@RequiredArgsConstructor
 public class CustomerController {
-    @Autowired
-    private CustomerService customerService;
+    private final CustomerService customerService;
+    private final JwtService jwtService;
+    private final UserService userService;
     @RequestMapping("get")
     @GetMapping
     public Response<CustomerDTO> getCustomer(@RequestParam String id) {
         return customerService.get(id);
+    }
+
+    @RequestMapping("token")
+    @GetMapping
+    public Response<CustomerDTO> getCustomerByToken(@RequestParam String token) {
+        return customerService.findByUserId(
+                userService.findUserNameByUserName(
+                        jwtService.extractUserName(token)));
     }
 
     @RequestMapping("save")

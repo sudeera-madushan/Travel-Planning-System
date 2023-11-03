@@ -2,6 +2,7 @@ package lk.ijse.travle.userservice.bo;
 
 import lk.ijse.travle.userservice.dto.Response;
 import lk.ijse.travle.userservice.dto.CustomerDTO;
+import lk.ijse.travle.userservice.entity.security.User;
 
 /**
  * @Author : Sudeera Madushan
@@ -12,4 +13,6 @@ import lk.ijse.travle.userservice.dto.CustomerDTO;
 public interface CustomerService {
     Response<CustomerDTO> save(CustomerDTO user);
     Response<CustomerDTO> get(String id);
+
+    Response<CustomerDTO> findByUserId(User user);
 }
